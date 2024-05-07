@@ -11,7 +11,7 @@ import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.rezepteapp.databinding.FragmentSecondBinding;
 
-public class SecondFragment extends Fragment {
+public class EditRecipeFragment extends Fragment {
 
     private FragmentSecondBinding binding;
 
@@ -30,7 +30,7 @@ public class SecondFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         binding.buttonSecond.setOnClickListener(v ->
-                NavHostFragment.findNavController(SecondFragment.this)
+                NavHostFragment.findNavController(EditRecipeFragment.this)
                         .navigate(R.id.action_SecondFragment_to_FirstFragment)
         );
     }
