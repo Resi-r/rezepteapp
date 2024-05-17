@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_height="match_parent"
+    android:layout_width="match_parent">
+
+    <ImageView
+        android:id="@+id/img_title"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:src="@android:color/holo_blue_light"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginTop="90dp"
+        android:text="@string/titel_rezept"
+        android:textStyle="bold"
+        app:layout_constraintBaseline_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <HorizontalScrollView
+        android:id="@+id/scroll_labels"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/img_title">
+
+        <LinearLayout
+            android:id="@+id/linearLayout_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_label_1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="#72CEF8"
+                android:padding="5dp"
+                android:text="Vegan" />
+
+            <TextView
+                android:id="@+id/tv_label_2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="#72CEF8"
+                android:padding="5dp"
+                android:text="Vegetarisch" />
+
+            <TextView
+                android:id="@+id/tv_label_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:background="#72CEF8"
+                android:padding="5dp"
+                android:text="Lieblingsessen" />
+
+            <TextView
+                android:id="@+id/tv_label_4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="#72CEF8"
+                android:padding="5dp"
+                android:text="Vegan" />
+
+            <TextView
+                android:id="@+id/tv_label_5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="#72CEF8"
+                android:padding="5dp"
+                android:text="Vegetarisch" />
+
+            <TextView
+                android:id="@+id/tv_label_6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:background="#72CEF8"
+                android:padding="5dp"
+                android:text="Lieblingsessen" />
+        </LinearLayout>
+    </HorizontalScrollView>
+
+    <LinearLayout
+        android:id="@+id/layout_time_people"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/scroll_labels">
+
+        <TextView
+            android:id="@+id/tv_v_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="20 Min\nVorbereitung"
+            android:textAlignment="center" />
+
+        <TextView
+            android:id="@+id/tv_k_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="20 Min\nKochen"
+            android:textAlignment="center" />
+
+        <View
+            android:id="@+id/seperator_1"
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="#4FC3F7" />
+
+        <TextView
+            android:id="@+id/tv_people"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="5\nPortionen"
+            android:textAlignment="center" />
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/seperator_2"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_margin="10dp"
+        android:background="#4FC3F7"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/layout_time_people" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout_ingridients"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/seperator_2">
+
+        <TextView
+            android:id="@+id/tv_ingridients_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="6"
+            android:text="Zutaten"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/btn_add_to_shoppinglist"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Liste" />
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycl_ingridients"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout_ingridients"
+        tools:listitem="@layout/recycl_item_details_zutat" />
+
+    <View
+        android:id="@+id/seperator_3"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_margin="10dp"
+        android:background="#4FC3F7"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/recycl_ingridients" />
+
+    <TextView
+        android:id="@+id/tv_steps_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="Vorgehen"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/seperator_3" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycl_steps"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_steps_title"
+        tools:listitem="@layout/recycl_item_details_vorgehen" />
+
+    <View
+        android:id="@+id/seperator_4"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_margin="10dp"
+        android:background="#4FC3F7"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/recycl_steps" />
+
+    <TextView
+        android:id="@+id/tv_notes_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="Notizen"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/seperator_4" />
+
+    <TextView
+        android:id="@+id/tv_notes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:text="\u2022 aölsjfdaorewhfaöoreifa"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_notes_title" />
+
+    <ImageButton
+        android:id="@+id/btn_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@android:drawable/ic_input_delete"
+        android:contentDescription="Zurück" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>
