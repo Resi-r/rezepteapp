@@ -10,21 +10,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.rezepteapp.databinding.FragmentEditBinding;
+import com.example.rezepteapp.databinding.FragmentWelcomeScreenBinding;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link EditFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class EditFragment extends Fragment {
+public class WelcomeScreenFragment extends Fragment {
 
-    private FragmentEditBinding binding;
+    private FragmentWelcomeScreenBinding binding;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        binding = FragmentEditBinding.inflate(inflater, container, false);
+        binding = FragmentWelcomeScreenBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
 

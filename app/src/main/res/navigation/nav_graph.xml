@@ -27,7 +27,7 @@
     </fragment>
     <fragment
         android:id="@+id/entranceFragment"
-        android:name="com.example.rezepteapp.EntranceFragment"
+        android:name="com.example.rezepteapp.WelcomeScreenFragment"
         android:label="fragment_entrance"
-        tools:layout="@layout/fragment_entrance" />
+        tools:layout="@layout/fragment_welcome_screen" />
 </navigation>
