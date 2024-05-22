@@ -12,8 +12,8 @@
         tools:layout="@layout/fragment_first">
 
         <action
-            android:id="@+id/action_FirstFragment_to_SecondFragment"
-            app:destination="@id/SecondFragment" />
+            android:id="@+id/action_FirstFragment_to_entranceFragment"
+            app:destination="@id/entranceFragment" />
     </fragment>
     <fragment
         android:id="@+id/SecondFragment"
@@ -25,4 +25,9 @@
             android:id="@+id/action_SecondFragment_to_FirstFragment"
             app:destination="@id/FirstFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/entranceFragment"
+        android:name="com.example.rezepteapp.WelcomeScreenFragment"
+        android:label="fragment_entrance"
+        tools:layout="@layout/fragment_welcome_screen" />
 </navigation>
