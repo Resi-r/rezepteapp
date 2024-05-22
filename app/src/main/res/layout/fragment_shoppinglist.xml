@@ -14,7 +14,7 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/tv_zu_erledigen"
+                android:id="@+id/tv_to_do_header"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -33,11 +33,11 @@
                 android:layout_marginEnd="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_zu_erledigen"
+                app:layout_constraintTop_toBottomOf="@+id/tv_to_do_header"
                 tools:listitem="@layout/recycl_item_shoppinglist_entry" />
 
             <TextView
-                android:id="@+id/tv_erledigt"
+                android:id="@+id/tv_edone_header"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -56,7 +56,7 @@
                 android:layout_marginEnd="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_erledigt"
+                app:layout_constraintTop_toBottomOf="@+id/tv_edone_header"
                 tools:listitem="@layout/recycl_item_shoppinglist_entry" />
 
             <View
