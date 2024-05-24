@@ -10,6 +10,9 @@
     <string name="plus_symbole">+</string>
     <string name="description_content_add">Neues Element hinzufügen</string>
 
+    <!-- Archive -->
+    <string name="archive">Archiv</string>
+
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>
