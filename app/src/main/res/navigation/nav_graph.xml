@@ -9,4 +9,14 @@
         android:name="com.example.rezepteapp.WelcomeScreenFragment"
         android:label="fragment_welcome_screen"
         tools:layout="@layout/fragment_welcome_screen" />
+    <fragment
+        android:id="@+id/editFragment"
+        android:name="com.example.rezepteapp.EditFragment"
+        android:label="fragment_edit"
+        tools:layout="@layout/fragment_edit" />
+    <fragment
+        android:id="@+id/recipeListFragment"
+        android:name="com.example.rezepteapp.RecipeListFragment"
+        android:label="fragment_recipe_list"
+        tools:layout="@layout/fragment_recipe_list" />
 </navigation>
