@@ -33,7 +33,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_welcome_submessage"
             tools:itemCount="5"
-            tools:listitem="@layout/recycl_item_entrance_recipes" />
+            tools:listitem="@layout/recycl_item_welcome_screen_recipes" />
 
         <TextView
             android:id="@+id/tv_welcome_message"
