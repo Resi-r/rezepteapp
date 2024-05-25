@@ -83,19 +83,12 @@
             android:id="@+id/btn_add_item"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/nav_bar_shoppinglist"
             android:layout_alignParentEnd="true"
             android:layout_margin="16dp"
             android:layout_marginBottom="-64dp"
             android:clickable="true"
             android:contentDescription="@string/description_content_add"
             app:srcCompat="@android:drawable/ic_input_add" />
-
-        <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:id="@+id/nav_bar_shoppinglist"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true" />
 
     </RelativeLayout>
 </FrameLayout>
