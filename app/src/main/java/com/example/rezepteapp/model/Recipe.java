@@ -1,30 +1,35 @@
 package com.example.rezepteapp.model;
 
-import android.graphics.drawable.Drawable;
+import android.graphics.Bitmap;
 
 import java.util.List;
 
 public class Recipe {
     private String title;
-    private Drawable imageTitle;
-    private List<String> labels;
+    private Bitmap imageTitle;
+    private List<Label> labels;
     private String vTime;
     private String kTime;
-    private int people;
+    private int servings;
     private List<Ingredient> ingredients;
     private List<String> steps;
     private List<String> notes;
 
-    public Recipe(String title, Drawable imageTitle, List<String> labels, String vTime, String kTime, int people, List<Ingredient> ingredients, List<String> steps, List<String> notes) {
+    private Status status;
+
+    public Recipe() {}
+
+    public Recipe(String title, Bitmap imageTitle, List<Label> labels, String vTime, String kTime, int servings, List<Ingredient> ingredients, List<String> steps, List<String> notes, Status status) {
         this.title = title;
         this.imageTitle = imageTitle;
         this.labels = labels;
         this.vTime = vTime;
         this.kTime = kTime;
-        this.people = people;
+        this.servings = servings;
         this.ingredients = ingredients;
         this.steps = steps;
         this.notes = notes;
+        this.status = status;
     }
 
     public String getTitle() {
@@ -35,19 +40,19 @@ public class Recipe {
         this.title = title;
     }
 
-    public Drawable getImageTitle() {
+    public Bitmap getImageTitle() {
         return imageTitle;
     }
 
-    public void setImageTitle(Drawable imageTitle) {
+    public void setImageTitle(Bitmap imageTitle) {
         this.imageTitle = imageTitle;
     }
 
-    public List<String> getLabels() {
+    public List<Label> getLabels() {
         return labels;
     }
 
-    public void setLabels(List<String> labels) {
+    public void setLabels(List<Label> labels) {
         this.labels = labels;
     }
 
@@ -67,12 +72,12 @@ public class Recipe {
         this.kTime = kTime;
     }
 
-    public int getPeople() {
-        return people;
+    public int getServings() {
+        return servings;
     }
 
-    public void setPeople(int people) {
-        this.people = people;
+    public void setServings(int servings) {
+        this.servings = servings;
     }
 
     public List<Ingredient> getIngridients() {
@@ -97,5 +102,13 @@ public class Recipe {
 
     public void setNotes(List<String> notes) {
         this.notes = notes;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
     }
 }

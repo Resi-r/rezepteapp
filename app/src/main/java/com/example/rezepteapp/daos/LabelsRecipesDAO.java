@@ -1,6 +1,8 @@
 package com.example.rezepteapp.daos;
 
+import com.example.rezepteapp.entities.LabelEntity;
 import com.example.rezepteapp.entities.LabelsRecipesEntity;
+import com.example.rezepteapp.entities.RecipeEntity;
 
 import java.util.List;
 
@@ -10,7 +12,7 @@ public interface LabelsRecipesDAO {
     void delete(final LabelsRecipesEntity entity);
 
     LabelsRecipesEntity getLabelsRecipesById(int id);
-    List<LabelsRecipesEntity> getLabelsRecipesByLabelId(int labelId);
-    List<LabelsRecipesEntity> getLabelsRecipesByRecipeId(int recipeId);
+    List<RecipeEntity> getRecipesByLabelId(int labelId);
+    List<LabelEntity> getLabelsByRecipeId(int recipeId);
     List<LabelsRecipesEntity> getAllLabelsRecipes();
 }

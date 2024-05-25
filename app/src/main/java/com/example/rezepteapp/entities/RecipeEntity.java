@@ -1,38 +1,44 @@
 package com.example.rezepteapp.entities;
 
+import java.util.Arrays;
 import java.util.Objects;
 
 public class RecipeEntity {
 
     private int id;
     private String name;
-    private String image;
+    private byte[] image;
     private String kTime;
     private String vTime;
+    private int servings;
     private String notes;
     private String steps;
     private int statusId;
 
-    public RecipeEntity(String name, String image, String kTime, String vTime, String notes, String steps, int statusId) {
+    public RecipeEntity(String name, byte[] image, String kTime, String vTime, int servings, String notes, String steps, int statusId) {
         this.name = name;
         this.image = image;
         this.kTime = kTime;
         this.vTime = vTime;
+        this.servings = servings;
         this.notes = notes;
         this.steps = steps;
         this.statusId = statusId;
     }
 
-    public RecipeEntity(int id, String name, String image, String kTime, String vTime, String notes, String steps, int statusId) {
+    public RecipeEntity(int id, String name, byte[] image, String kTime, String vTime, int servings, String notes, String steps, int statusId) {
         this.id = id;
         this.name = name;
         this.image = image;
         this.kTime = kTime;
         this.vTime = vTime;
+        this.servings = servings;
         this.notes = notes;
         this.steps = steps;
         this.statusId = statusId;
     }
+
+    public RecipeEntity() {}
 
     public int getId() {
         return id;
@@ -50,11 +56,11 @@ public class RecipeEntity {
         this.name = name;
     }
 
-    public String getImage() {
+    public byte[] getImage() {
         return image;
     }
 
-    public void setImage(String image) {
+    public void setImage(byte[] image) {
         this.image = image;
     }
 
@@ -98,16 +104,26 @@ public class RecipeEntity {
         this.statusId = statusId;
     }
 
+    public int getServings() {
+        return servings;
+    }
+
+    public void setServings(int servings) {
+        this.servings = servings;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         RecipeEntity that = (RecipeEntity) o;
-        return id == that.id && statusId == that.statusId && Objects.equals(name, that.name) && Objects.equals(image, that.image) && Objects.equals(kTime, that.kTime) && Objects.equals(vTime, that.vTime) && Objects.equals(notes, that.notes) && Objects.equals(steps, that.steps);
+        return id == that.id && servings == that.servings && statusId == that.statusId && Objects.equals(name, that.name) && Arrays.equals(image, that.image) && Objects.equals(kTime, that.kTime) && Objects.equals(vTime, that.vTime) && Objects.equals(notes, that.notes) && Objects.equals(steps, that.steps);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, image, kTime, vTime, notes, steps, statusId);
+        int result = Objects.hash(id, name, kTime, vTime, servings, notes, steps, statusId);
+        result = 31 * result + Arrays.hashCode(image);
+        return result;
     }
 }
