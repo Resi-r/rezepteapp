@@ -1,5 +1,7 @@
 package com.example.rezepteapp;
 
+import static com.example.rezepteapp.R.*;
+
 import android.os.Bundle;
 
 import com.google.android.material.snackbar.Snackbar;
@@ -8,6 +10,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.view.View;
 
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -32,6 +37,30 @@ public class MainActivity extends AppCompatActivity {
 
         setSupportActionBar(binding.toolbar);
 
+        replaceFragment(new WelcomeScreenFragment());
+
+        binding.navbarBottom.setOnItemSelectedListener(item -> {
+
+            int itemId = item.getItemId();
+
+            if (itemId == R.id.recipelist) {
+
+                replaceFragment(new RecipeListFragment());
+
+            } else if (itemId == R.id.home) {
+
+                replaceFragment(new WelcomeScreenFragment());
+
+            } else if (itemId == R.id.ingredients) {
+
+                // TODO: Implementation ShoppingListFragment!!
+            //    replaceFragment(new ShoppingListFragment());
+
+            }
+
+            return true;
+        });
+
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
@@ -44,6 +73,15 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+    }
+
+    private void replaceFragment(Fragment fragment) {
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.frame_layout, fragment);
+        fragmentTransaction.commit();
+
     }
 
     @Override

@@ -91,11 +91,5 @@
             android:contentDescription="@string/description_content_add"
             app:srcCompat="@android:drawable/ic_input_add" />
 
-        <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:id="@+id/nav_bar_shoppinglist"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true" />
-
     </RelativeLayout>
 </FrameLayout>
