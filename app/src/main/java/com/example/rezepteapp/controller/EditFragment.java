@@ -1,4 +1,4 @@
-package com.example.rezepteapp;
+package com.example.rezepteapp.controller;
 
 import android.os.Bundle;
 
@@ -10,16 +10,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.rezepteapp.databinding.FragmentWelcomeScreenBinding;
+import com.example.rezepteapp.databinding.FragmentEditBinding;
 
-public class WelcomeScreenFragment extends Fragment {
+/**
+ * A simple {@link Fragment} subclass.
+ * Use the {@link EditFragment#newInstance} factory method to
+ * create an instance of this fragment.
+ */
+public class EditFragment extends Fragment {
 
-    private FragmentWelcomeScreenBinding binding;
+    private FragmentEditBinding binding;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        binding = FragmentWelcomeScreenBinding.inflate(inflater, container, false);
+        binding = FragmentEditBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
 

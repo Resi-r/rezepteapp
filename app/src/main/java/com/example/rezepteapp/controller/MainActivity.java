@@ -1,7 +1,8 @@
-package com.example.rezepteapp;
+package com.example.rezepteapp.controller;
 
 import android.os.Bundle;
 
+import com.example.rezepteapp.R;
 import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AppCompatActivity;
