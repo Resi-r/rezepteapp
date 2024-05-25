@@ -14,6 +14,11 @@
         </option>
         <option name="resolveExternalAnnotations" value="false" />
       </GradleProjectSettings>
+      <GradleProjectSettings>
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="gradleJvm" value="openjdk-22" />
+        <option name="resolveExternalAnnotations" value="false" />
+      </GradleProjectSettings>
     </option>
   </component>
 </project>

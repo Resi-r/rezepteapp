@@ -7,7 +7,6 @@
     android:layout_height="wrap_content">
 
     <TextView
-        android:id="@+id/tv_item_number"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
@@ -19,14 +18,14 @@
         android:textSize="16sp" />
 
     <TextView
-        android:id="@+id/tv_schritt"
+        android:id="@+id/tv_amount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:text="200g" />
 
     <TextView
-        android:id="@+id/tv_zutat"
+        android:id="@+id/tv_ingridient"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="5"
