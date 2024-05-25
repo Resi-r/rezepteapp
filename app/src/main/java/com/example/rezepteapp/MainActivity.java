@@ -1,10 +1,9 @@
 package com.example.rezepteapp;
 
-import static com.example.rezepteapp.R.*;
-
 import android.os.Bundle;
 
-import com.example.rezepteapp.R;
+import com.example.rezepteapp.controller.RecipeListFragment;
+import com.example.rezepteapp.controller.WelcomeScreenFragment;
 import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AppCompatActivity;

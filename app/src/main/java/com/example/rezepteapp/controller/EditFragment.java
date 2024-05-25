@@ -15,10 +15,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.rezepteapp.IngredientsAdapter;
+import com.example.rezepteapp.StringListAdapter;
 import com.example.rezepteapp.databinding.FragmentEditBinding;
 import com.example.rezepteapp.model.Ingredient;
 import com.example.rezepteapp.model.Label;
 import com.example.rezepteapp.model.Recipe;
+import com.example.rezepteapp.model.RecipeModel;
 import com.example.rezepteapp.model.RecipeUnit;
 import com.example.rezepteapp.model.Status;
 
@@ -31,6 +34,8 @@ public class EditFragment extends Fragment {
 
     private FragmentEditBinding binding;
 
+    private RecipeModel model;
+
     private IngredientsAdapter ingredientsAdapter;
     private StringListAdapter stepsAdapter;
     private StringListAdapter notesAdapter;
@@ -40,6 +45,10 @@ public class EditFragment extends Fragment {
     private List<Ingredient> ingredients;
     private List<String> steps;
     private List<String> notes;
+
+    public EditFragment() {
+        model = new RecipeModel();
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {

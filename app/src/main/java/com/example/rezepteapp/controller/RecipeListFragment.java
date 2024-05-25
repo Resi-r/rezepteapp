@@ -1,4 +1,4 @@
-package com.example.rezepteapp;
+package com.example.rezepteapp.controller;
 
 import android.os.Bundle;
 
@@ -10,8 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.rezepteapp.databinding.FragmentEditBinding;
 import com.example.rezepteapp.databinding.FragmentRecipeListBinding;
+import com.example.rezepteapp.model.RecipeListModel;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -21,6 +21,11 @@ import com.example.rezepteapp.databinding.FragmentRecipeListBinding;
 public class RecipeListFragment extends Fragment {
 
     private FragmentRecipeListBinding binding;
+    private RecipeListModel model;
+
+    public RecipeListFragment() {
+        model = new RecipeListModel();
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

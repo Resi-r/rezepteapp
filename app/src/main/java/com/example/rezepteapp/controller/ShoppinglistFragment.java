@@ -9,9 +9,15 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.example.rezepteapp.databinding.FragmentShoppinglistBinding;
+import com.example.rezepteapp.model.ShoppinglistModel;
 
 public class ShoppinglistFragment extends Fragment {
     private FragmentShoppinglistBinding binding;
+    private ShoppinglistModel model;
+
+    public ShoppinglistFragment(){
+        model = new ShoppinglistModel();
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle saveInstanceState) {

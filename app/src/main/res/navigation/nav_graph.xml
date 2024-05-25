@@ -6,17 +6,17 @@
     app:startDestination="@id/welcomeScreenFragment2">
     <fragment
         android:id="@+id/welcomeScreenFragment2"
-        android:name="com.example.rezepteapp.WelcomeScreenFragment"
+        android:name="com.example.rezepteapp.controller.WelcomeScreenFragment"
         android:label="fragment_welcome_screen"
         tools:layout="@layout/fragment_welcome_screen" />
     <fragment
         android:id="@+id/editFragment"
-        android:name="com.example.rezepteapp.EditFragment"
+        android:name="com.example.rezepteapp.controller.EditFragment"
         android:label="fragment_edit"
         tools:layout="@layout/fragment_edit" />
     <fragment
         android:id="@+id/recipeListFragment"
-        android:name="com.example.rezepteapp.RecipeListFragment"
+        android:name="com.example.rezepteapp.controller.RecipeListFragment"
         android:label="fragment_recipe_list"
         tools:layout="@layout/fragment_recipe_list" />
 </navigation>

@@ -9,9 +9,15 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.example.rezepteapp.databinding.FragmentArchiveBinding;
+import com.example.rezepteapp.model.ArchiveModel;
 
 public class ArchiveFragment extends Fragment {
     private FragmentArchiveBinding binding;
+    private ArchiveModel model;
+
+    public ArchiveFragment() {
+        model = new ArchiveModel();
+    }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle saveInstanceState) {
