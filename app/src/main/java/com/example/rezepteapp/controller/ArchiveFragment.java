@@ -9,14 +9,14 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.example.rezepteapp.databinding.FragmentArchiveBinding;
-import com.example.rezepteapp.model.ArchiveModel;
+import com.example.rezepteapp.model.RecipeModel;
 
 public class ArchiveFragment extends Fragment {
     private FragmentArchiveBinding binding;
-    private ArchiveModel model;
+    private RecipeModel model;
 
     public ArchiveFragment() {
-        model = new ArchiveModel();
+        model = new RecipeModel(getContext());
     }
 
     @Override

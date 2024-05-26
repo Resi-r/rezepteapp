@@ -11,15 +11,15 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.rezepteapp.databinding.FragmentWelcomeScreenBinding;
-import com.example.rezepteapp.model.WelcomeScreenModel;
+import com.example.rezepteapp.model.RecipeModel;
 
 public class WelcomeScreenFragment extends Fragment {
 
     private FragmentWelcomeScreenBinding binding;
-    private WelcomeScreenModel model;
+    private RecipeModel model;
 
     public WelcomeScreenFragment() {
-        model = new WelcomeScreenModel();
+        model = new RecipeModel(getContext());
     }
 
     @Override

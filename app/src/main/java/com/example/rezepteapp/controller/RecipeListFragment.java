@@ -11,7 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.rezepteapp.databinding.FragmentRecipeListBinding;
-import com.example.rezepteapp.model.RecipeListModel;
+import com.example.rezepteapp.model.RecipeModel;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -21,10 +21,10 @@ import com.example.rezepteapp.model.RecipeListModel;
 public class RecipeListFragment extends Fragment {
 
     private FragmentRecipeListBinding binding;
-    private RecipeListModel model;
+    private RecipeModel model;
 
     public RecipeListFragment() {
-        model = new RecipeListModel();
+        model = new RecipeModel(getContext());
     }
 
     @Override

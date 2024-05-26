@@ -47,7 +47,7 @@ public class EditFragment extends Fragment {
     private List<String> notes;
 
     public EditFragment() {
-        model = new RecipeModel();
+        model = new RecipeModel(getContext());
     }
 
     @Override
