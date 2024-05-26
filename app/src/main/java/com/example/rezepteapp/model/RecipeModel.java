@@ -29,7 +29,7 @@ public class RecipeModel {
         return null;
     }
 
-    private Recipe onRecipeClicked() {
+    private Recipe onRecipeClicked(int id) {
         return null;
     }
 
