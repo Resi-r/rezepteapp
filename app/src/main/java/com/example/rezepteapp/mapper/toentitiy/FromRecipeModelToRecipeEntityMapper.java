@@ -1,4 +1,4 @@
-package com.example.rezepteapp.mapper;
+package com.example.rezepteapp.mapper.toentitiy;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -12,11 +12,11 @@ import com.example.rezepteapp.model.Status;
 import java.io.ByteArrayOutputStream;
 import java.util.List;
 
-public class ToRecipeEntityMapper {
+public class FromRecipeModelToRecipeEntityMapper {
 
     private final Context context;
 
-    public ToRecipeEntityMapper(Context context) {
+    public FromRecipeModelToRecipeEntityMapper(Context context) {
         this.context = context;
     }
 

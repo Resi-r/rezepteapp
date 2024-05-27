@@ -1,11 +1,11 @@
-package com.example.rezepteapp.mapper;
+package com.example.rezepteapp.mapper.tomodel;
 
 import com.example.rezepteapp.entities.LabelEntity;
 import com.example.rezepteapp.model.Label;
 
-public class ToLabelModelMapper {
+public class FromLabelEntityToLabelModelMapper {
 
-    public ToLabelModelMapper() {
+    public FromLabelEntityToLabelModelMapper() {
 
     }
 

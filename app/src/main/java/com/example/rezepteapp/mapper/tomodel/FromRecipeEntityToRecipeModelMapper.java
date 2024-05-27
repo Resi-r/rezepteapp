@@ -1,4 +1,4 @@
-package com.example.rezepteapp.mapper;
+package com.example.rezepteapp.mapper.tomodel;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -18,11 +18,11 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class ToRecipeModelMapper {
+public class FromRecipeEntityToRecipeModelMapper {
 
     private Context context;
 
-    public ToRecipeModelMapper(Context context) {
+    public FromRecipeEntityToRecipeModelMapper(Context context) {
         this.context = context;
     }
 
@@ -42,7 +42,7 @@ public class ToRecipeModelMapper {
     }
 
     private List<Label> getLabelsOfEntity(int entityId) {
-        ToLabelModelMapper labelModelMapper = new ToLabelModelMapper();
+        FromLabelEntityToLabelModelMapper labelModelMapper = new FromLabelEntityToLabelModelMapper();
         LabelsRecipesDAO labelsRecipesDAO = new LabelsRecipesDAOImpl(context);
         LabelDAO labelDAO = new LabelDAOImpl(context);
 
