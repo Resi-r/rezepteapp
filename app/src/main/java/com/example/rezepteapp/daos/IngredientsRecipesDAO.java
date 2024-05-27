@@ -10,7 +10,7 @@ public interface IngredientsRecipesDAO {
     void delete(final IngredientsRecipesEntity entity);
 
     IngredientsRecipesEntity getIngredientsRecipesById(int id);
-    List<IngredientsRecipesEntity> getIngredientsRecipesByIngredientId(int ingredienId);
-    List<IngredientsRecipesEntity> getIngredientsRecipesByRecipesId(int recipesId);
+    List<IngredientsRecipesEntity> getIngredientsRecipesByIngredientId(int id);
+    List<IngredientsRecipesEntity> getIngredientsRecipesByRecipesId(int id);
     List<IngredientsRecipesEntity> getAllIngredientsRecipes();
 }

@@ -4,6 +4,10 @@ import static com.example.rezepteapp.R.*;
 
 import android.os.Bundle;
 
+import com.example.rezepteapp.daos.IngredientDAO;
+import com.example.rezepteapp.daos.LabelDAO;
+import com.example.rezepteapp.daos.LabelDAOImpl;
+import com.example.rezepteapp.entities.LabelEntity;
 import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AppCompatActivity;

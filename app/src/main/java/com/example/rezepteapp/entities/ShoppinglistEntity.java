@@ -9,6 +9,8 @@ public class ShoppinglistEntity {
 
     private int ingredientId;
 
+    public ShoppinglistEntity() {}
+
     public ShoppinglistEntity(String amount, int ingredientId) {
         this.amount = amount;
         this.ingredientId = ingredientId;

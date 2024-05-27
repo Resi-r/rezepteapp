@@ -12,7 +12,7 @@ public interface LabelsRecipesDAO {
     void delete(final LabelsRecipesEntity entity);
 
     LabelsRecipesEntity getLabelsRecipesById(int id);
-    List<RecipeEntity> getRecipesByLabelId(int labelId);
-    List<LabelEntity> getLabelsByRecipeId(int recipeId);
+    List<LabelsRecipesEntity> getLabelsRecipesByLabelId(int id);
+    List<LabelsRecipesEntity> getRecipesLabelsByRecipeId(int id);
     List<LabelsRecipesEntity> getAllLabelsRecipes();
 }
