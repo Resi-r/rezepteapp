@@ -13,4 +13,5 @@ public interface RecipeDAO {
     List<RecipeEntity> getRecipesByName(String name);
     List<RecipeEntity> getRecipesByStatusId(int statusId);
     List<RecipeEntity> getAllRecipes();
+    int getId(String name);
 }

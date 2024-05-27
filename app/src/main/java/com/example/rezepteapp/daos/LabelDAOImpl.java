@@ -1,9 +1,11 @@
 package com.example.rezepteapp.daos;
 
+import static com.example.rezepteapp.utils.Constants.DB_TABLE_INGREDIENT;
 import static com.example.rezepteapp.utils.Constants.DB_TABLE_LABEL;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.example.rezepteapp.database.RecipeDbOpenHelper;
@@ -47,5 +49,16 @@ public class LabelDAOImpl implements LabelDAO {
     @Override
     public List<LabelEntity> getAllLabels() {
         return null;
+    }
+
+    @Override
+    public int getId(String name) {
+        try (SQLiteDatabase db = dbHelper.getReadableDatabase()){
+            Cursor cursor = db.query(DB_TABLE_LABEL, new String[]{"_id"}, null, null, null, null, null);
+            if (cursor.moveToFirst()) {
+                return cursor.getInt(cursor.getColumnIndexOrThrow("_id"));
+            }
+        }
+        return 0;
     }
 }

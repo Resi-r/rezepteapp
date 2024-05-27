@@ -11,4 +11,5 @@ public interface ShoppinglistDAO {
 
     ShoppinglistEntity getShoppinglistById(int id);
     List<ShoppinglistEntity> getAllShoppinglist();
+    int getId(String name);
 }

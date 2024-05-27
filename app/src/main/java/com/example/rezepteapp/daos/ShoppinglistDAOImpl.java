@@ -89,4 +89,15 @@ public class ShoppinglistDAOImpl implements ShoppinglistDAO {
             }
         }
     }
+
+    @Override
+    public int getId(String name) {
+        try (SQLiteDatabase db = dbHelper.getReadableDatabase()){
+            Cursor cursor = db.query(DB_TABLE_SHOPPINGLIST, new String[]{"_id"}, null, null, null, null, null);
+            if (cursor.moveToFirst()) {
+                return cursor.getInt(cursor.getColumnIndexOrThrow("_id"));
+            }
+        }
+        return 0;
+    }
 }

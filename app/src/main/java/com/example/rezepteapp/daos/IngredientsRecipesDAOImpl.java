@@ -1,5 +1,6 @@
 package com.example.rezepteapp.daos;
 
+import static com.example.rezepteapp.utils.Constants.DB_TABLE_INGREDIENT;
 import static com.example.rezepteapp.utils.Constants.DB_TABLE_INGREDIENTS_RECIPES;
 import static com.example.rezepteapp.utils.Constants.DB_TABLE_LABELS_RECIPES;
 import static com.example.rezepteapp.utils.Constants.DB_TABLE_STATUS;
@@ -153,5 +154,16 @@ public class IngredientsRecipesDAOImpl implements IngredientsRecipesDAO {
                 return entities;
             }
         }
+    }
+
+    @Override
+    public int getId(String name) {
+        try (SQLiteDatabase db = dbOpenHelper.getReadableDatabase()){
+            Cursor cursor = db.query(DB_TABLE_INGREDIENTS_RECIPES, new String[]{"_id"}, null, null, null, null, null);
+            if (cursor.moveToFirst()) {
+                return cursor.getInt(cursor.getColumnIndexOrThrow("_id"));
+            }
+        }
+        return 0;
     }
 }

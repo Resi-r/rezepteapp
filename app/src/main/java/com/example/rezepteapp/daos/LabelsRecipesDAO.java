@@ -15,4 +15,5 @@ public interface LabelsRecipesDAO {
     List<LabelsRecipesEntity> getLabelsRecipesByLabelId(int id);
     List<LabelsRecipesEntity> getRecipesLabelsByRecipeId(int id);
     List<LabelsRecipesEntity> getAllLabelsRecipes();
+    int getId(String name);
 }

@@ -12,4 +12,5 @@ public interface LabelDAO {
     LabelEntity getLabelById(int id);
     LabelEntity getLabelByName(String name);
     List<LabelEntity> getAllLabels();
+    int getId(String name);
 }

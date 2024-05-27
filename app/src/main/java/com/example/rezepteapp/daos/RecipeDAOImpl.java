@@ -1,5 +1,6 @@
 package com.example.rezepteapp.daos;
 
+import static com.example.rezepteapp.utils.Constants.DB_TABLE_INGREDIENT;
 import static com.example.rezepteapp.utils.Constants.DB_TABLE_RECIPE;
 
 import android.content.ContentValues;
@@ -190,5 +191,16 @@ public class RecipeDAOImpl implements RecipeDAO {
                 return entities;
             }
         }
+    }
+
+    @Override
+    public int getId(String name) {
+        try (SQLiteDatabase db = dbHelper.getReadableDatabase()){
+            Cursor cursor = db.query(DB_TABLE_RECIPE, new String[]{"_id"}, null, null, null, null, null);
+            if (cursor.moveToFirst()) {
+                return cursor.getInt(cursor.getColumnIndexOrThrow("_id"));
+            }
+        }
+        return 0;
     }
 }
