@@ -4,7 +4,7 @@
     <item
         android:id="@+id/recipelist"
         android:icon="@drawable/baseline_recipe_list_24"
-        android:title="Recipes" />
+        android:title="Rezepte" />
 
     <item android:id="@+id/home"
         android:icon="@drawable/rounded_add_home_24"
@@ -12,6 +12,6 @@
 
     <item android:id="@+id/ingredients"
         android:icon="@drawable/rounded_add_shopping_cart_24"
-        android:title="Ingredients" />
+        android:title="Einkaufsliste" />
 
 </menu>

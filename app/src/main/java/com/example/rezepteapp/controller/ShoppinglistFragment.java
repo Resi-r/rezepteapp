@@ -28,7 +28,8 @@ public class ShoppinglistFragment extends Fragment {
 
     public ShoppinglistFragment(){
         model = new RecipeModel(getContext());
-        toDoList = model.getToDoList();
+        //toDoList = model.getToDoList();
+        toDoList = new ArrayList<>();
         doneList = new ArrayList<>();
     }
 

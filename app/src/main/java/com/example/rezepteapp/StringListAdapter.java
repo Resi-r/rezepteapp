@@ -45,7 +45,7 @@ public class StringListAdapter extends RecyclerView.Adapter<StringListAdapter.Vi
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         String step = steps.get(position);
 
-        holder.stepNumberTextView.setText(position);
+        holder.stepNumberTextView.setText(String.format("%d.", position + 1));
         holder.stepTextView.setText(step);
     }
 

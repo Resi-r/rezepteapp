@@ -7,6 +7,7 @@ import com.example.rezepteapp.daos.ShoppinglistDAOImpl;
 import com.example.rezepteapp.database.RecipeDbOpenHelper;
 import com.example.rezepteapp.mapper.ToShoppingListMapper;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class RecipeModel {
@@ -25,6 +26,7 @@ public class RecipeModel {
     }
 
     public RecipeModel(Context context) {
+
     }
 
     private List<Recipe> getDailyRecipes() {
