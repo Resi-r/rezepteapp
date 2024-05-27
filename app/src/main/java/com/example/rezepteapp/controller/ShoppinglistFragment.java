@@ -12,22 +12,22 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.example.rezepteapp.ShoppinglistDoneAdapter;
 import com.example.rezepteapp.ShoppinglistToDoAdapter;
 import com.example.rezepteapp.databinding.FragmentShoppinglistBinding;
+import com.example.rezepteapp.model.RecipeModel;
 import com.example.rezepteapp.model.ShoppinglistEntry;
-import com.example.rezepteapp.model.ShoppinglistModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ShoppinglistFragment extends Fragment {
     private FragmentShoppinglistBinding binding;
-    private ShoppinglistModel model;
+    private RecipeModel model;
     private ShoppinglistToDoAdapter adapterToDo;
     private ShoppinglistDoneAdapter adapterDone;
     private List<ShoppinglistEntry> toDoList;
     private List<ShoppinglistEntry> doneList;
 
     public ShoppinglistFragment(){
-        model = new ShoppinglistModel();
+        model = new RecipeModel(getContext());
         toDoList = model.getToDoList();
         doneList = new ArrayList<>();
     }
