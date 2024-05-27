@@ -49,16 +49,6 @@ public class RecipeDbOpenHelper extends SQLiteOpenHelper {
         Log.d(getClass().getSimpleName(), "Upgrades werden nicht unterstützt.");
     }
 
-    // Read
-    public Cursor readAllShoppinglistEntries(){
-        try (SQLiteDatabase db = this.getWritableDatabase()) {
-            return db.rawQuery(
-                    "SELECT * FROM Shoppinglist sl JOIN Ingredient i ON sl.ingredientId = i._id ", null
-            );
-        }
-    }
-
-
     // Insert and Update
     public void insertIngredient(IngredientEntity entity) {
         try(SQLiteDatabase db = this.getWritableDatabase()) {

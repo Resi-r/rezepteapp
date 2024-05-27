@@ -62,7 +62,7 @@ public class ShoppinglistFragment extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
-        model.updateToDoList(toDoList);
+//        model.updateToDoList(toDoList);
     }
 
     @Override

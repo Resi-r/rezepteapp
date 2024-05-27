@@ -10,13 +10,6 @@ public class RecipeModel {
     private Recipe recipe;
     private RecipeDbOpenHelper db;
 
-    /**
-     * Als stelle zwischen Datenbank und dem Fragment
-     *
-     * - Rezept öffnen
-     *
-     */
-
     public RecipeModel(Context context) {
         db = new RecipeDbOpenHelper(context);
     }
