@@ -10,6 +10,7 @@ import static com.example.rezepteapp.utils.Constants.DB_TABLE_STATUS;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
@@ -21,6 +22,10 @@ import com.example.rezepteapp.entities.LabelsRecipesEntity;
 import com.example.rezepteapp.entities.RecipeEntity;
 import com.example.rezepteapp.entities.ShoppinglistEntity;
 import com.example.rezepteapp.entities.StatusEntity;
+import com.example.rezepteapp.model.Recipe;
+import com.example.rezepteapp.model.ShoppinglistEntry;
+
+import java.util.List;
 
 public class RecipeDbOpenHelper extends SQLiteOpenHelper {
 
@@ -42,6 +47,15 @@ public class RecipeDbOpenHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         Log.d(getClass().getSimpleName(), "Upgrades werden nicht unterstützt.");
+    }
+
+    // Read
+    public Cursor readAllShoppinglistEntries(){
+        try (SQLiteDatabase db = this.getWritableDatabase()) {
+            return db.rawQuery(
+                    "SELECT * FROM Shoppinglist sl JOIN Ingredient i ON sl.ingredientId = i._id ", null
+            );
+        }
     }
 
 

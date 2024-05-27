@@ -3,6 +3,7 @@ package com.example.rezepteapp;
 import android.os.Bundle;
 
 import com.example.rezepteapp.controller.RecipeListFragment;
+import com.example.rezepteapp.controller.ShoppinglistFragment;
 import com.example.rezepteapp.controller.WelcomeScreenFragment;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -54,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
             } else if (itemId == R.id.ingredients) {
 
                 // TODO: Implementation ShoppingListFragment!!
-            //    replaceFragment(new ShoppingListFragment());
+                replaceFragment(new ShoppinglistFragment());
 
             }
 
