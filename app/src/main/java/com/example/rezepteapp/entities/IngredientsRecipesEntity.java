@@ -9,6 +9,7 @@ public class IngredientsRecipesEntity {
     private int ingredientId;
     private int recipeId;
 
+    public IngredientsRecipesEntity() {}
     public IngredientsRecipesEntity(String amount, int ingredientId, int recipeId) {
         this.amount = amount;
         this.ingredientId = ingredientId;

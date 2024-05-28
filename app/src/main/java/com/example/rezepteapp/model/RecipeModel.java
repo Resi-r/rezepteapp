@@ -3,24 +3,20 @@ package com.example.rezepteapp.model;
 import android.content.Context;
 
 import com.example.rezepteapp.daos.IngredientDAOImpl;
-import com.example.rezepteapp.daos.ShoppinglistDAOImpl;
-import com.example.rezepteapp.database.RecipeDbOpenHelper;
-import com.example.rezepteapp.mapper.ToShoppingListMapper;
+import com.example.rezepteapp.daos.ShoppinglistEntryDAOImpl;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class RecipeModel {
     private Recipe recipe;
     private List<ShoppinglistEntry> toDoList;
-    private ShoppinglistDAOImpl sldao;
+    private ShoppinglistEntryDAOImpl sldao;
     private IngredientDAOImpl idao;
 
 
     public List<ShoppinglistEntry> getToDoList() {
         toDoList.clear();
-        ToShoppingListMapper mapper = new ToShoppingListMapper();
-        toDoList.addAll(mapper.mapToList(sldao.getAllShoppinglist(), idao.getAllIngredients()));
+//        toDoList.addAll(mapper.mapToList(sldao.getAllShoppinglist(), idao.getAllIngredients()));
 
         return toDoList;
     }

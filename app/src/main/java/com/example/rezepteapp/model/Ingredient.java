@@ -7,6 +7,7 @@ public class Ingredient {
     private RecipeUnit unit;
     private String name;
 
+    public Ingredient() {}
     public Ingredient(String amount, RecipeUnit unit, String name) {
         this.amount = amount;
         this.unit = unit;

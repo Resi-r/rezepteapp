@@ -8,6 +8,8 @@ public class LabelsRecipesEntity {
     private int labelId;
     private int recipeId;
 
+    public LabelsRecipesEntity() {}
+
     public LabelsRecipesEntity(int labelId, int recipeId) {
         this.labelId = labelId;
         this.recipeId = recipeId;

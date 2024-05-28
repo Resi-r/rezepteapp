@@ -7,6 +7,8 @@ public class IngredientEntity {
     private int id;
     private String name;
 
+    public IngredientEntity() {}
+
     public IngredientEntity(String name) {
         this.name = name;
     }

@@ -2,21 +2,21 @@ package com.example.rezepteapp.entities;
 
 import java.util.Objects;
 
-public class ShoppinglistEntity {
+public class ShoppinglistEntryEntity {
 
     private int id;
     private String amount;
 
     private int ingredientId;
 
-    public ShoppinglistEntity() {}
+    public ShoppinglistEntryEntity() {}
 
-    public ShoppinglistEntity(String amount, int ingredientId) {
+    public ShoppinglistEntryEntity(String amount, int ingredientId) {
         this.amount = amount;
         this.ingredientId = ingredientId;
     }
 
-    public ShoppinglistEntity(int id, String amount, int ingredientId) {
+    public ShoppinglistEntryEntity(int id, String amount, int ingredientId) {
         this.id = id;
         this.amount = amount;
         this.ingredientId = ingredientId;
@@ -50,7 +50,7 @@ public class ShoppinglistEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        ShoppinglistEntity that = (ShoppinglistEntity) o;
+        ShoppinglistEntryEntity that = (ShoppinglistEntryEntity) o;
         return id == that.id && ingredientId == that.ingredientId && Objects.equals(amount, that.amount);
     }
 

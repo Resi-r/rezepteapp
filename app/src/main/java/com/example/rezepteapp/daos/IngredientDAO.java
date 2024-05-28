@@ -12,4 +12,5 @@ public interface IngredientDAO {
     IngredientEntity getIngredientById(int id);
     IngredientEntity getIngredientByName(String name);
     List<IngredientEntity> getAllIngredients();
+    int getId(String name);
 }

@@ -12,4 +12,5 @@ public interface StatusDAO {
     StatusEntity getStatusById(int id);
     StatusEntity getStatusByName(String name);
     List<StatusEntity> getAllStatus();
+    int getId(String name);
 }

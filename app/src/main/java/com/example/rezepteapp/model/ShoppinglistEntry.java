@@ -1,18 +1,11 @@
 package com.example.rezepteapp.model;
 
 public class ShoppinglistEntry {
-
     private int id;
     private String amount;
     private String ingredient;
-    private int ingredientID;
 
-    public ShoppinglistEntry(String amount, int id, String ingredient, int ingredientID) {
-        this.amount = amount;
-        this.id = id;
-        this.ingredient = ingredient;
-        this.ingredientID = ingredientID;
-    }
+    public ShoppinglistEntry(){}
 
     public int getId() {
         return id;
@@ -36,13 +29,5 @@ public class ShoppinglistEntry {
 
     public void setIngredient(String ingredient) {
         this.ingredient = ingredient;
-    }
-
-    public int getIngredientID() {
-        return ingredientID;
-    }
-
-    public void setIngredientID(int ingredientID) {
-        this.ingredientID = ingredientID;
     }
 }
