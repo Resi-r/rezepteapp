@@ -40,7 +40,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-// https://developer.android.com/develop/ui/views/components/dialogs?hl=de#CustomLayout
 public class EditFragment extends Fragment {
 
     private FragmentEditBinding binding;
