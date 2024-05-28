@@ -197,7 +197,7 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout_ingridients"
-        tools:listitem="@layout/recycl_item_details_zutat" />
+        tools:listitem="@layout/recycl_item_details_ingredient" />
 
     <View
         android:id="@+id/seperator_3"
@@ -233,7 +233,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_steps_title"
-        tools:listitem="@layout/recycl_item_details_vorgehen" />
+        tools:listitem="@layout/recycl_item_details_step" />
 
     <View
         android:id="@+id/seperator_4"

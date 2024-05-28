@@ -36,7 +36,7 @@ public class StringListAdapter extends RecyclerView.Adapter<StringListAdapter.Vi
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
-        View ingridientView = inflater.inflate(R.layout.recycl_item_details_vorgehen, parent, false);
+        View ingridientView = inflater.inflate(R.layout.recycl_item_details_step, parent, false);
 
         return new ViewHolder(ingridientView);
     }
@@ -45,7 +45,7 @@ public class StringListAdapter extends RecyclerView.Adapter<StringListAdapter.Vi
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         String step = steps.get(position);
 
-        holder.stepNumberTextView.setText(position);
+        holder.stepNumberTextView.setText(String.format("%d.", position + 1));
         holder.stepTextView.setText(step);
     }
 
