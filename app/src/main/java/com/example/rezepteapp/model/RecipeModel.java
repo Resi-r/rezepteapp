@@ -3,13 +3,14 @@ package com.example.rezepteapp.model;
 import android.content.Context;
 
 import com.example.rezepteapp.daos.IngredientDAOImpl;
+import com.example.rezepteapp.daos.ShoppinglistEntryDAOImpl;
 
 import java.util.List;
 
 public class RecipeModel {
     private Recipe recipe;
     private List<ShoppinglistEntry> toDoList;
-    private ShoppinglistDAOImpl sldao;
+    private ShoppinglistEntryDAOImpl sldao;
     private IngredientDAOImpl idao;
 
 
