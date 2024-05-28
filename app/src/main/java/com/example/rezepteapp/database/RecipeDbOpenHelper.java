@@ -10,6 +10,7 @@ import static com.example.rezepteapp.utils.Constants.DB_TABLE_STATUS;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
@@ -21,6 +22,10 @@ import com.example.rezepteapp.entities.LabelsRecipesEntity;
 import com.example.rezepteapp.entities.RecipeEntity;
 import com.example.rezepteapp.entities.ShoppinglistEntity;
 import com.example.rezepteapp.entities.StatusEntity;
+import com.example.rezepteapp.model.Recipe;
+import com.example.rezepteapp.model.ShoppinglistEntry;
+
+import java.util.List;
 
 public class RecipeDbOpenHelper extends SQLiteOpenHelper {
 
@@ -33,7 +38,7 @@ public class RecipeDbOpenHelper extends SQLiteOpenHelper {
         db.execSQL("CREATE TABLE Ingredient (_id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT)");
         db.execSQL("CREATE TABLE Status (_id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT)");
         db.execSQL("CREATE TABLE Label (_id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT)");
-        db.execSQL("CREATE TABLE Recipe (_id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, image TEXT, servings INTEGER, kTime TEXT, vTime TEXT, notes TEXT, steps TEXT, statusId INTEGER)");
+        db.execSQL("CREATE TABLE Recipe (_id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, image BLOB, servings INTEGER, kTime TEXT, vTime TEXT, notes TEXT, steps TEXT, statusId INTEGER)");
         db.execSQL("CREATE TABLE Shoppinglist (_id INTEGER PRIMARY KEY AUTOINCREMENT, amount TEXT, ingredientId INTEGER)");
         db.execSQL("CREATE TABLE IngredientsRecipes (_id INTEGER PRIMARY KEY AUTOINCREMENT, amount TEXT, ingredientId INTEGER, recipeId INTEGER)");
         db.execSQL("CREATE TABLE LabelsRecipes (_id INTEGER PRIMARY KEY AUTOINCREMENT, labelId INTEGER, recipeId INTEGER)");
@@ -43,7 +48,6 @@ public class RecipeDbOpenHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         Log.d(getClass().getSimpleName(), "Upgrades werden nicht unterstützt.");
     }
-
 
     // Insert and Update
     public void insertIngredient(IngredientEntity entity) {

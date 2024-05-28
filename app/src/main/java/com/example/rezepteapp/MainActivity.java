@@ -1,9 +1,12 @@
 package com.example.rezepteapp;
 
-import android.Manifest;
+import static com.example.rezepteapp.R.*;
+
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 
+import com.example.rezepteapp.controller.RecipeListFragment;
+import com.example.rezepteapp.controller.ShoppinglistFragment;
 import com.google.android.material.snackbar.Snackbar;
 
 import androidx.annotation.NonNull;
@@ -29,13 +32,12 @@ import android.view.MenuItem;
 
 public class MainActivity extends AppCompatActivity {
 
-    private AppBarConfiguration appBarConfiguration;
     private ActivityMainBinding binding;
     private final static int REQUEST_CODE_PERMISSIONS = 101;
     private final static String[] REQUIRED_PERMISSIONS = {
-            Manifest.permission.ACCESS_COARSE_LOCATION,
-            Manifest.permission.ACCESS_FINE_LOCATION,
-            Manifest.permission.INTERNET
+            android.Manifest.permission.ACCESS_COARSE_LOCATION,
+            android.Manifest.permission.ACCESS_FINE_LOCATION,
+            android.Manifest.permission.INTERNET
     };
 
     @Override
@@ -45,13 +47,15 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        binding.navbarBottom.setSelectedItemId(R.id.home);
         if (!allPermissionsGranted()) {
             ActivityCompat.requestPermissions(MainActivity.this, REQUIRED_PERMISSIONS, REQUEST_CODE_PERMISSIONS);
         }
 
-        replaceFragment(new WelcomeScreenFragment());
+        replaceFragment(new com.example.rezepteapp.WelcomeScreenFragment());
 
         binding.navbarBottom.setSelectedItemId(R.id.home);
+
 
         binding.navbarBottom.setOnItemSelectedListener(item -> {
 
@@ -60,28 +64,15 @@ public class MainActivity extends AppCompatActivity {
             if (itemId == R.id.recipelist) {
 
                 replaceFragment(new RecipeListFragment());
-
+                return true;
             } else if (itemId == R.id.home) {
-
-                replaceFragment(new WelcomeScreenFragment());
-
+                replaceFragment(new com.example.rezepteapp.WelcomeScreenFragment());
+                return true;
             } else if (itemId == R.id.ingredients) {
-
-                // TODO: Implementation ShoppingListFragment!!
-                //    replaceFragment(new ShoppingListFragment());
-
+                replaceFragment(new ShoppinglistFragment());
+                return true;
             }
-
-            return true;
-        });
-
-        binding.fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAnchorView(R.id.fab)
-                        .setAction("Action", null).show();
-            }
+            return false;
         });
     }
 
@@ -114,12 +105,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void replaceFragment(Fragment fragment) {
-
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.frame_layout, fragment);
+        fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
-
     }
 
     @Override
@@ -143,12 +133,4 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
-
-    @Override
-    public boolean onSupportNavigateUp() {
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
-        return NavigationUI.navigateUp(navController, appBarConfiguration)
-                || super.onSupportNavigateUp();
-    }
-
 }

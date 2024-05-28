@@ -17,6 +17,7 @@ import com.example.rezepteapp.weather.WeatherCallback;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import com.example.rezepteapp.model.RecipeModel;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -36,6 +37,11 @@ public class WelcomeScreenFragment extends Fragment implements WeatherCallback {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         init();
+    }
+    private RecipeModel model;
+
+    public WelcomeScreenFragment() {
+        model = new RecipeModel(getContext());
     }
 
     @Override
