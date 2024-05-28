@@ -38,7 +38,7 @@ public class IngredientsAdapter extends RecyclerView.Adapter<IngredientsAdapter.
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
-        View ingridientView = inflater.inflate(R.layout.recycl_item_details_zutat, parent, false);
+        View ingridientView = inflater.inflate(R.layout.recycl_item_details_ingredient, parent, false);
 
         return new ViewHolder(ingridientView);
     }
