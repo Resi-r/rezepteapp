@@ -2,14 +2,21 @@ package com.example.rezepteapp;
 
 import static com.example.rezepteapp.R.*;
 
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 
+import com.example.rezepteapp.controller.RecipeListFragment;
+import com.example.rezepteapp.controller.ShoppinglistFragment;
 import com.google.android.material.snackbar.Snackbar;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.view.View;
 
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -25,13 +32,12 @@ import android.view.MenuItem;
 
 public class MainActivity extends AppCompatActivity {
 
-    private AppBarConfiguration appBarConfiguration;
     private ActivityMainBinding binding;
     private final static int REQUEST_CODE_PERMISSIONS = 101;
     private final static String[] REQUIRED_PERMISSIONS = {
-            Manifest.permission.ACCESS_COARSE_LOCATION,
-            Manifest.permission.ACCESS_FINE_LOCATION,
-            Manifest.permission.INTERNET
+            android.Manifest.permission.ACCESS_COARSE_LOCATION,
+            android.Manifest.permission.ACCESS_FINE_LOCATION,
+            android.Manifest.permission.INTERNET
     };
 
     @Override
@@ -46,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
             ActivityCompat.requestPermissions(MainActivity.this, REQUIRED_PERMISSIONS, REQUEST_CODE_PERMISSIONS);
         }
 
-        replaceFragment(new WelcomeScreenFragment());
+        replaceFragment(new com.example.rezepteapp.WelcomeScreenFragment());
 
         binding.navbarBottom.setSelectedItemId(R.id.home);
 
@@ -60,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
                 replaceFragment(new RecipeListFragment());
                 return true;
             } else if (itemId == R.id.home) {
-                replaceFragment(new WelcomeScreenFragment());
+                replaceFragment(new com.example.rezepteapp.WelcomeScreenFragment());
                 return true;
             } else if (itemId == R.id.ingredients) {
                 replaceFragment(new ShoppinglistFragment());
