@@ -13,10 +13,10 @@ import com.example.rezepteapp.model.Recipe;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FromIngredientsRecipeRecipeUnitModelToIngredientsRecipesEntityMapper {
+public class FromRecipeModelToIngredientsRecipesEntityMapper {
     private Context context;
 
-    public FromIngredientsRecipeRecipeUnitModelToIngredientsRecipesEntityMapper(Context context) {
+    public FromRecipeModelToIngredientsRecipesEntityMapper(Context context) {
         this.context = context;
     }
 

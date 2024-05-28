@@ -6,18 +6,18 @@ import com.example.rezepteapp.daos.IngredientDAO;
 import com.example.rezepteapp.daos.IngredientDAOImpl;
 import com.example.rezepteapp.daos.ShoppinglistDAOEntry;
 import com.example.rezepteapp.daos.ShoppinglistDAOEntryImpl;
-import com.example.rezepteapp.entities.ShoppinglistEntity;
+import com.example.rezepteapp.entities.ShoppinglistEntryEntity;
 import com.example.rezepteapp.model.ShoppinglistEntry;
 
-public class FromShoppinglistEntryModelToShoppinglistEntityMapper {
+public class FromShoppinglistEntryModelToShoppinglistEntryEntityMapper {
     private Context context;
 
-    public FromShoppinglistEntryModelToShoppinglistEntityMapper(Context context) {
+    public FromShoppinglistEntryModelToShoppinglistEntryEntityMapper(Context context) {
         this.context = context;
     }
 
-    public ShoppinglistEntity map(ShoppinglistEntry entry) {
-        ShoppinglistEntity entity = new ShoppinglistEntity();
+    public ShoppinglistEntryEntity map(ShoppinglistEntry entry) {
+        ShoppinglistEntryEntity entity = new ShoppinglistEntryEntity();
         int ingredientId = getIngredientId(entry.getIngredient());
         entity.setIngredientId(ingredientId);
         entity.setId(getShoppinglistId(entry.getAmount(), ingredientId));

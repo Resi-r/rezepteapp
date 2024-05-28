@@ -8,10 +8,10 @@ import com.example.rezepteapp.entities.StatusEntity;
 import com.example.rezepteapp.model.Recipe;
 import com.example.rezepteapp.model.Status;
 
-public class FromStatusModelToStatusEntityMapper {
+public class FromRecipeModelToStatusEntityMapper {
     private Context context;
 
-    public FromStatusModelToStatusEntityMapper(Context context) {
+    public FromRecipeModelToStatusEntityMapper(Context context) {
         this.context = context;
     }
 

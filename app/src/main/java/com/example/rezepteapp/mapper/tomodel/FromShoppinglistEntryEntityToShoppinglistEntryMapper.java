@@ -1,24 +1,22 @@
 package com.example.rezepteapp.mapper.tomodel;
 
-import android.content.Context;
-
 import com.example.rezepteapp.entities.IngredientEntity;
-import com.example.rezepteapp.entities.ShoppinglistEntity;
+import com.example.rezepteapp.entities.ShoppinglistEntryEntity;
 import com.example.rezepteapp.model.ShoppinglistEntry;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class FromShoppinglistEntityToShoppinglistEntryMapper {
-    public List<ShoppinglistEntry> mapToList(List<ShoppinglistEntity> sle, List<IngredientEntity> ie) {
+public class FromShoppinglistEntryEntityToShoppinglistEntryMapper {
+    public List<ShoppinglistEntry> mapToList(List<ShoppinglistEntryEntity> sle, List<IngredientEntity> ie) {
         List<ShoppinglistEntry> list = new ArrayList<>();
-        for (ShoppinglistEntity entity : sle) {
+        for (ShoppinglistEntryEntity entity : sle) {
             list.add(mapToEntry(entity, ie));
         }
         return list;
     }
 
-    public ShoppinglistEntry mapToEntry(ShoppinglistEntity sle, List<IngredientEntity> ie) {
+    public ShoppinglistEntry mapToEntry(ShoppinglistEntryEntity sle, List<IngredientEntity> ie) {
         ShoppinglistEntry entry = new ShoppinglistEntry();
         entry.setAmount(sle.getAmount());
         entry.setId(sle.getId());

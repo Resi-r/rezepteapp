@@ -1,15 +1,15 @@
 package com.example.rezepteapp.daos;
 
-import com.example.rezepteapp.entities.ShoppinglistEntity;
+import com.example.rezepteapp.entities.ShoppinglistEntryEntity;
 
 import java.util.List;
 
 public interface ShoppinglistDAOEntry {
 
-    void saveOrUpdate(final ShoppinglistEntity entity);
-    void delete(final ShoppinglistEntity entity);
+    void saveOrUpdate(final ShoppinglistEntryEntity entity);
+    void delete(final ShoppinglistEntryEntity entity);
 
-    ShoppinglistEntity getShoppinglistById(int id);
-    List<ShoppinglistEntity> getAllShoppinglist();
+    ShoppinglistEntryEntity getShoppinglistById(int id);
+    List<ShoppinglistEntryEntity> getAllShoppinglist();
     int getId(String amount, int ingredientId);
 }
