@@ -3,7 +3,6 @@ package com.example.rezepteapp.model;
 import android.content.Context;
 
 import com.example.rezepteapp.daos.IngredientDAOImpl;
-import com.example.rezepteapp.daos.ShoppinglistDAOImpl;
 
 import java.util.List;
 

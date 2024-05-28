@@ -54,7 +54,7 @@ public class LabelDAOImpl implements LabelDAO {
     @Override
     public int getId(String name) {
         try (SQLiteDatabase db = dbHelper.getReadableDatabase()){
-            Cursor cursor = db.query(DB_TABLE_LABEL, new String[]{"_id"}, null, null, null, null, null);
+            Cursor cursor = db.query(DB_TABLE_LABEL, new String[]{"_id"}, "name = ?", new String[]{name}, null, null, null);
             if (cursor.moveToFirst()) {
                 return cursor.getInt(cursor.getColumnIndexOrThrow("_id"));
             }

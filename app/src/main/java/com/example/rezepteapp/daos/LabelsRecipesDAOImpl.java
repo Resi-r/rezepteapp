@@ -147,7 +147,7 @@ public class LabelsRecipesDAOImpl implements LabelsRecipesDAO {
     @Override
     public int getId(String name) {
         try (SQLiteDatabase db = dbHelper.getReadableDatabase()){
-            Cursor cursor = db.query(DB_TABLE_LABELS_RECIPES, new String[]{"_id"}, null, null, null, null, null);
+            Cursor cursor = db.query(DB_TABLE_LABELS_RECIPES, new String[]{"_id"}, "name = ?", new String[]{name}, null, null, null);
             if (cursor.moveToFirst()) {
                 return cursor.getInt(cursor.getColumnIndexOrThrow("_id"));
             }

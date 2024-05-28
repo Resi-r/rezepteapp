@@ -1,4 +1,4 @@
-package com.example.rezepteapp;
+package com.example.rezepteapp.controller;
 
 import android.os.Bundle;
 

@@ -5,6 +5,7 @@ import static com.example.rezepteapp.utils.Constants.DB_TABLE_INGREDIENTS_RECIPE
 import static com.example.rezepteapp.utils.Constants.DB_TABLE_LABEL;
 import static com.example.rezepteapp.utils.Constants.DB_TABLE_LABELS_RECIPES;
 import static com.example.rezepteapp.utils.Constants.DB_TABLE_RECIPE;
+import static com.example.rezepteapp.utils.Constants.DB_TABLE_SHOPPINGLIST_ENTRY;
 import static com.example.rezepteapp.utils.Constants.DB_TABLE_STATUS;
 
 import android.content.ContentValues;
@@ -18,6 +19,7 @@ import com.example.rezepteapp.entities.IngredientsRecipesEntity;
 import com.example.rezepteapp.entities.LabelEntity;
 import com.example.rezepteapp.entities.LabelsRecipesEntity;
 import com.example.rezepteapp.entities.RecipeEntity;
+import com.example.rezepteapp.entities.ShoppinglistEntryEntity;
 import com.example.rezepteapp.entities.StatusEntity;
 
 public class RecipeDbOpenHelper extends SQLiteOpenHelper {
@@ -123,21 +125,21 @@ public class RecipeDbOpenHelper extends SQLiteOpenHelper {
         }
     }
 
-    public void insertShoppinglist(ShoppinglistEntity entity) {
+    public void insertShoppinglist(ShoppinglistEntryEntity entity) {
         try(SQLiteDatabase db = this.getWritableDatabase()) {
             ContentValues values = new ContentValues();
             values.put("amount", entity.getAmount());
             values.put("ingredientId", entity.getIngredientId());
-            db.insert(DB_TABLE_SHOPPINGLIST, null, values);
+            db.insert(DB_TABLE_SHOPPINGLIST_ENTRY, null, values);
         }
     }
 
-    public boolean updateShoppinglist(ShoppinglistEntity entity) {
+    public boolean updateShoppinglist(ShoppinglistEntryEntity entity) {
         try(SQLiteDatabase db = this.getWritableDatabase()) {
             ContentValues values = new ContentValues();
             values.put("amount", entity.getAmount());
             values.put("ingredientId", entity.getIngredientId());
-            int result = db.update(DB_TABLE_SHOPPINGLIST, values, "_id = ?", new String[]{String.valueOf(entity.getId())});
+            int result = db.update(DB_TABLE_SHOPPINGLIST_ENTRY, values, "_id = ?", new String[]{String.valueOf(entity.getId())});
             return result != 0;
         }
     }

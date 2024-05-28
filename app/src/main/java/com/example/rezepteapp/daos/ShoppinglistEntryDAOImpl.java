@@ -13,11 +13,11 @@ import com.example.rezepteapp.entities.ShoppinglistEntryEntity;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ShoppinglistDAOEntryImpl implements ShoppinglistDAOEntry {
+public class ShoppinglistEntryDAOImpl implements ShoppinglistEntryDAO {
 
     private RecipeDbOpenHelper dbHelper;
 
-    public ShoppinglistDAOEntryImpl(Context context) {
+    public ShoppinglistEntryDAOImpl(Context context) {
         this.dbHelper = new RecipeDbOpenHelper(context);
     }
 
@@ -91,7 +91,7 @@ public class ShoppinglistDAOEntryImpl implements ShoppinglistDAOEntry {
     @Override
     public int getId(String amount, int ingredientId) {
         try (SQLiteDatabase db = dbHelper.getReadableDatabase()){
-            Cursor cursor = db.query(DB_TABLE_SHOPPINGLIST_ENTRY, new String[]{"_id"}, null, null, null, null, null);
+            Cursor cursor = db.query(DB_TABLE_SHOPPINGLIST_ENTRY, new String[]{"_id"}, "amount = ? AND ingredientId = ?", new String[]{amount,String.valueOf(ingredientId)}, null, null, null);
             if (cursor.moveToFirst()) {
                 return cursor.getInt(cursor.getColumnIndexOrThrow("_id"));
             }
