@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
             ActivityCompat.requestPermissions(MainActivity.this, REQUIRED_PERMISSIONS, REQUEST_CODE_PERMISSIONS);
         }
 
-        replaceFragment(new com.example.rezepteapp.WelcomeScreenFragment());
+        replaceFragment(new com.example.rezepteapp.controller.WelcomeScreenFragment());
 
         binding.navbarBottom.setSelectedItemId(R.id.home);
 
@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
                 replaceFragment(new RecipeListFragment());
                 return true;
             } else if (itemId == R.id.home) {
-                replaceFragment(new com.example.rezepteapp.WelcomeScreenFragment());
+                replaceFragment(new com.example.rezepteapp.controller.WelcomeScreenFragment());
                 return true;
             } else if (itemId == R.id.ingredients) {
                 replaceFragment(new ShoppinglistFragment());
