@@ -1,15 +1,19 @@
 package com.example.rezepteapp;
 
-import static com.example.rezepteapp.R.*;
-
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 
 import com.google.android.material.snackbar.Snackbar;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.view.View;
 
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -27,6 +31,12 @@ public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration appBarConfiguration;
     private ActivityMainBinding binding;
+    private final static int REQUEST_CODE_PERMISSIONS = 101;
+    private final static String[] REQUIRED_PERMISSIONS = {
+            Manifest.permission.ACCESS_COARSE_LOCATION,
+            Manifest.permission.ACCESS_FINE_LOCATION,
+            Manifest.permission.INTERNET
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,9 +45,13 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        setSupportActionBar(binding.toolbar);
+        if (!allPermissionsGranted()) {
+            ActivityCompat.requestPermissions(MainActivity.this, REQUIRED_PERMISSIONS, REQUEST_CODE_PERMISSIONS);
+        }
 
         replaceFragment(new WelcomeScreenFragment());
+
+        binding.navbarBottom.setSelectedItemId(R.id.home);
 
         binding.navbarBottom.setOnItemSelectedListener(item -> {
 
@@ -54,16 +68,12 @@ public class MainActivity extends AppCompatActivity {
             } else if (itemId == R.id.ingredients) {
 
                 // TODO: Implementation ShoppingListFragment!!
-            //    replaceFragment(new ShoppingListFragment());
+                //    replaceFragment(new ShoppingListFragment());
 
             }
 
             return true;
         });
-
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
-        appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
-        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
 
         binding.fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,6 +83,34 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+    }
+
+    private boolean allPermissionsGranted() {
+        for (String permission : REQUIRED_PERMISSIONS) {
+            if (ContextCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == REQUEST_CODE_PERMISSIONS) {
+            if (!allPermissionsGranted()) {
+                new AlertDialog.Builder(this)
+                    .setTitle("Berechtigungen erforderlich")
+                    .setMessage("Einige Berechtigungen wurden nicht erteilt. Diese App benötigt alle Berechtigungen, um korrekt zu funktionieren.")
+                    .setPositiveButton("Erneut versuchen", (dialog, which) -> ActivityCompat.requestPermissions(MainActivity.this, REQUIRED_PERMISSIONS, REQUEST_CODE_PERMISSIONS))
+                    .setNegativeButton("App schließen", (dialog, which) -> {
+                        dialog.dismiss();
+                        System.exit(0);
+                    })
+                    .create()
+                    .show();
+            }
+        }
     }
 
     private void replaceFragment(Fragment fragment) {
@@ -112,4 +150,5 @@ public class MainActivity extends AppCompatActivity {
         return NavigationUI.navigateUp(navController, appBarConfiguration)
                 || super.onSupportNavigateUp();
     }
+
 }
