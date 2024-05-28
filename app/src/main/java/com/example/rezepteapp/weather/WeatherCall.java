@@ -136,7 +136,7 @@ public class WeatherCall {
     public Weather getWeather() {
 
         String url = "https://api.openweathermap.org/data/2.5/weather?lat=" + lat +
-                "&lon=" + lon + "&appid=" + "5051e40371de823dc2415d79763cc39e";
+                "&lon=" + lon + "&appid=" + "insert API Key here";
 
         try {
 
