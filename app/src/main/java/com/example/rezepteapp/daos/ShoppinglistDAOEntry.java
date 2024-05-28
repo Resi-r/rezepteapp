@@ -4,7 +4,7 @@ import com.example.rezepteapp.entities.ShoppinglistEntity;
 
 import java.util.List;
 
-public interface ShoppinglistDAO {
+public interface ShoppinglistDAOEntry {
 
     void saveOrUpdate(final ShoppinglistEntity entity);
     void delete(final ShoppinglistEntity entity);

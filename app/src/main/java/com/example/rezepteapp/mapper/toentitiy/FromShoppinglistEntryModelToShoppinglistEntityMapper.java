@@ -4,8 +4,8 @@ import android.content.Context;
 
 import com.example.rezepteapp.daos.IngredientDAO;
 import com.example.rezepteapp.daos.IngredientDAOImpl;
-import com.example.rezepteapp.daos.ShoppinglistDAO;
-import com.example.rezepteapp.daos.ShoppinglistDAOImpl;
+import com.example.rezepteapp.daos.ShoppinglistDAOEntry;
+import com.example.rezepteapp.daos.ShoppinglistDAOEntryImpl;
 import com.example.rezepteapp.entities.ShoppinglistEntity;
 import com.example.rezepteapp.model.ShoppinglistEntry;
 
@@ -32,7 +32,7 @@ public class FromShoppinglistEntryModelToShoppinglistEntityMapper {
     }
 
     private int getShoppinglistId(String amount, int ingredientId) {
-        ShoppinglistDAO dao = new ShoppinglistDAOImpl(context);
+        ShoppinglistDAOEntry dao = new ShoppinglistDAOEntryImpl(context);
         return dao.getId(amount, ingredientId);
     }
 }
