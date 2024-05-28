@@ -14,66 +14,64 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycl_view"
-            android:layout_width="300dp"
-            android:layout_height="400dp"
-            android:layout_marginStart="55dp"
-            android:layout_marginTop="23dp"
-            android:layout_marginEnd="56dp"
+            android:layout_width="346dp"
+            android:layout_height="472dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_welcome_submessage"
-            tools:itemCount="5"
+            tools:itemCount="7"
             tools:listitem="@layout/recycl_item_welcome_screen_recipes" />
 
         <TextView
             android:id="@+id/tv_welcome_message"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="55dp"
-            android:layout_marginTop="119dp"
-            android:layout_marginEnd="267dp"
-            android:text="Hallo XY!"
-            android:textSize="22sp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="291dp"
+            android:layout_marginBottom="8dp"
+            android:text="Hey du!"
+            android:textSize="26sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/tv_welcome_submessage"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/img_weather" />
 
         <TextView
             android:id="@+id/tv_welcome_submessage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="55dp"
+            android:layout_marginStart="32dp"
             android:layout_marginTop="8dp"
-            android:layout_marginEnd="161dp"
-            android:layout_marginBottom="10dp"
-            android:text="Das hier ist erstmal hardcoded."
-            app:layout_constraintBottom_toTopOf="@+id/recycl_view"
+            android:layout_marginEnd="180dp"
+            android:text="Was möchtest du heute kochen?"
+            android:textStyle="italic"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_welcome_message" />
 
         <ImageView
             android:id="@+id/img_weather"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="32dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:src="@tools:sample/avatars" />
+            tools:srcCompat="@tools:sample/avatars" />
 
         <TextView
             android:id="@+id/tv_weather_degrees"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="25dp"
-            android:layout_marginEnd="310dp"
-            android:layout_marginBottom="75dp"
+            android:layout_marginTop="54dp"
+            android:layout_marginEnd="256dp"
             android:text="XY °C"
-            app:layout_constraintBottom_toTopOf="@+id/tv_welcome_message"
+            android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/img_weather"
             app:layout_constraintTop_toTopOf="parent" />
