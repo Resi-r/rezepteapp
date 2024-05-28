@@ -11,5 +11,5 @@ public interface ShoppinglistDAO {
 
     ShoppinglistEntity getShoppinglistById(int id);
     List<ShoppinglistEntity> getAllShoppinglist();
-    int getId(String name);
+    int getId(String amount, int ingredientId);
 }

@@ -44,6 +44,6 @@ public class FromRecipeModelToRecipeEntityMapper {
 
     private int getStatusId(Status status) {
         StatusDAO statusDAO = new StatusDAOImpl(context);
-        return statusDAO.getStatusByName(status.name()).getId();
+        return statusDAO.getId(status.name());
     }
 }

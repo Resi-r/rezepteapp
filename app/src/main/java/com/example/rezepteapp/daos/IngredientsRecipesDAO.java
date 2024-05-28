@@ -14,4 +14,5 @@ public interface IngredientsRecipesDAO {
     List<IngredientsRecipesEntity> getIngredientsRecipesByRecipesId(int id);
     List<IngredientsRecipesEntity> getAllIngredientsRecipes();
     int getId(String name);
+    String getAmount(int id);
 }

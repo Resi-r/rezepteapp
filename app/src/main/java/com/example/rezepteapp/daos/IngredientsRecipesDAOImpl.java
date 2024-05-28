@@ -166,4 +166,15 @@ public class IngredientsRecipesDAOImpl implements IngredientsRecipesDAO {
         }
         return 0;
     }
+
+    @Override
+    public String getAmount(int id) {
+        try (SQLiteDatabase db = dbOpenHelper.getReadableDatabase()){
+            Cursor cursor = db.query(DB_TABLE_INGREDIENTS_RECIPES, new String[]{"amount"}, null, null, null, null, null);
+            if (cursor.moveToFirst()) {
+                return cursor.getString(cursor.getColumnIndexOrThrow("amount"));
+            }
+        }
+        return null;
+    }
 }
