@@ -14,7 +14,7 @@
         android:id="@+id/img_title"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:src="@android:color/holo_blue_light"
+        android:src="@color/secondary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -26,7 +26,7 @@
         android:layout_height="0dp"
         android:layout_marginTop="90dp"
         android:text="@string/titel_rezept"
-        android:textStyle="bold"
+        android:theme="@style/h1"
         app:layout_constraintBaseline_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -52,7 +52,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:background="#72CEF8"
+                android:background="@color/secondary"
+                android:theme="@style/simpleText"
                 android:padding="5dp"
                 android:text="Vegan" />
 
@@ -61,7 +62,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:background="#72CEF8"
+                android:background="@color/secondary"
+                android:theme="@style/simpleText"
                 android:padding="5dp"
                 android:text="Vegetarisch" />
 
@@ -71,7 +73,8 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
-                android:background="#72CEF8"
+                android:background="@color/secondary"
+                android:theme="@style/simpleText"
                 android:padding="5dp"
                 android:text="Lieblingsessen" />
 
@@ -80,7 +83,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:background="#72CEF8"
+                android:background="@color/secondary"
+                android:theme="@style/simpleText"
                 android:padding="5dp"
                 android:text="Vegan" />
 
@@ -89,7 +93,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:background="#72CEF8"
+                android:background="@color/secondary"
+                android:theme="@style/simpleText"
                 android:padding="5dp"
                 android:text="Vegetarisch" />
 
@@ -99,7 +104,8 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
-                android:background="#72CEF8"
+                android:background="@color/secondary"
+                android:theme="@style/simpleText"
                 android:padding="5dp"
                 android:text="Lieblingsessen" />
         </LinearLayout>
@@ -120,6 +126,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:theme="@style/simpleText"
             android:text="20 Min\nVorbereitung"
             android:textAlignment="center" />
 
@@ -128,6 +135,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:theme="@style/simpleText"
             android:text="20 Min\nKochen"
             android:textAlignment="center" />
 
@@ -142,6 +150,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:theme="@style/simpleText"
             android:text="5\nPortionen"
             android:textAlignment="center" />
 
@@ -175,8 +184,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="6"
             android:text="Zutaten"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+            android:theme="@style/h1"
+            android:textSize="20sp" />
 
         <Button
             android:id="@+id/btn_add_to_shoppinglist"
@@ -217,7 +226,7 @@
         android:layout_margin="10dp"
         android:text="Vorgehen"
         android:textSize="20sp"
-        android:textStyle="bold"
+        android:theme="@style/h1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -252,8 +261,8 @@
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:text="Notizen"
+        android:theme="@style/h1"
         android:textSize="20sp"
-        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -270,15 +279,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_notes_title" />
 
-    <ImageButton
+    <Button
         android:id="@+id/btn_back"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/baseline_arrow_back_24"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/ic_input_delete"
-        android:contentDescription="Zurück" />
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

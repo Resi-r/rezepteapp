@@ -5,7 +5,7 @@
     android:id="@+id/layout_notes_dialog"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#D1C4E9"
+    android:background="@color/secondary"
     android:paddingBottom="10dp">
 
     <TextView
@@ -15,8 +15,8 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
+        android:theme="@style/h2"
         android:text="Notiz hinzufügen"
-        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
