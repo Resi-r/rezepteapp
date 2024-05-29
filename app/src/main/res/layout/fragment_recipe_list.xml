@@ -16,9 +16,11 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="20dp"
             android:layout_marginBottom="20dp"
+            android:backgroundTint="@color/secondary"
             android:clickable="true"
             android:contentDescription="Add Recipe"
-            android:src="@android:drawable/ic_input_add"
+            android:src="@drawable/baseline_add_24_white"
+            app:borderWidth="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
@@ -38,22 +40,15 @@
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
 
-                <Button
-                    android:id="@+id/btn_filter1"
-                    android:layout_width="80dp"
-                    android:layout_height="50dp"
+                <TextView
+                    android:id="@+id/tv_filter1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Filter1"
-                    android:textSize="10sp" />
-
-                <Button
-                    android:id="@+id/btn_filter2"
-                    android:layout_width="80dp"
-                    android:layout_height="50dp"
-                    android:layout_marginStart="10dp"
-                    android:layout_weight="1"
-                    android:text="Filter2"
-                    android:textSize="10sp" />
+                    android:background="@color/secondary"
+                    android:padding="5dp"
+                    android:theme="@style/simpleText"
+                    android:text="TextView" />
             </LinearLayout>
         </HorizontalScrollView>
 
@@ -68,17 +63,17 @@
 
         </SearchView>
 
-        <ImageButton
-            android:id="@+id/btn_filter"
+        <Button
+            android:id="@+id/button"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_marginStart="30dp"
+            android:layout_marginStart="25dp"
             android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/baseline_assistant_24"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/searchbar_recipes"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:src="@tools:sample/avatars" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tv_active_filter"
@@ -87,8 +82,8 @@
             android:layout_marginStart="55dp"
             android:layout_marginTop="64dp"
             android:layout_marginEnd="281dp"
+            android:theme="@style/simpleText"
             android:text="Aktive Filter:"
-            android:textStyle="italic"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/searchbar_recipes" />
