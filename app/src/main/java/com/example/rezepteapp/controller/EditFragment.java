@@ -1,23 +1,16 @@
 package com.example.rezepteapp.controller;
 
 import android.content.Intent;
-import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.os.Bundle;
 
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.provider.MediaStore;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,9 +18,9 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import com.example.rezepteapp.IngredientsAdapter;
+import com.example.rezepteapp.adapter.IngredientsAdapter;
 import com.example.rezepteapp.R;
-import com.example.rezepteapp.StringListAdapter;
+import com.example.rezepteapp.adapter.StringListAdapter;
 import com.example.rezepteapp.databinding.FragmentEditBinding;
 import com.example.rezepteapp.model.Ingredient;
 import com.example.rezepteapp.model.Label;

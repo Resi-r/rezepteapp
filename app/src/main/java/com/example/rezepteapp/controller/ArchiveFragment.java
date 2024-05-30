@@ -8,12 +8,14 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import com.example.rezepteapp.adapter.ArchivedRecipeAdapter;
 import com.example.rezepteapp.databinding.FragmentArchiveBinding;
 import com.example.rezepteapp.model.RecipeModel;
 
 public class ArchiveFragment extends Fragment {
     private FragmentArchiveBinding binding;
     private RecipeModel model;
+    private ArchivedRecipeAdapter adapter;
 
     public ArchiveFragment() {
         model = new RecipeModel(getContext());
@@ -29,6 +31,7 @@ public class ArchiveFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, Bundle saveInstanceState) {
         super.onViewCreated(view, saveInstanceState);
+        adapter = new ArchivedRecipeAdapter(model.getArchivedRecipes());
     }
 
     @Override

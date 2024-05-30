@@ -16,7 +16,6 @@ public class RecipeModel {
 
     public List<ShoppinglistEntry> getToDoList() {
         toDoList.clear();
-//        toDoList.addAll(mapper.mapToList(sldao.getAllShoppinglist(), idao.getAllIngredients()));
 
         return toDoList;
     }
@@ -29,7 +28,7 @@ public class RecipeModel {
         return null;
     }
 
-    private List<Recipe> getArchivedRecipes() {
+    public List<Recipe> getArchivedRecipes() {
         return null;
     }
 

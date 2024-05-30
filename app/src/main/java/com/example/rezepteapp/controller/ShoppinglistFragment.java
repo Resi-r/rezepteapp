@@ -9,8 +9,8 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.example.rezepteapp.ShoppinglistDoneAdapter;
-import com.example.rezepteapp.ShoppinglistToDoAdapter;
+import com.example.rezepteapp.adapter.ShoppinglistDoneAdapter;
+import com.example.rezepteapp.adapter.ShoppinglistToDoAdapter;
 import com.example.rezepteapp.databinding.FragmentShoppinglistBinding;
 import com.example.rezepteapp.model.RecipeModel;
 import com.example.rezepteapp.model.ShoppinglistEntry;
