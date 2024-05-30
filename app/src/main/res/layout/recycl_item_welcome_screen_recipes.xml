@@ -33,15 +33,20 @@
                 android:id="@+id/tv_title_recipe_entry"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:padding="5dp"
                 android:text="TextView"
                 android:textSize="18sp"
-                android:textStyle="bold" />
+                android:theme="@style/entryHeader" />
 
             <TextView
                 android:id="@+id/tv_descr_recipe_entry"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test" />
+                android:paddingStart="5dp"
+                android:paddingRight="5dp"
+                android:paddingBottom="5dp"
+                android:text="Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test"
+                android:theme="@style/entryDescription"/>
         </LinearLayout>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

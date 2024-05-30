@@ -22,6 +22,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
+        android:theme="@style/simpleText"
         android:text="200g" />
 
     <TextView
@@ -29,5 +30,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="5"
+        android:theme="@style/simpleText"
         android:text="Zucker" />
 </LinearLayout>

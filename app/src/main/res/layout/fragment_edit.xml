@@ -18,9 +18,9 @@
                 android:id="@+id/img_title"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                android:src="@android:color/holo_blue_light"
-                android:contentDescription="TEST"
                 android:clickable="true"
+                android:contentDescription="TEST"
+                android:src="@color/secondary"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
@@ -44,6 +44,7 @@
                 android:id="@+id/scroll_labels"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:padding="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
@@ -69,18 +70,20 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
-                        android:background="#72CEF8"
+                        android:background="@color/secondary"
                         android:padding="5dp"
-                        android:text="Vegan" />
+                        android:text="Vegan"
+                        android:theme="@style/simpleText" />
 
                     <TextView
                         android:id="@+id/tv_label_2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
-                        android:background="#72CEF8"
+                        android:background="@color/secondary"
                         android:padding="5dp"
-                        android:text="Vegetarisch" />
+                        android:text="Vegetarisch"
+                        android:theme="@style/simpleText" />
 
                     <TextView
                         android:id="@+id/tv_label_3"
@@ -88,27 +91,30 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
                         android:layout_weight="1"
-                        android:background="#72CEF8"
+                        android:background="@color/secondary"
                         android:padding="5dp"
-                        android:text="Lieblingsessen" />
+                        android:text="Lieblingsessen"
+                        android:theme="@style/simpleText" />
 
                     <TextView
                         android:id="@+id/tv_label_4"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
-                        android:background="#72CEF8"
+                        android:background="@color/secondary"
                         android:padding="5dp"
-                        android:text="Vegan" />
+                        android:text="Vegan"
+                        android:theme="@style/simpleText" />
 
                     <TextView
                         android:id="@+id/tv_label_5"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
-                        android:background="#72CEF8"
+                        android:background="@color/secondary"
                         android:padding="5dp"
-                        android:text="Vegetarisch" />
+                        android:text="Vegetarisch"
+                        android:theme="@style/simpleText" />
 
                     <TextView
                         android:id="@+id/tv_label_6"
@@ -116,9 +122,10 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
                         android:layout_weight="1"
-                        android:background="#72CEF8"
+                        android:background="@color/secondary"
                         android:padding="5dp"
-                        android:text="Lieblingsessen" />
+                        android:text="Lieblingsessen"
+                        android:theme="@style/simpleText" />
                 </LinearLayout>
             </HorizontalScrollView>
 
@@ -127,6 +134,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
+                android:padding="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
@@ -180,6 +188,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:orientation="horizontal"
+                android:padding="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
@@ -191,8 +200,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="6"
                     android:text="Zutaten"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
+                    android:theme="@style/h1" />
 
             </LinearLayout>
 
@@ -203,6 +211,7 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
+                android:padding="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
@@ -212,6 +221,7 @@
                 android:id="@+id/linear_add_ingredient"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:padding="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
@@ -244,6 +254,7 @@
                 android:id="@+id/btn_add_ingridient"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:padding="10dp"
                 android:text="Hinzufügen"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
@@ -256,6 +267,7 @@
                 android:layout_height="1dp"
                 android:layout_margin="10dp"
                 android:background="#4FC3F7"
+                android:padding="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
@@ -266,9 +278,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
+                android:padding="10dp"
                 android:text="Vorgehen"
-                android:textSize="20sp"
-                android:textStyle="bold"
+                android:theme="@style/h1"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
@@ -281,6 +293,7 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
+                android:padding="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_steps_title" />
@@ -290,6 +303,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Neuer Schritt"
+                android:padding="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
@@ -299,6 +313,7 @@
                 android:id="@+id/btn_add_step"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:padding="10dp"
                 android:text="Hinzufügen"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
@@ -312,6 +327,7 @@
                 android:layout_height="1dp"
                 android:layout_margin="10dp"
                 android:background="#4FC3F7"
+                android:padding="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
@@ -322,9 +338,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
+                android:padding="10dp"
                 android:text="Notizen"
-                android:textSize="20sp"
-                android:textStyle="bold"
+                android:theme="@style/h1"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
@@ -335,6 +351,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
+                android:padding="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"

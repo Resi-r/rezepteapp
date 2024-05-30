@@ -16,11 +16,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
-        android:text="@string/quantity" />
+        android:text="@string/quantity"
+        android:theme="@style/simpleText"/>
 
     <TextView
         android:id="@+id/tv_shoppinglist_entry_item"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/ingredient" />
+        android:text="@string/ingredient"
+        android:theme="@style/simpleText"/>
 </LinearLayout>

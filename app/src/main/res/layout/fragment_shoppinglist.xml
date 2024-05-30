@@ -20,7 +20,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:text="@string/txt_zu_besorgen"
-                android:textSize="36sp"
+                android:theme="@style/h1"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -43,7 +43,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:text="@string/txt_erledigt"
-                android:textSize="36sp"
+                android:theme="@style/h1"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/divider" />
 
@@ -89,7 +89,9 @@
             android:layout_marginBottom="-64dp"
             android:clickable="true"
             android:contentDescription="@string/description_content_add"
-            app:srcCompat="@android:drawable/ic_input_add" />
+            android:theme="@style/addButton"
+            app:borderWidth="0dp"
+            app:srcCompat="@drawable/baseline_add_24_white" />
 
     </RelativeLayout>
 </FrameLayout>
