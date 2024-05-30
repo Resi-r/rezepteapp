@@ -23,11 +23,11 @@
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tv_title"
         android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_marginTop="90dp"
+        android:layout_height="wrap_content"
         android:text="@string/titel_rezept"
         android:theme="@style/h1"
         app:layout_constraintBaseline_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/img_title"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -45,7 +45,9 @@
             android:id="@+id/linearLayout_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_margin="5dp"
+            android:orientation="horizontal"
+            android:padding="5dp">
 
             <TextView
                 android:id="@+id/tv_label_1"
@@ -53,9 +55,9 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:background="@color/secondary"
-                android:theme="@style/simpleText"
                 android:padding="5dp"
-                android:text="Vegan" />
+                android:text="Vegan"
+                android:theme="@style/simpleText" />
 
             <TextView
                 android:id="@+id/tv_label_2"
@@ -63,9 +65,9 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:background="@color/secondary"
-                android:theme="@style/simpleText"
                 android:padding="5dp"
-                android:text="Vegetarisch" />
+                android:text="Vegetarisch"
+                android:theme="@style/simpleText" />
 
             <TextView
                 android:id="@+id/tv_label_3"
@@ -74,9 +76,9 @@
                 android:layout_margin="10dp"
                 android:layout_weight="1"
                 android:background="@color/secondary"
-                android:theme="@style/simpleText"
                 android:padding="5dp"
-                android:text="Lieblingsessen" />
+                android:text="Lieblingsessen"
+                android:theme="@style/simpleText" />
 
             <TextView
                 android:id="@+id/tv_label_4"
@@ -84,9 +86,9 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:background="@color/secondary"
-                android:theme="@style/simpleText"
                 android:padding="5dp"
-                android:text="Vegan" />
+                android:text="Vegan"
+                android:theme="@style/simpleText" />
 
             <TextView
                 android:id="@+id/tv_label_5"
@@ -94,9 +96,9 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:background="@color/secondary"
-                android:theme="@style/simpleText"
                 android:padding="5dp"
-                android:text="Vegetarisch" />
+                android:text="Vegetarisch"
+                android:theme="@style/simpleText" />
 
             <TextView
                 android:id="@+id/tv_label_6"
@@ -105,9 +107,9 @@
                 android:layout_margin="10dp"
                 android:layout_weight="1"
                 android:background="@color/secondary"
-                android:theme="@style/simpleText"
                 android:padding="5dp"
-                android:text="Lieblingsessen" />
+                android:text="Lieblingsessen"
+                android:theme="@style/simpleText" />
         </LinearLayout>
     </HorizontalScrollView>
 
@@ -125,34 +127,41 @@
             android:id="@+id/tv_v_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="5dp"
             android:layout_weight="1"
-            android:theme="@style/simpleText"
+            android:padding="5dp"
             android:text="20 Min\nVorbereitung"
-            android:textAlignment="center" />
+            android:textAlignment="center"
+            android:theme="@style/simpleText" />
 
         <TextView
             android:id="@+id/tv_k_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="5dp"
             android:layout_weight="1"
-            android:theme="@style/simpleText"
+            android:padding="5dp"
             android:text="20 Min\nKochen"
-            android:textAlignment="center" />
+            android:textAlignment="center"
+            android:theme="@style/simpleText" />
 
         <View
             android:id="@+id/seperator_1"
             android:layout_width="1dp"
             android:layout_height="match_parent"
-            android:background="#4FC3F7" />
+            android:layout_margin="5dp"
+            android:background="@color/grey" />
 
         <TextView
             android:id="@+id/tv_people"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="5dp"
             android:layout_weight="1"
-            android:theme="@style/simpleText"
+            android:padding="5dp"
             android:text="5\nPortionen"
-            android:textAlignment="center" />
+            android:textAlignment="center"
+            android:theme="@style/simpleText" />
 
     </LinearLayout>
 
@@ -160,8 +169,9 @@
         android:id="@+id/seperator_2"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_margin="10dp"
-        android:background="#4FC3F7"
+        android:layout_margin="15dp"
+        android:layout_marginTop="16dp"
+        android:background="@color/grey"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -172,6 +182,9 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="32dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -182,16 +195,19 @@
             android:id="@+id/tv_ingridients_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="6"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
             android:text="Zutaten"
-            android:theme="@style/h1"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:theme="@style/h1" />
 
         <Button
             android:id="@+id/btn_add_to_shoppinglist"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_margin="10dp"
+            android:layout_weight="0"
+            android:background="@drawable/rounded_button"
             android:text="Liste" />
     </LinearLayout>
 
@@ -199,9 +215,10 @@
         android:id="@+id/recycl_ingridients"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
+        android:layout_margin="10dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="32dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -213,7 +230,8 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_margin="10dp"
-        android:background="#4FC3F7"
+        android:layout_marginTop="16dp"
+        android:background="@color/grey"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -224,6 +242,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="32dp"
+        android:padding="5dp"
         android:text="Vorgehen"
         android:textSize="20sp"
         android:theme="@style/h1"
@@ -236,9 +258,9 @@
         android:id="@+id/recycl_steps"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="32dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_steps_title"
@@ -249,7 +271,8 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_margin="10dp"
-        android:background="#4FC3F7"
+        android:layout_marginTop="16dp"
+        android:background="@color/grey"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -260,9 +283,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="32dp"
         android:text="Notizen"
-        android:theme="@style/h1"
         android:textSize="20sp"
+        android:theme="@style/h1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -283,8 +309,8 @@
         android:id="@+id/btn_back"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
         android:background="@drawable/baseline_arrow_back_24"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
