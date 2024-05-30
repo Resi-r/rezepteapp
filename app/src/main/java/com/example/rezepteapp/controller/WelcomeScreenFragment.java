@@ -5,12 +5,15 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.rezepteapp.RecipeListAdapter;
 import com.example.rezepteapp.databinding.FragmentWelcomeScreenBinding;
+import com.example.rezepteapp.model.Recipe;
 import com.example.rezepteapp.weather.Weather;
 import com.example.rezepteapp.weather.WeatherCall;
 import com.example.rezepteapp.weather.WeatherCallback;
@@ -24,6 +27,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.net.ssl.HttpsURLConnection;
@@ -32,6 +37,8 @@ public class WelcomeScreenFragment extends Fragment implements WeatherCallback {
 
     private FragmentWelcomeScreenBinding binding;
     private WeatherCall weatherCall;
+    private List<Recipe> recipeList;
+    private RecipeListAdapter recipeListAdapter;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -42,6 +49,7 @@ public class WelcomeScreenFragment extends Fragment implements WeatherCallback {
 
     public WelcomeScreenFragment() {
         model = new RecipeModel(getContext());
+        recipeList = new ArrayList<>();
     }
 
     @Override
@@ -55,6 +63,11 @@ public class WelcomeScreenFragment extends Fragment implements WeatherCallback {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         getWeather();
+
+        recipeListAdapter = new RecipeListAdapter(recipeList);
+
+        binding.recyclView.setAdapter(recipeListAdapter);
+        binding.recyclView.setLayoutManager(new LinearLayoutManager(requireContext()));
     }
 
     @Override
