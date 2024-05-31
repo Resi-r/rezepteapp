@@ -19,7 +19,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.rezepteapp.R;
-import com.example.rezepteapp.RecipeListAdapter;
+import com.example.rezepteapp.adapter.RecipeListAdapter;
 import com.example.rezepteapp.databinding.FragmentRecipeListBinding;
 import com.example.rezepteapp.model.Recipe;
 import com.example.rezepteapp.model.RecipeModel;

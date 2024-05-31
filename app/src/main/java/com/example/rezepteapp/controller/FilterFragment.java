@@ -19,10 +19,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 
-import com.example.rezepteapp.FilterAdapter;
+import com.example.rezepteapp.adapter.FilterAdapter;
 import com.example.rezepteapp.R;
 import com.example.rezepteapp.databinding.FragmentFilterBinding;
-import com.example.rezepteapp.databinding.FragmentRecipeListBinding;
 import com.example.rezepteapp.model.FilterOption;
 
 import java.util.ArrayList;

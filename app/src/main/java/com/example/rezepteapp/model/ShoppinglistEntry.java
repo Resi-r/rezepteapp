@@ -4,8 +4,17 @@ public class ShoppinglistEntry {
     private int id;
     private String amount;
     private String ingredient;
+    private ShoppinglistEtryStatus status;
 
     public ShoppinglistEntry(){}
+
+    public ShoppinglistEtryStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(ShoppinglistEtryStatus status) {
+        this.status = status;
+    }
 
     public int getId() {
         return id;

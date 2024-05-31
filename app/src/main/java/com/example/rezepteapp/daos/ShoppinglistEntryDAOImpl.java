@@ -9,6 +9,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.example.rezepteapp.database.RecipeDbOpenHelper;
 import com.example.rezepteapp.entities.ShoppinglistEntryEntity;
+import com.example.rezepteapp.model.ShoppinglistEtryStatus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +29,7 @@ public class ShoppinglistEntryDAOImpl implements ShoppinglistEntryDAO {
             ContentValues values = new ContentValues();
             values.put("amount", entity.getAmount());
             values.put("ingredientId", entity.getIngredientId());
+            values.put("status", entity.getStatus().toString());
             try {
                 db.update(DB_TABLE_SHOPPINGLIST_ENTRY, values, "_id = ?", new String[]{String.valueOf(entity.getId())});
             } catch (Exception e) {
@@ -44,7 +46,18 @@ public class ShoppinglistEntryDAOImpl implements ShoppinglistEntryDAO {
     }
 
     @Override
-    public ShoppinglistEntryEntity getShoppinglistById(int id) {
+    public void insert(ShoppinglistEntryEntity entity) {
+        try (SQLiteDatabase db = dbHelper.getWritableDatabase()){
+            ContentValues values = new ContentValues();
+            values.put("amount", entity.getAmount());
+            values.put("ingredientId", entity.getIngredientId());
+            values.put("status", entity.getStatus().toString());
+            db.insert(DB_TABLE_SHOPPINGLIST_ENTRY, null, values);
+        }
+    }
+
+    @Override
+    public ShoppinglistEntryEntity getShoppinglistEntryById(int id) {
         try (SQLiteDatabase db = dbHelper.getReadableDatabase()) {
             ShoppinglistEntryEntity entity = new ShoppinglistEntryEntity();
 
@@ -53,10 +66,12 @@ public class ShoppinglistEntryDAOImpl implements ShoppinglistEntryDAO {
                     int idIndex = cursor.getColumnIndex("_id");
                     int amountIndex = cursor.getColumnIndex("amount");
                     int ingredientIdIndex = cursor.getColumnIndex("ingredientId");
+                    int statusIndex = cursor.getColumnIndex("status");
 
                     entity.setId(cursor.getInt(idIndex));
                     entity.setAmount(cursor.getString(amountIndex));
                     entity.setIngredientId(cursor.getInt(ingredientIdIndex));
+                    entity.setStatus(ShoppinglistEtryStatus.valueOf(cursor.getString(statusIndex)));
                 }
                 return entity;
             }
@@ -64,7 +79,7 @@ public class ShoppinglistEntryDAOImpl implements ShoppinglistEntryDAO {
     }
 
     @Override
-    public List<ShoppinglistEntryEntity> getAllShoppinglist() {
+    public List<ShoppinglistEntryEntity> getAllShoppinglistEntries() {
         try (SQLiteDatabase db = dbHelper.getReadableDatabase()) {
             List<ShoppinglistEntryEntity> entities = new ArrayList<>();
             ShoppinglistEntryEntity entity;
@@ -74,12 +89,68 @@ public class ShoppinglistEntryDAOImpl implements ShoppinglistEntryDAO {
                     int idIndex = cursor.getColumnIndex("_id");
                     int amountIndex = cursor.getColumnIndex("amount");
                     int ingredientIdIndex = cursor.getColumnIndex("ingredientId");
+                    int statusIndex = cursor.getColumnIndex("status");
 
                     entity = new ShoppinglistEntryEntity();
 
                     entity.setId(cursor.getInt(idIndex));
                     entity.setAmount(cursor.getString(amountIndex));
                     entity.setIngredientId(cursor.getInt(ingredientIdIndex));
+                    entity.setStatus(ShoppinglistEtryStatus.valueOf(cursor.getString(statusIndex)));
+
+                    entities.add(entity);
+                }
+                return entities;
+            }
+        }
+    }
+
+    @Override
+    public List<ShoppinglistEntryEntity> getAllTodoEntries() {
+        try (SQLiteDatabase db = dbHelper.getReadableDatabase()) {
+            List<ShoppinglistEntryEntity> entities = new ArrayList<>();
+            ShoppinglistEntryEntity entity;
+
+            try (Cursor cursor = db.query(DB_TABLE_SHOPPINGLIST_ENTRY, null, "status = ?", new String[]{"TODO"}, null, null, null)) {
+                while (cursor.moveToNext()) {
+                    int idIndex = cursor.getColumnIndex("_id");
+                    int amountIndex = cursor.getColumnIndex("amount");
+                    int ingredientIdIndex = cursor.getColumnIndex("ingredientId");
+                    int statusIndex = cursor.getColumnIndex("status");
+
+                    entity = new ShoppinglistEntryEntity();
+
+                    entity.setId(cursor.getInt(idIndex));
+                    entity.setAmount(cursor.getString(amountIndex));
+                    entity.setIngredientId(cursor.getInt(ingredientIdIndex));
+                    entity.setStatus(ShoppinglistEtryStatus.valueOf(cursor.getString(statusIndex)));
+
+                    entities.add(entity);
+                }
+                return entities;
+            }
+        }
+    }
+
+    @Override
+    public List<ShoppinglistEntryEntity> getAllDoneEntries() {
+        try (SQLiteDatabase db = dbHelper.getReadableDatabase()) {
+            List<ShoppinglistEntryEntity> entities = new ArrayList<>();
+            ShoppinglistEntryEntity entity;
+
+            try (Cursor cursor = db.query(DB_TABLE_SHOPPINGLIST_ENTRY, null, "status = ?", new String[]{"DONE"}, null, null, null)) {
+                while (cursor.moveToNext()) {
+                    int idIndex = cursor.getColumnIndex("_id");
+                    int amountIndex = cursor.getColumnIndex("amount");
+                    int ingredientIdIndex = cursor.getColumnIndex("ingredientId");
+                    int statusIndex = cursor.getColumnIndex("status");
+
+                    entity = new ShoppinglistEntryEntity();
+
+                    entity.setId(cursor.getInt(idIndex));
+                    entity.setAmount(cursor.getString(amountIndex));
+                    entity.setIngredientId(cursor.getInt(ingredientIdIndex));
+                    entity.setStatus(ShoppinglistEtryStatus.valueOf(cursor.getString(statusIndex)));
 
                     entities.add(entity);
                 }
