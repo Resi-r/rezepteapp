@@ -11,27 +11,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.rezepteapp.RecipeListAdapter;
+import com.example.rezepteapp.adapter.RecipeListAdapter;
 import com.example.rezepteapp.databinding.FragmentWelcomeScreenBinding;
 import com.example.rezepteapp.model.Recipe;
 import com.example.rezepteapp.weather.Weather;
 import com.example.rezepteapp.weather.WeatherCall;
 import com.example.rezepteapp.weather.WeatherCallback;
 
-import org.json.JSONException;
-import org.json.JSONObject;
 import com.example.rezepteapp.model.RecipeModel;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
-
-import javax.net.ssl.HttpsURLConnection;
 
 public class WelcomeScreenFragment extends Fragment implements WeatherCallback {
 

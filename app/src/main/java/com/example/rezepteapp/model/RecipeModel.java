@@ -1,7 +1,6 @@
 package com.example.rezepteapp.model;
 
 import android.content.Context;
-import android.view.MenuItem;
 
 import com.example.rezepteapp.daos.IngredientDAOImpl;
 import com.example.rezepteapp.daos.RecipeDAOImpl;
@@ -26,7 +25,6 @@ public class RecipeModel {
     private ShoppinglistEntryDAOImpl sldao;
     private IngredientDAOImpl idao;
     private RecipeDAOImpl recipeDAO;
-    private Context context;
 
 
 
@@ -136,8 +134,6 @@ public class RecipeModel {
         entity.setStatusId(2);
         recipeDAO.saveOrDelete(entity);
     }
-}
-
     public void deleteShoppinglistEntry(ShoppinglistEntry entry) {
         FromShoppinglistEntryModelToShoppinglistEntryEntityMapper mapper = new FromShoppinglistEntryModelToShoppinglistEntryEntityMapper(context);
         ShoppinglistEntryEntity entity = mapper.map(entry);
