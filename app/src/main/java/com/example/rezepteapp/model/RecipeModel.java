@@ -4,25 +4,22 @@ import android.content.Context;
 
 import com.example.rezepteapp.daos.IngredientDAOImpl;
 import com.example.rezepteapp.daos.ShoppinglistEntryDAOImpl;
+import com.example.rezepteapp.entities.IngredientEntity;
+import com.example.rezepteapp.entities.ShoppinglistEntryEntity;
+import com.example.rezepteapp.mapper.tomodel.FromShoppinglistEntryEntityToShoppinglistEntryMapper;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 public class RecipeModel {
-    private Recipe recipe;
-    private List<ShoppinglistEntry> toDoList;
     private ShoppinglistEntryDAOImpl sldao;
     private IngredientDAOImpl idao;
+    private Context context;
 
-
-    public List<ShoppinglistEntry> getToDoList() {
-        toDoList.clear();
-//        toDoList.addAll(mapper.mapToList(sldao.getAllShoppinglist(), idao.getAllIngredients()));
-
-        return toDoList;
-    }
 
     public RecipeModel(Context context) {
-
+        this.context = context;
     }
 
     private List<Recipe> getDailyRecipes() {
@@ -47,5 +44,30 @@ public class RecipeModel {
 
     private List<Recipe> getFilteredRecepieList(String searchString) {
         return null;
+    }
+
+    public List<ShoppinglistEntry> getToDoList() {
+        sldao = new ShoppinglistEntryDAOImpl(this.context);
+        idao = new IngredientDAOImpl(this.context);
+        FromShoppinglistEntryEntityToShoppinglistEntryMapper mapper = new FromShoppinglistEntryEntityToShoppinglistEntryMapper();
+        List<ShoppinglistEntryEntity> entriesEntity = sldao.getAllShoppinglist();
+        List<IngredientEntity> ingredientEntities = idao.getAllIngredients();
+        return new ArrayList<>(mapper.mapToList(entriesEntity, ingredientEntities));
+    }
+    public List<ShoppinglistEntry>  getDoneList() {
+        sldao = new ShoppinglistEntryDAOImpl(this.context);
+        idao = new IngredientDAOImpl(context);
+        FromShoppinglistEntryEntityToShoppinglistEntryMapper mapper = new FromShoppinglistEntryEntityToShoppinglistEntryMapper();
+        List<ShoppinglistEntryEntity> entriesEntity = sldao.getAllShoppinglist();
+        List<IngredientEntity> ingredientEntities = idao.getAllIngredients();
+        return new ArrayList<>(mapper.mapToList(entriesEntity, ingredientEntities));
+    }
+
+    public void addNewShoppinglistEntry(String ingredient, String quantity, String unit) {
+        ShoppinglistEntryEntity entity = new ShoppinglistEntryEntity();
+        String amount = String.join(" ", quantity, unit);
+        entity.setAmount(amount);
+        entity.setIngredientId(idao.getId(ingredient));
+        sldao.saveOrUpdate(entity);
     }
 }
