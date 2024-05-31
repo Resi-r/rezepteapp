@@ -12,6 +12,45 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <LinearLayout
+            android:id="@+id/linearLayout3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/img_weather"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="32dp"
+                android:layout_marginTop="32dp"
+                android:layout_marginBottom="32dp"
+                tools:srcCompat="@tools:sample/avatars" />
+
+            <TextView
+                android:id="@+id/tv_weather_degrees"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="15dp"
+                android:layout_weight="1"
+                android:text="XY °C"
+                android:theme="@style/weather" />
+
+            <Button
+                android:id="@+id/btn_archive"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_margin="32dp"
+                android:layout_weight="0"
+                android:background="@drawable/baseline_archive_24"
+                android:backgroundTint="@color/secondary" />
+        </LinearLayout>
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycl_view"
             android:layout_width="0dp"
@@ -38,7 +77,7 @@
             android:theme="@style/h1"
             app:layout_constraintBottom_toTopOf="@+id/tv_welcome_submessage"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/img_weather" />
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />
 
         <TextView
             android:id="@+id/tv_welcome_submessage"
@@ -50,27 +89,6 @@
             android:theme="@style/h2"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_welcome_message" />
-
-        <ImageView
-            android:id="@+id/img_weather"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="32dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:srcCompat="@tools:sample/avatars" />
-
-        <TextView
-            android:id="@+id/tv_weather_degrees"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="54dp"
-            android:text="XY °C"
-            android:theme="@style/weather"
-            app:layout_constraintStart_toEndOf="@+id/img_weather"
-            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

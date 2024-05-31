@@ -5,12 +5,15 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.rezepteapp.R;
 import com.example.rezepteapp.RecipeListAdapter;
 import com.example.rezepteapp.databinding.FragmentWelcomeScreenBinding;
 import com.example.rezepteapp.model.Recipe;
@@ -68,6 +71,16 @@ public class WelcomeScreenFragment extends Fragment implements WeatherCallback {
 
         binding.recyclView.setAdapter(recipeListAdapter);
         binding.recyclView.setLayoutManager(new LinearLayoutManager(requireContext()));
+
+        binding.btnArchive.setOnClickListener(v -> navigateToArchive());
+    }
+
+    private void navigateToArchive() {
+        FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.frame_layout, new ArchiveFragment());
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
     }
 
     @Override

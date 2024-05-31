@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".controller.RecipeListFragment" >
+    tools:context=".controller.RecipeListFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -19,6 +19,7 @@
             android:backgroundTint="@color/secondary"
             android:clickable="true"
             android:contentDescription="Add Recipe"
+            android:hapticFeedbackEnabled="true"
             android:src="@drawable/baseline_add_24_white"
             app:borderWidth="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -39,16 +40,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/tv_filter"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@color/secondary"
-                    android:padding="5dp"
-                    android:text="TextView"
-                    android:theme="@style/simpleText" />
+                <!-- Filter tags will be added here programmatically -->
             </LinearLayout>
         </HorizontalScrollView>
 
@@ -59,11 +51,11 @@
             android:layout_marginStart="32dp"
             android:layout_marginTop="32dp"
             android:layout_marginEnd="16dp"
+            android:background="@drawable/rounded_button"
+            android:backgroundTint="@color/tertiary"
             app:layout_constraintEnd_toStartOf="@+id/btn_filter"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-        </SearchView>
+            app:layout_constraintTop_toTopOf="parent"/>
 
         <Button
             android:id="@+id/btn_filter"
@@ -71,7 +63,9 @@
             android:layout_height="50dp"
             android:layout_marginTop="32dp"
             android:layout_marginEnd="32dp"
-            android:background="@drawable/baseline_assistant_24"
+            android:background="@drawable/baseline_filter_list_alt_24"
+            android:backgroundTint="@color/secondary"
+            android:hapticFeedbackEnabled="false"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -82,7 +76,9 @@
             android:layout_marginStart="32dp"
             android:layout_marginTop="64dp"
             android:text="Aktive Filter:"
-            android:theme="@style/simpleText"
+            android:textColor="@color/grey"
+            android:textSize="24sp"
+            android:theme="@style/h2"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/searchbar_recipes" />
 
