@@ -49,13 +49,8 @@ public class ShoppinglistFragment extends Fragment {
         super.onViewCreated(view, saveInstanceState);
         model = new RecipeModel(requireContext());
         this.updateLists();
-        adapterToDo = new ShoppinglistToDoAdapter(toDoList, entry -> {
-            toDoList.remove(entry);
-            doneList.add(entry);
-            adapterToDo.removeEntry(entry);
-            adapterDone.notifyItemInserted(doneList.size() - 1);
-        });
-        adapterDone = new ShoppinglistDoneAdapter(doneList);
+        adapterToDo = new ShoppinglistToDoAdapter(toDoList, entry -> moveToDoneList(entry), entry -> removeEntry(entry));
+        adapterDone = new ShoppinglistDoneAdapter(doneList, entry -> moveToToDoList(entry), entry -> removeEntry(entry));
 
         binding.ddIngredientsToGet.setOnClickListener(v -> {
             if (isToDoExpanded) {
@@ -80,7 +75,6 @@ public class ShoppinglistFragment extends Fragment {
 
         binding.btAddItemToList.setOnClickListener(v -> {
             if (addToToDoListFieldsFilled()) {
-                model.addNewShoppinglistEntry(binding.etAddIngredient.getText().toString(), binding.etAddQuantity.getText().toString(), binding.spinnerAddUnit.getSelectedItem().toString());
                 ShoppinglistEntry newEntry = model.addNewShoppinglistEntry(
                         binding.etAddIngredient.getText().toString(),
                         binding.etAddQuantity.getText().toString(),
@@ -123,8 +117,38 @@ public class ShoppinglistFragment extends Fragment {
         this.toDoList.addAll(this.model.getToDoList());
         this.doneList.clear();
         this.doneList.addAll(this.model.getDoneList());
-//        adapterToDo.notifyDataSetChanged();
-//        adapterDone.notifyDataSetChanged();
+    }
+
+    private void moveToDoneList(ShoppinglistEntry entry) {
+        int position = toDoList.indexOf(entry);
+        if (position != -1) {
+            toDoList.remove(position);
+            adapterToDo.notifyItemRemoved(position);
+            doneList.add(entry);
+            adapterDone.notifyItemInserted(doneList.size() - 1);
+            model.updateDoneList(entry);
+        }
+    }
+
+    private void moveToToDoList(ShoppinglistEntry entry) {
+        int position = doneList.indexOf(entry);
+        if (position != -1) {
+            doneList.remove(position);
+            adapterDone.notifyItemRemoved(position);
+            toDoList.add(entry);
+            adapterToDo.notifyItemInserted(toDoList.size() - 1);
+            model.updateTodoList(entry);
+        }
+    }
+    private void removeEntry(ShoppinglistEntry entry) {
+        int position = doneList.indexOf(entry);
+        if (position != -1) {
+            doneList.remove(position);
+            adapterDone.notifyItemRemoved(position);
+            toDoList.add(entry);
+            adapterToDo.notifyItemInserted(toDoList.size() - 1);
+            model.deleteShoppinglistEntry(entry);
+        }
     }
 
     @Override

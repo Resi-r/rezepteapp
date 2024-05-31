@@ -1,5 +1,7 @@
 package com.example.rezepteapp.entities;
 
+import com.example.rezepteapp.model.ShoppinglistEtryStatus;
+
 import java.util.Objects;
 
 public class ShoppinglistEntryEntity {
@@ -8,6 +10,7 @@ public class ShoppinglistEntryEntity {
     private String amount;
 
     private int ingredientId;
+    private ShoppinglistEtryStatus status;
 
     public ShoppinglistEntryEntity() {}
 
@@ -20,6 +23,20 @@ public class ShoppinglistEntryEntity {
         this.id = id;
         this.amount = amount;
         this.ingredientId = ingredientId;
+    }
+    public ShoppinglistEntryEntity(int id, String amount, int ingredientId, ShoppinglistEtryStatus status) {
+        this.id = id;
+        this.amount = amount;
+        this.ingredientId = ingredientId;
+        this.status = status;
+    }
+
+    public ShoppinglistEtryStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(ShoppinglistEtryStatus status) {
+        this.status = status;
     }
 
     public int getId() {
