@@ -10,6 +10,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.example.rezepteapp.database.RecipeDbOpenHelper;
 import com.example.rezepteapp.entities.RecipeEntity;
+import com.example.rezepteapp.model.Recipe;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -192,6 +193,48 @@ public class RecipeDAOImpl implements RecipeDAO {
             }
         }
     }
+
+    @Override
+    public List<RecipeEntity> getAllArchivedRecipes() {
+        try (SQLiteDatabase db = dbHelper.getReadableDatabase()) {
+            List<RecipeEntity> entities = new ArrayList<>();
+            RecipeEntity entity;
+
+            try (Cursor cursor = db.query(DB_TABLE_RECIPE, null, "statusId = ?", new String[]{"1"}, null, null, null)) {
+                while (cursor.moveToNext()) {
+                    int idIndex = cursor.getColumnIndex("_id");
+                    int nameIndex = cursor.getColumnIndex("name");
+                    int imageIndex = cursor.getColumnIndex("image");
+                    int kTimeIndex = cursor.getColumnIndex("kTime");
+                    int vTimeIndex = cursor.getColumnIndex("vTime");
+                    int servingsIndex = cursor.getColumnIndex("servings");
+                    int notesIndex = cursor.getColumnIndex("notes");
+                    int stepsIndex = cursor.getColumnIndex("steps");
+                    int statusIdIndex = cursor.getColumnIndex("statusId");
+
+                    entity = new RecipeEntity();
+
+                    entity.setId(cursor.getInt(idIndex));
+                    entity.setName(cursor.getString(nameIndex));
+                    entity.setImage(cursor.getBlob(imageIndex));
+                    entity.setkTime(cursor.getString(kTimeIndex));
+                    entity.setvTime(cursor.getString(vTimeIndex));
+                    entity.setServings(cursor.getInt(servingsIndex));
+                    entity.setNotes(cursor.getString(notesIndex));
+                    entity.setSteps(cursor.getString(stepsIndex));
+                    entity.setStatusId(cursor.getInt(statusIdIndex));
+
+                    entities.add(entity);
+                }
+                return entities;
+            }
+        }
+    }
+
+//    @Override
+//    public boolean updateRecipe(RecipeEntity entity) {
+//        return dbHelper.updateRecipe(entity);
+//    }
 
     @Override
     public int getId(String name) {
