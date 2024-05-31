@@ -1,11 +1,14 @@
 package com.example.rezepteapp.model;
 
 import android.content.Context;
-import android.view.MenuItem;
 
 import com.example.rezepteapp.daos.IngredientDAOImpl;
 import com.example.rezepteapp.daos.RecipeDAOImpl;
 import com.example.rezepteapp.daos.ShoppinglistEntryDAOImpl;
+import com.example.rezepteapp.entities.IngredientEntity;
+import com.example.rezepteapp.entities.ShoppinglistEntryEntity;
+import com.example.rezepteapp.mapper.toentitiy.FromShoppinglistEntryModelToShoppinglistEntryEntityMapper;
+import com.example.rezepteapp.mapper.tomodel.FromShoppinglistEntryEntityToShoppinglistEntryMapper;
 import com.example.rezepteapp.entities.RecipeEntity;
 import com.example.rezepteapp.mapper.toentitiy.FromRecipeModelToRecipeEntityMapper;
 import com.example.rezepteapp.mapper.tomodel.FromRecipeEntityToRecipeModelMapper;
@@ -14,23 +17,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RecipeModel {
+    private ShoppinglistEntryDAOImpl shoppinglistEntryDAO;
+    private IngredientDAOImpl ingredientDAO;
+    private Context context;
     private Recipe recipe;
     private List<ShoppinglistEntry> toDoList;
     private ShoppinglistEntryDAOImpl sldao;
     private IngredientDAOImpl idao;
     private RecipeDAOImpl recipeDAO;
-    private Context context;
 
 
-    public List<ShoppinglistEntry> getToDoList() {
-        toDoList.clear();
-
-        return toDoList;
-    }
 
     public RecipeModel(Context context) {
         this.context = context;
-        recipeDAO = new RecipeDAOImpl(context);
+        this.shoppinglistEntryDAO = new ShoppinglistEntryDAOImpl(this.context);
+        this.ingredientDAO = new IngredientDAOImpl(this.context);
+        this.context = context;
+        this.recipeDAO = new RecipeDAOImpl(context);
     }
 
     private List<Recipe> getDailyRecipes() {
@@ -63,6 +66,62 @@ public class RecipeModel {
         return null;
     }
 
+    public List<ShoppinglistEntry> getToDoList() {
+        List<ShoppinglistEntry> entries = new ArrayList<>();
+        FromShoppinglistEntryEntityToShoppinglistEntryMapper mapper = new FromShoppinglistEntryEntityToShoppinglistEntryMapper();
+        List<ShoppinglistEntryEntity> entities = shoppinglistEntryDAO.getAllTodoEntries();
+        List<IngredientEntity> ingredientEntities = ingredientDAO.getAllIngredients();
+        for (ShoppinglistEntryEntity entity : entities) {
+            entries.add(mapper.mapToEntry(entity, ingredientEntities));
+        }
+        return entries;
+    }
+    public List<ShoppinglistEntry> getDoneList() {
+        List<ShoppinglistEntry> entries = new ArrayList<>();
+        FromShoppinglistEntryEntityToShoppinglistEntryMapper mapper = new FromShoppinglistEntryEntityToShoppinglistEntryMapper();
+        List<ShoppinglistEntryEntity> entities = shoppinglistEntryDAO.getAllDoneEntries();
+        List<IngredientEntity> ingredientEntities = ingredientDAO.getAllIngredients();
+        for (ShoppinglistEntryEntity entity : entities) {
+            entries.add(mapper.mapToEntry(entity, ingredientEntities));
+        }
+        return entries;
+    }
+
+    public ShoppinglistEntry addNewShoppinglistEntry(String ingredient, String quantity, String unit) {
+        ShoppinglistEntryEntity entity = new ShoppinglistEntryEntity();
+        String amount = String.join(" ", quantity, unit);
+        entity.setAmount(amount);
+
+        int ingredientId = ingredientDAO.getId(ingredient);
+        if (ingredientId == 0) {
+            ingredientDAO.saveOrUpdate(new IngredientEntity(ingredient));
+            ingredientId = ingredientDAO.getId(ingredient);
+        }
+        entity.setIngredientId(ingredientId);
+        entity.setStatus(ShoppinglistEtryStatus.TODO);
+
+        shoppinglistEntryDAO.insert(entity);
+
+        FromShoppinglistEntryEntityToShoppinglistEntryMapper mapper = new FromShoppinglistEntryEntityToShoppinglistEntryMapper();
+        return mapper.mapToEntry(
+                shoppinglistEntryDAO.getShoppinglistEntryById(shoppinglistEntryDAO.getId(amount, ingredientId)),
+                        new IngredientEntity(ingredientId, ingredient));
+    }
+
+    public void updateTodoList(ShoppinglistEntry entry) {
+        FromShoppinglistEntryModelToShoppinglistEntryEntityMapper mapper = new FromShoppinglistEntryModelToShoppinglistEntryEntityMapper(context);
+        ShoppinglistEntryEntity entity = mapper.map(entry);
+        entity.setStatus(ShoppinglistEtryStatus.TODO);
+        shoppinglistEntryDAO.saveOrUpdate(entity);
+    }
+
+    public void updateDoneList(ShoppinglistEntry entry) {
+        FromShoppinglistEntryModelToShoppinglistEntryEntityMapper mapper = new FromShoppinglistEntryModelToShoppinglistEntryEntityMapper(context);
+        ShoppinglistEntryEntity entity = mapper.map(entry);
+        entity.setStatus(ShoppinglistEtryStatus.DONE);
+        shoppinglistEntryDAO.saveOrUpdate(entity);
+    }
+
     public void deleteRecipe(Recipe recipe) {
         FromRecipeModelToRecipeEntityMapper mapper = new FromRecipeModelToRecipeEntityMapper(context);
         RecipeEntity entity = mapper.map(recipe);
@@ -74,5 +133,10 @@ public class RecipeModel {
         RecipeEntity entity = mapper.map(recipe);
         entity.setStatusId(2);
         recipeDAO.saveOrDelete(entity);
+    }
+    public void deleteShoppinglistEntry(ShoppinglistEntry entry) {
+        FromShoppinglistEntryModelToShoppinglistEntryEntityMapper mapper = new FromShoppinglistEntryModelToShoppinglistEntryEntityMapper(context);
+        ShoppinglistEntryEntity entity = mapper.map(entry);
+        shoppinglistEntryDAO.delete(entity);
     }
 }

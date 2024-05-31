@@ -1,4 +1,4 @@
-package com.example.rezepteapp;
+package com.example.rezepteapp.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -6,15 +6,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.Filter;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.rezepteapp.databinding.FragmentFilterBinding;
+import com.example.rezepteapp.R;
 import com.example.rezepteapp.model.FilterOption;
-import com.example.rezepteapp.model.Ingredient;
 
 import java.util.List;
 

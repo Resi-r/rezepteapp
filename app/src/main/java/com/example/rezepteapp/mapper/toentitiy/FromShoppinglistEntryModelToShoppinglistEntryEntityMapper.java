@@ -22,6 +22,7 @@ public class FromShoppinglistEntryModelToShoppinglistEntryEntityMapper {
         entity.setIngredientId(ingredientId);
         entity.setId(getShoppinglistId(entry.getAmount(), ingredientId));
         entity.setAmount(entry.getAmount());
+        entity.setStatus(entry.getStatus());
 
         return entity;
     }
