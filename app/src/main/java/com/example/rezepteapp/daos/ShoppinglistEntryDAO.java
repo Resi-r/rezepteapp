@@ -9,7 +9,7 @@ public interface ShoppinglistEntryDAO {
     void saveOrUpdate(final ShoppinglistEntryEntity entity);
     void delete(final ShoppinglistEntryEntity entity);
 
-    ShoppinglistEntryEntity getShoppinglistById(int id);
-    List<ShoppinglistEntryEntity> getAllShoppinglist();
+    ShoppinglistEntryEntity getShoppinglistEntryById(int id);
+    List<ShoppinglistEntryEntity> getAllShoppinglistEntries();
     int getId(String amount, int ingredientId);
 }

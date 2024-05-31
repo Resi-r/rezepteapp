@@ -44,7 +44,7 @@ public class ShoppinglistEntryDAOImpl implements ShoppinglistEntryDAO {
     }
 
     @Override
-    public ShoppinglistEntryEntity getShoppinglistById(int id) {
+    public ShoppinglistEntryEntity getShoppinglistEntryById(int id) {
         try (SQLiteDatabase db = dbHelper.getReadableDatabase()) {
             ShoppinglistEntryEntity entity = new ShoppinglistEntryEntity();
 
@@ -64,7 +64,7 @@ public class ShoppinglistEntryDAOImpl implements ShoppinglistEntryDAO {
     }
 
     @Override
-    public List<ShoppinglistEntryEntity> getAllShoppinglist() {
+    public List<ShoppinglistEntryEntity> getAllShoppinglistEntries() {
         try (SQLiteDatabase db = dbHelper.getReadableDatabase()) {
             List<ShoppinglistEntryEntity> entities = new ArrayList<>();
             ShoppinglistEntryEntity entity;

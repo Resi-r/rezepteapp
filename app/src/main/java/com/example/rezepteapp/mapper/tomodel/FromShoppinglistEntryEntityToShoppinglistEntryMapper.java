@@ -24,6 +24,14 @@ public class FromShoppinglistEntryEntityToShoppinglistEntryMapper {
 
         return entry;
     }
+    public ShoppinglistEntry mapToEntry(ShoppinglistEntryEntity sle, IngredientEntity ie) {
+        ShoppinglistEntry entry = new ShoppinglistEntry();
+        entry.setAmount(sle.getAmount());
+        entry.setId(sle.getId());
+        entry.setIngredient(ie.getName());
+
+        return entry;
+    }
 
     private String getIngredientName(int ingredientId, List<IngredientEntity> ingredients) {
         String ingredientName = "";
