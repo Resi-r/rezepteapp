@@ -105,10 +105,8 @@ public class RecipeModel {
     }
 
     public void deleteShoppinglistEntry(ShoppinglistEntry entry) {
-//        FromShoppinglistEntryModelToShoppinglistEntryEntityMapper mapper = new FromShoppinglistEntryModelToShoppinglistEntryEntityMapper(context);
-//        ShoppinglistEntryEntity entity = mapper.map(entry);
-        ShoppinglistEntryEntity entity = new ShoppinglistEntryEntity();
-        entity.setId(entity.getId());
+        FromShoppinglistEntryModelToShoppinglistEntryEntityMapper mapper = new FromShoppinglistEntryModelToShoppinglistEntryEntityMapper(context);
+        ShoppinglistEntryEntity entity = mapper.map(entry);
         shoppinglistEntryDAO.delete(entity);
     }
 }

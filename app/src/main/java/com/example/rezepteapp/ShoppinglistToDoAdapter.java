@@ -20,6 +20,9 @@ public class ShoppinglistToDoAdapter extends RecyclerView.Adapter<ShoppinglistTo
     public interface ShoppinglistActionListener {
         void deleteEntry(ShoppinglistEntry entry);
     }
+    public interface OnItemCheckedListener {
+        void onItemChecked(ShoppinglistEntry entry);
+    }
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener {
         public TextView amountTextView;
         public TextView ingredientTextView;
@@ -46,9 +49,6 @@ public class ShoppinglistToDoAdapter extends RecyclerView.Adapter<ShoppinglistTo
                 return true;
             });
         }
-    }
-    public interface OnItemCheckedListener {
-        void onItemChecked(ShoppinglistEntry entry);
     }
 
     private List<ShoppinglistEntry> entries;
@@ -84,6 +84,7 @@ public class ShoppinglistToDoAdapter extends RecyclerView.Adapter<ShoppinglistTo
                 listener.onItemChecked(entry);
             }
         }));
+        holder.itemView.setTag(entry);
     }
 
     @Override

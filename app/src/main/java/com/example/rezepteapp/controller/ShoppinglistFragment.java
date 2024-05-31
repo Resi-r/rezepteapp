@@ -49,8 +49,8 @@ public class ShoppinglistFragment extends Fragment {
         super.onViewCreated(view, saveInstanceState);
         model = new RecipeModel(requireContext());
         this.updateLists();
-        adapterToDo = new ShoppinglistToDoAdapter(toDoList, entry -> moveToDoneList(entry), entry -> removeEntry(entry));
-        adapterDone = new ShoppinglistDoneAdapter(doneList, entry -> moveToToDoList(entry), entry -> removeEntry(entry));
+        adapterToDo = new ShoppinglistToDoAdapter(toDoList, entry -> moveToDoneList(entry), entry -> removeToDoEntry(entry));
+        adapterDone = new ShoppinglistDoneAdapter(doneList, entry -> moveToToDoList(entry), entry -> removeDoneEntry(entry));
 
         binding.ddIngredientsToGet.setOnClickListener(v -> {
             if (isToDoExpanded) {
@@ -140,13 +140,19 @@ public class ShoppinglistFragment extends Fragment {
             model.updateTodoList(entry);
         }
     }
-    private void removeEntry(ShoppinglistEntry entry) {
+    private void removeDoneEntry(ShoppinglistEntry entry) {
         int position = doneList.indexOf(entry);
         if (position != -1) {
             doneList.remove(position);
             adapterDone.notifyItemRemoved(position);
-            toDoList.add(entry);
-            adapterToDo.notifyItemInserted(toDoList.size() - 1);
+            model.deleteShoppinglistEntry(entry);
+        }
+    }
+    private void removeToDoEntry(ShoppinglistEntry entry) {
+        int position = doneList.indexOf(entry);
+        if (position != -1) {
+            doneList.remove(position);
+            adapterDone.notifyItemRemoved(position);
             model.deleteShoppinglistEntry(entry);
         }
     }
