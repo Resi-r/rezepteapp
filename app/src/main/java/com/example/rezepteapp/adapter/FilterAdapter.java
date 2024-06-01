@@ -22,6 +22,7 @@ public class FilterAdapter extends RecyclerView.Adapter<FilterAdapter.ViewHolder
     public static final String MY_PREFERENCES = "MyPreferences";
     private final Context context;
 
+
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public CheckBox checkBox;
         public TextView nameFilter;
