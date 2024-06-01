@@ -1,5 +1,10 @@
 package com.example.rezepteapp.controller;
 
+import static com.example.rezepteapp.utils.Constants.CHECK_BOX;
+import static com.example.rezepteapp.utils.Constants.FILTER_COUNT;
+import static com.example.rezepteapp.utils.Constants.FILTER_NAME;
+import static com.example.rezepteapp.utils.Constants.MY_PREFERENCES;
+
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -27,15 +32,8 @@ import com.example.rezepteapp.model.FilterOption;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link FilterFragment#newInstance} factory method to
- * create an instance of this fragment.
- *
- */
 public class FilterFragment extends Fragment {
 
-    public static final String MY_PREFERENCES = "MyPreferences";
     private FragmentFilterBinding binding;
     private List<FilterOption> filterOptionList;
     private FilterAdapter filterAdapter;
@@ -82,10 +80,10 @@ public class FilterFragment extends Fragment {
 
         filterOptionList.clear(); // Sicherstellen, dass die Liste leer ist, bevor sie befüllt wird
 
-        int filterCount = sP.getInt("filter_count", 0);
+        int filterCount = sP.getInt(FILTER_COUNT, 0);
         for (int i = 0; i < filterCount; i++) {
-            String filterName = sP.getString("filterName_" + i, "Test");
-            boolean isActive = sP.getBoolean("checkBox_" + i, false);
+            String filterName = sP.getString(FILTER_NAME + i, "Test");
+            boolean isActive = sP.getBoolean(CHECK_BOX + i, false);
             filterOptionList.add(new FilterOption(filterName, isActive));
         }
     }
@@ -101,10 +99,10 @@ public class FilterFragment extends Fragment {
 
     private void savePreferences() {
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putInt("filter_count", filterOptionList.size());
+        editor.putInt(FILTER_COUNT, filterOptionList.size());
         for (int i = 0; i < filterOptionList.size(); i++) {
-            editor.putString("filterName_" + i, filterOptionList.get(i).getFilterName());
-            editor.putBoolean("checkBox_" + i, filterOptionList.get(i).isActive());
+            editor.putString(FILTER_NAME + i, filterOptionList.get(i).getFilterName());
+            editor.putBoolean(CHECK_BOX + i, filterOptionList.get(i).isActive());
         }
         editor.apply();
     }

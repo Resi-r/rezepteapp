@@ -1,5 +1,10 @@
 package com.example.rezepteapp.adapter;
 
+import static com.example.rezepteapp.utils.Constants.CHECK_BOX;
+import static com.example.rezepteapp.utils.Constants.FILTER_COUNT;
+import static com.example.rezepteapp.utils.Constants.FILTER_NAME;
+import static com.example.rezepteapp.utils.Constants.MY_PREFERENCES;
+
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.view.LayoutInflater;
@@ -18,10 +23,7 @@ import com.example.rezepteapp.model.FilterOption;
 import java.util.List;
 
 public class FilterAdapter extends RecyclerView.Adapter<FilterAdapter.ViewHolder> {
-
-    public static final String MY_PREFERENCES = "MyPreferences";
     private final Context context;
-
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public CheckBox checkBox;
@@ -74,10 +76,10 @@ public class FilterAdapter extends RecyclerView.Adapter<FilterAdapter.ViewHolder
         SharedPreferences sharedPreferences = context.getSharedPreferences(MY_PREFERENCES, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
-        editor.putInt("filter_count", filterList.size());
+        editor.putInt(FILTER_COUNT, filterList.size());
         for (int i = 0; i < filterList.size(); i++) {
-            editor.putString("filterName_" + i, filterList.get(i).getFilterName());
-            editor.putBoolean("checkBox_" + i, filterList.get(i).isActive());
+            editor.putString(FILTER_NAME + i, filterList.get(i).getFilterName());
+            editor.putBoolean(CHECK_BOX + i, filterList.get(i).isActive());
         }
         editor.apply();
     }

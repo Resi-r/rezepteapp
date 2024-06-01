@@ -1,5 +1,10 @@
 package com.example.rezepteapp.controller;
 
+import static com.example.rezepteapp.utils.Constants.CHECK_BOX;
+import static com.example.rezepteapp.utils.Constants.FILTER_COUNT;
+import static com.example.rezepteapp.utils.Constants.FILTER_NAME;
+import static com.example.rezepteapp.utils.Constants.MY_PREFERENCES;
+
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
@@ -35,8 +40,6 @@ import java.util.List;
 
 
 public class RecipeListFragment extends Fragment {
-
-    public static final String MY_PREFERENCES = "MyPreferences";
     private FragmentRecipeListBinding binding;
     private RecipeModel model;
     private List<Recipe> recipeList;
@@ -195,10 +198,10 @@ public class RecipeListFragment extends Fragment {
         LinearLayout filterContainer = (LinearLayout) binding.horizontalScrollView.getChildAt(0);
         filterContainer.removeAllViews();
 
-        int filterCount = sharedPreferences.getInt("filter_count", 0);
+        int filterCount = sharedPreferences.getInt(FILTER_COUNT, 0);
         for (int i = 0; i < filterCount; i++) {
-            String filterName = sharedPreferences.getString("filterName_" + i, null);
-            boolean isActive = sharedPreferences.getBoolean("checkBox_" + i, false);
+            String filterName = sharedPreferences.getString(FILTER_NAME + i, null);
+            boolean isActive = sharedPreferences.getBoolean(CHECK_BOX + i, false);
 
             if (filterName != null && isActive) {
                 TextView filterTag = createFilterTag(filterName, i);
@@ -224,7 +227,7 @@ public class RecipeListFragment extends Fragment {
 
         filterTag.setOnClickListener(v -> {
             SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putBoolean("checkBox_" + index, false);
+            editor.putBoolean(CHECK_BOX + index, false);
             editor.apply();
 
             ((ViewGroup) filterTag.getParent()).removeView(filterTag);
