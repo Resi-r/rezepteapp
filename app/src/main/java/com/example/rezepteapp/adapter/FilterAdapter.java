@@ -19,6 +19,7 @@ import java.util.List;
 
 public class FilterAdapter extends RecyclerView.Adapter<FilterAdapter.ViewHolder> {
 
+    public static final String MY_PREFERENCES = "MyPreferences";
     private final Context context;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -69,7 +70,7 @@ public class FilterAdapter extends RecyclerView.Adapter<FilterAdapter.ViewHolder
 
 
     private void savePreferences() {
-        SharedPreferences sharedPreferences = context.getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = context.getSharedPreferences(MY_PREFERENCES, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
         editor.putInt("filter_count", filterList.size());

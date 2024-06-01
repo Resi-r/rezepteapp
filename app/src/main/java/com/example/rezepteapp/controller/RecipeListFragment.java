@@ -36,6 +36,7 @@ import java.util.List;
 
 public class RecipeListFragment extends Fragment {
 
+    public static final String MY_PREFERENCES = "MyPreferences";
     private FragmentRecipeListBinding binding;
     private RecipeModel model;
     private List<Recipe> recipeList;
@@ -63,7 +64,7 @@ public class RecipeListFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        sharedPreferences = requireActivity().getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
+        sharedPreferences = requireActivity().getSharedPreferences(MY_PREFERENCES, Context.MODE_PRIVATE);
 
         testList = new ArrayList<>();
 
@@ -150,11 +151,11 @@ public class RecipeListFragment extends Fragment {
         return newList;
     }
 
-    private void checkRecipesForActiveFilters(List<Recipe> list, ArrayList<FilterOption> activeFilters) {
+    private List<Recipe> checkRecipesForActiveFilters(List<Recipe> list, ArrayList<FilterOption> activeFilters) {
 
         if (activeFilters.isEmpty()) {
             recipeListAdapter.updateRecipes(testList);
-            return;
+            return testList;
         }
 
         ArrayList<Recipe> newList = new ArrayList<>();
@@ -182,6 +183,8 @@ public class RecipeListFragment extends Fragment {
         }
 
         recipeListAdapter.updateRecipes(newList);
+
+        return newList;
 
     }
 

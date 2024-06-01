@@ -35,6 +35,7 @@ import java.util.List;
  */
 public class FilterFragment extends Fragment {
 
+    public static final String MY_PREFERENCES = "MyPreferences";
     private FragmentFilterBinding binding;
     private List<FilterOption> filterOptionList;
     private FilterAdapter filterAdapter;
@@ -48,7 +49,7 @@ public class FilterFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        sharedPreferences = requireActivity().getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
+        sharedPreferences = requireActivity().getSharedPreferences(MY_PREFERENCES, Context.MODE_PRIVATE);
     }
 
     @Override
@@ -77,7 +78,7 @@ public class FilterFragment extends Fragment {
     }
 
     private void loadPreferences() {
-        SharedPreferences sP = requireActivity().getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
+        SharedPreferences sP = requireActivity().getSharedPreferences(MY_PREFERENCES, Context.MODE_PRIVATE);
 
         filterOptionList.clear(); // Sicherstellen, dass die Liste leer ist, bevor sie befüllt wird
 
