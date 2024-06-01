@@ -80,6 +80,14 @@
                 android:background="@drawable/baseline_filter_list_alt_24"
                 android:backgroundTint="@color/secondary"
                 android:hapticFeedbackEnabled="false" />
+
+            <Button
+                android:id="@+id/btn_archive"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_weight="0"
+                android:background="@drawable/baseline_archive_24"
+                android:backgroundTint="@color/secondary" />
         </LinearLayout>
 
         <TextView

@@ -103,20 +103,22 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:minHeight="48dp"
             android:layout_margin="32dp"
+            android:minHeight="48dp"
             android:orientation="horizontal">
 
             <Button
                 android:id="@+id/bt_add_item_to_list"
                 android:layout_width="128dp"
                 android:layout_height="match_parent"
+                android:layout_margin="5dp"
                 android:layout_weight="1"
                 android:background="@drawable/rounded_button"
                 android:backgroundTint="@color/secondary"
@@ -136,9 +138,9 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:ems="10"
+                    android:hint="@string/ingredient"
                     android:inputType="text"
-                    android:theme="@style/simpleText"
-                    android:hint="@string/ingredient"/>
+                    android:theme="@style/simpleText" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -152,16 +154,16 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:ems="10"
-                        android:theme="@style/simpleText"
+                        android:hint="@string/quantity"
                         android:inputType="number"
-                        android:hint="@string/quantity"/>
+                        android:theme="@style/simpleText" />
 
                     <Spinner
                         android:id="@+id/spinner_add_unit"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:theme="@style/simpleText"
-                        android:layout_weight="1" />
+                        android:layout_weight="1"
+                        android:theme="@style/simpleText" />
                 </LinearLayout>
 
             </LinearLayout>

@@ -72,10 +72,10 @@ public class ArchiveFragment extends Fragment {
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.recyclerView.setAdapter(adapter);
 
-        binding.btnBack.setOnClickListener(v -> navigateToWelcomeScreen());
+        binding.btnBack.setOnClickListener(v -> navigateToRecipeList());
     }
 
-    private void navigateToWelcomeScreen() {
+    private void navigateToRecipeList() {
         getParentFragmentManager().popBackStack();
     }
 

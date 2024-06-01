@@ -41,15 +41,19 @@ public class RecipeListFragment extends Fragment {
     private SharedPreferences sharedPreferences;
 
     public RecipeListFragment() {
+
         model = new RecipeModel(getContext());
         recipeList = new ArrayList<>();
+
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
         binding = FragmentRecipeListBinding.inflate(inflater, container, false);
+
         return binding.getRoot();
+
     }
 
     @Override
@@ -72,6 +76,7 @@ public class RecipeListFragment extends Fragment {
         binding.recyclRecipeList.setLayoutManager(new LinearLayoutManager(requireContext()));
 
         binding.fabAddRecipe.setOnClickListener(v ->navigateToAddRecipe());
+        binding.btnArchive.setOnClickListener(v -> navigateToArchive());
 
         binding.btnFilter.setOnClickListener(v -> navigateToFilterOptions());
 
@@ -94,6 +99,18 @@ public class RecipeListFragment extends Fragment {
                 binding.recyclRecipeList.setLayoutManager(new LinearLayoutManager(requireContext()));
             }
         });
+
+    }
+
+    private void navigateToArchive() {
+
+        FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+        fragmentTransaction.replace(R.id.frame_layout, new ArchiveFragment());
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+
     }
 
     private ArrayList<Recipe> checkRecipesForCharSequences(ArrayList<Recipe> list, CharSequence s) {
@@ -114,6 +131,7 @@ public class RecipeListFragment extends Fragment {
     }
 
     private void loadActiveFilters() {
+
         LinearLayout filterContainer = (LinearLayout) binding.horizontalScrollView.getChildAt(0);
         filterContainer.removeAllViews();
 
@@ -127,35 +145,27 @@ public class RecipeListFragment extends Fragment {
                 filterContainer.addView(filterTag);
             }
         }
+
     }
 
     private TextView createFilterTag(String filterName, int index) {
-        TextView filterTag = new TextView(requireContext());
-        filterTag.setText(filterName);
-        filterTag.setTextSize(16);
-        filterTag.setBackgroundResource(R.drawable.rounded_button);
-        filterTag.setPadding(30, 15, 30, 15);
-        filterTag.setTextColor(getResources().getColor(android.R.color.white));
 
-        // Setzen der Schriftart auf Serif
-        filterTag.setTypeface(Typeface.create("serif", Typeface.ITALIC));
+        TextView filterTag = createFilterTag(filterName);
+        addFunctionToTag(index, filterTag);
 
-        // LayoutParams mit Margin
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        params.setMargins(0, 0, 30, 0); // left, top, right, bottom
-        filterTag.setLayoutParams(params);
+        return filterTag;
 
-        // OnClickListener hinzufügen, um den Filter zu deaktivieren
+    }
+
+    private void addFunctionToTag(int index, TextView filterTag) {
+
         filterTag.setOnClickListener(v -> {
-            // Deaktivieren des entsprechenden Filters
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putBoolean("checkBox_" + index, false);
             editor.apply();
 
-            // Entfernen des Filter-Tags aus der Ansicht
             ((ViewGroup) filterTag.getParent()).removeView(filterTag);
 
-            // Deaktivieren des Filters in den Filteroptionen
             if (getActivity() != null) {
                 FilterFragment filterFragment = (FilterFragment) getActivity().getSupportFragmentManager().findFragmentByTag("FilterFragment");
                 if (filterFragment != null) {
@@ -164,30 +174,57 @@ public class RecipeListFragment extends Fragment {
             }
         });
 
+    }
+
+    @NonNull
+    private TextView createFilterTag(String filterName) {
+
+        TextView filterTag = new TextView(requireContext());
+
+        filterTag.setText(filterName);
+        filterTag.setTextSize(16);
+        filterTag.setBackgroundResource(R.drawable.rounded_button);
+        filterTag.setPadding(30, 15, 30, 15);
+        filterTag.setTextColor(getResources().getColor(android.R.color.white));
+        filterTag.setTypeface(Typeface.create("serif", Typeface.ITALIC));
+
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+
+        params.setMargins(0, 0, 30, 0); // left, top, right, bottom
+
+        filterTag.setLayoutParams(params);
+
         return filterTag;
     }
 
 
-
     private void navigateToFilterOptions() {
+
         FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
         fragmentTransaction.replace(R.id.frame_layout, new FilterFragment());
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
+
     }
 
     private void navigateToAddRecipe() {
+
         FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
         fragmentTransaction.replace(R.id.frame_layout, new EditFragment());
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
+
     }
 
     @Override
     public void onDestroyView() {
+
         super.onDestroyView();
+
     }
 
 }
