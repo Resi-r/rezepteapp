@@ -24,6 +24,8 @@ import android.widget.TextView;
 import com.example.rezepteapp.R;
 import com.example.rezepteapp.adapter.RecipeListAdapter;
 import com.example.rezepteapp.databinding.FragmentRecipeListBinding;
+import com.example.rezepteapp.model.FilterOption;
+import com.example.rezepteapp.model.Label;
 import com.example.rezepteapp.model.Recipe;
 import com.example.rezepteapp.model.RecipeModel;
 import com.example.rezepteapp.model.Status;
@@ -37,6 +39,7 @@ public class RecipeListFragment extends Fragment {
     private FragmentRecipeListBinding binding;
     private RecipeModel model;
     private List<Recipe> recipeList;
+    private List<Recipe> testList;
     private RecipeListAdapter recipeListAdapter;
     private SharedPreferences sharedPreferences;
 
@@ -62,12 +65,26 @@ public class RecipeListFragment extends Fragment {
 
         sharedPreferences = requireActivity().getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
 
-        ArrayList<Recipe> testList = new ArrayList<>();
+        testList = new ArrayList<>();
 
-        testList.add(new Recipe("Hallo", null, null, "1h", "2h", 4, null, null, null, Status.LIVE));
-        testList.add(new Recipe("Tschüss", null, null, "1h", "1h", 4, null, null, null, Status.LIVE));
-        testList.add(new Recipe("Haha", null, null, "1h", "5h", 4, null, null, null, Status.LIVE));
-        testList.add(new Recipe("Lol", null, null, "1h", "3h", 4, null, null, null, Status.LIVE));
+        // Sample data for testing
+        Label label = new Label("Vegetarisch");
+        Label label1 = new Label("Vegan");
+        Label label2 = new Label("Lieblingsessen");
+        Label label3 = new Label("Fleisch");
+
+        ArrayList<Label> testLabels1 = new ArrayList<>();
+        ArrayList<Label> testLabels2 = new ArrayList<>();
+
+        testLabels1.add(label);
+        testLabels1.add(label1);
+        testLabels2.add(label2);
+        testLabels2.add(label3);
+
+        testList.add(new Recipe("Hallo", null, testLabels1, "1h", "2h", 4, null, null, null, Status.LIVE));
+        testList.add(new Recipe("Tschüss", null, testLabels2, "1h", "1h", 4, null, null, null, Status.LIVE));
+        testList.add(new Recipe("Haha", null, testLabels1, "1h", "5h", 4, null, null, null, Status.LIVE));
+        testList.add(new Recipe("Lol", null, testLabels2, "1h", "3h", 4, null, null, null, Status.LIVE));
 
         recipeListAdapter = new RecipeListAdapter(testList);
 //        recipeListAdapter = new RecipeListAdapter(recipeList);
@@ -80,8 +97,6 @@ public class RecipeListFragment extends Fragment {
 
         binding.btnFilter.setOnClickListener(v -> navigateToFilterOptions());
 
-        loadActiveFilters();
-
         binding.searchbarRecipes.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -90,16 +105,21 @@ public class RecipeListFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                recipeListAdapter = new RecipeListAdapter(checkRecipesForCharSequences(testList, s));
+                recipeListAdapter.updateRecipes(checkRecipesForCharSequences(testList, s));
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-                binding.recyclRecipeList.setAdapter(recipeListAdapter);
-                binding.recyclRecipeList.setLayoutManager(new LinearLayoutManager(requireContext()));
+                recipeListAdapter.notifyDataSetChanged();
             }
         });
 
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        checkRecipesForActiveFilters(testList, loadActiveFilters());
     }
 
     private void navigateToArchive() {
@@ -113,7 +133,7 @@ public class RecipeListFragment extends Fragment {
 
     }
 
-    private ArrayList<Recipe> checkRecipesForCharSequences(ArrayList<Recipe> list, CharSequence s) {
+    private ArrayList<Recipe> checkRecipesForCharSequences(List<Recipe> list, CharSequence s) {
 
         ArrayList<Recipe> newList = new ArrayList<>();
 
@@ -130,7 +150,44 @@ public class RecipeListFragment extends Fragment {
         return newList;
     }
 
-    private void loadActiveFilters() {
+    private void checkRecipesForActiveFilters(List<Recipe> list, ArrayList<FilterOption> activeFilters) {
+
+        if (activeFilters.isEmpty()) {
+            recipeListAdapter.updateRecipes(testList);
+            return;
+        }
+
+        ArrayList<Recipe> newList = new ArrayList<>();
+
+        for (int i = 0; i < list.size(); i++) {
+
+            if (list.get(i).getLabels() != null) {
+
+                for (int j = 0; j < list.get(i).getLabels().size(); j++) {
+
+                    for (int n = 0; n < activeFilters.size(); n++) {
+
+                        if (list.get(i).getLabels().get(j).getName().equals(activeFilters.get(n).getFilterName())) {
+
+                            newList.add(list.get(i));
+                            break;
+
+                        }
+
+                    }
+
+                }
+
+            }
+        }
+
+        recipeListAdapter.updateRecipes(newList);
+
+    }
+
+    private ArrayList<FilterOption> loadActiveFilters() {
+
+        ArrayList<FilterOption> activeFilters = new ArrayList<>();
 
         LinearLayout filterContainer = (LinearLayout) binding.horizontalScrollView.getChildAt(0);
         filterContainer.removeAllViews();
@@ -143,8 +200,11 @@ public class RecipeListFragment extends Fragment {
             if (filterName != null && isActive) {
                 TextView filterTag = createFilterTag(filterName, i);
                 filterContainer.addView(filterTag);
+                activeFilters.add(new FilterOption(filterName, isActive));
             }
         }
+
+        return activeFilters;
 
     }
 
@@ -172,8 +232,10 @@ public class RecipeListFragment extends Fragment {
                     filterFragment.deactivateFilter(index);
                 }
             }
-        });
 
+            checkRecipesForActiveFilters(testList, loadActiveFilters());
+
+        });
     }
 
     @NonNull
