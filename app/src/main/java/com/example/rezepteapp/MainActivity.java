@@ -7,13 +7,11 @@ import android.os.Bundle;
 
 import com.example.rezepteapp.controller.RecipeListFragment;
 import com.example.rezepteapp.controller.ShoppinglistFragment;
-import com.google.android.material.snackbar.Snackbar;
+import com.example.rezepteapp.controller.WelcomeScreenFragment;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-
-import android.view.View;
 
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -29,11 +27,11 @@ import com.example.rezepteapp.databinding.ActivityMainBinding;
 
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.Window;
 
 public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
+    private AppBarConfiguration appBarConfiguration;
     private final static int REQUEST_CODE_PERMISSIONS = 101;
     private final static String[] REQUIRED_PERMISSIONS = {
             android.Manifest.permission.ACCESS_COARSE_LOCATION,
@@ -57,7 +55,6 @@ public class MainActivity extends AppCompatActivity {
 
         binding.navbarBottom.setSelectedItemId(R.id.home);
 
-
         binding.navbarBottom.setOnItemSelectedListener(item -> {
 
             int itemId = item.getItemId();
@@ -67,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
                 replaceFragment(new RecipeListFragment());
                 return true;
             } else if (itemId == R.id.home) {
-                replaceFragment(new com.example.rezepteapp.controller.WelcomeScreenFragment());
+                replaceFragment(new WelcomeScreenFragment());
                 return true;
             } else if (itemId == R.id.ingredients) {
                 replaceFragment(new ShoppinglistFragment());
@@ -108,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
     private void replaceFragment(Fragment fragment) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.frame_layout, fragment);
+        fragmentTransaction.replace(id.frame_layout, fragment);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
     }
@@ -133,5 +130,12 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        NavController navController = Navigation.findNavController(this, id.navHostFragment);
+        return NavigationUI.navigateUp(navController, appBarConfiguration)
+                || super.onSupportNavigateUp();
     }
 }

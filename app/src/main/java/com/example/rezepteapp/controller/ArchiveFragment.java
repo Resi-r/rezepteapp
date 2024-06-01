@@ -9,7 +9,12 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 
+import com.example.rezepteapp.R;
 import com.example.rezepteapp.R;
 import com.example.rezepteapp.adapter.ArchivedRecipeAdapter;
 import com.example.rezepteapp.databinding.FragmentArchiveBinding;
@@ -38,6 +43,7 @@ public class ArchiveFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle saveInstanceState) {
         super.onCreateView(inflater, container, saveInstanceState);
+
         binding = FragmentArchiveBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
@@ -65,6 +71,12 @@ public class ArchiveFragment extends Fragment {
 
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.recyclerView.setAdapter(adapter);
+
+        binding.btnBack.setOnClickListener(v -> navigateToRecipeList());
+    }
+
+    private void navigateToRecipeList() {
+        getParentFragmentManager().popBackStack();
     }
 
     @Override

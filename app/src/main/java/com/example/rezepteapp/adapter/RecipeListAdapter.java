@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -13,9 +14,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.rezepteapp.R;
 import com.example.rezepteapp.model.Recipe;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.ViewHolder>{
+public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.ViewHolder> {
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
@@ -32,10 +34,12 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Vi
         }
     }
 
-    private final List<Recipe> recipeList;
+    private final List<Recipe> allRecipesList;
+    private final List<Recipe> visibleRecipesList;
 
     public RecipeListAdapter(List<Recipe> recipeList) {
-        this.recipeList = recipeList;
+        this.allRecipesList = new ArrayList<>(recipeList);
+        this.visibleRecipesList = new ArrayList<>(recipeList);
     }
 
     @NonNull
@@ -50,14 +54,35 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Vi
 
     @Override
     public void onBindViewHolder(@NonNull RecipeListAdapter.ViewHolder holder, int position) {
-        Recipe recipe = recipeList.get(position);
+        Recipe recipe = visibleRecipesList.get(position);
 
-        holder.recipeName.setText("Leger Esen");
-        holder.recipeDescription.setText("Dieses Esen ist sau lecker, nom nom");
+        holder.recipeName.setText(visibleRecipesList.get(position).getTitle());
+        holder.recipeDescription.setText(getDescription(visibleRecipesList.get(position)));
     }
 
     @Override
     public int getItemCount() {
-        return recipeList.size();
+        return visibleRecipesList.size();
+    }
+
+    private String getDescription(Recipe recipe) {
+        return "Portionen: " + recipe.getServings() + " || " + "Vorbereitungszeit: " + recipe.getvTime() + " || " + "Kochzeit: " + recipe.getkTime();
+    }
+
+    public void updateRecipes(List<Recipe> newRecipes) {
+        visibleRecipesList.clear();
+        visibleRecipesList.addAll(newRecipes);
+        notifyDataSetChanged();
+    }
+
+    public void hideItem(int position) {
+        visibleRecipesList.remove(position);
+        notifyItemRemoved(position);
+    }
+
+    public void showItem(int position) {
+        Recipe recipe = allRecipesList.get(position);
+        visibleRecipesList.add(position, recipe);
+        notifyItemInserted(position);
     }
 }
