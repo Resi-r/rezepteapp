@@ -1,6 +1,9 @@
 package com.example.rezepteapp.controller;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -9,20 +12,14 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
 import com.example.rezepteapp.R;
-import com.example.rezepteapp.RecipeListAdapter;
 import com.example.rezepteapp.adapter.RecipeListAdapter;
 import com.example.rezepteapp.databinding.FragmentWelcomeScreenBinding;
 import com.example.rezepteapp.model.Recipe;
+import com.example.rezepteapp.model.RecipeModel;
 import com.example.rezepteapp.weather.Weather;
 import com.example.rezepteapp.weather.WeatherCall;
 import com.example.rezepteapp.weather.WeatherCallback;
-
-import com.example.rezepteapp.model.RecipeModel;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -44,43 +44,56 @@
             </LinearLayout>
         </HorizontalScrollView>
 
-        <SearchView
-            android:id="@+id/searchbar_recipes"
-            android:layout_width="0dp"
-            android:layout_height="50dp"
+        <LinearLayout
+            android:id="@+id/linearLayout4"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
             android:layout_marginStart="32dp"
             android:layout_marginTop="32dp"
-            android:layout_marginEnd="16dp"
-            android:background="@drawable/rounded_button"
-            android:backgroundTint="@color/tertiary"
-            app:layout_constraintEnd_toStartOf="@+id/btn_filter"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
-
-        <Button
-            android:id="@+id/btn_filter"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="32dp"
             android:layout_marginEnd="32dp"
-            android:background="@drawable/baseline_filter_list_alt_24"
-            android:backgroundTint="@color/secondary"
-            android:hapticFeedbackEnabled="false"
+            android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <EditText
+                android:id="@+id/searchbar_recipes"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginRight="15dp"
+                android:layout_weight="1"
+                android:background="@drawable/rounded_button"
+                android:backgroundTint="@color/tertiary"
+                android:ems="10"
+                android:fallbackLineSpacing="true"
+                android:hint="Suche nach Rezept"
+                android:inputType="text"
+                android:padding="15dp"
+                android:textColor="@color/grey"
+                android:textSize="14sp"
+                android:theme="@style/simpleText" />
+
+            <Button
+                android:id="@+id/btn_filter"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/baseline_filter_list_alt_24"
+                android:backgroundTint="@color/secondary"
+                android:hapticFeedbackEnabled="false" />
+        </LinearLayout>
 
         <TextView
             android:id="@+id/tv_active_filter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
-            android:layout_marginTop="64dp"
+            android:layout_marginTop="32dp"
             android:text="Aktive Filter:"
             android:textColor="@color/grey"
             android:textSize="24sp"
             android:theme="@style/h2"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/searchbar_recipes" />
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout4" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycl_recipe_list"

@@ -12,10 +12,13 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.SearchView;
 import android.widget.TextView;
 
 import com.example.rezepteapp.R;
@@ -23,6 +26,7 @@ import com.example.rezepteapp.adapter.RecipeListAdapter;
 import com.example.rezepteapp.databinding.FragmentRecipeListBinding;
 import com.example.rezepteapp.model.Recipe;
 import com.example.rezepteapp.model.RecipeModel;
+import com.example.rezepteapp.model.Status;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,7 +58,15 @@ public class RecipeListFragment extends Fragment {
 
         sharedPreferences = requireActivity().getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
 
-        recipeListAdapter = new RecipeListAdapter(recipeList);
+        ArrayList<Recipe> testList = new ArrayList<>();
+
+        testList.add(new Recipe("Hallo", null, null, "1h", "2h", 4, null, null, null, Status.LIVE));
+        testList.add(new Recipe("Tschüss", null, null, "1h", "1h", 4, null, null, null, Status.LIVE));
+        testList.add(new Recipe("Haha", null, null, "1h", "5h", 4, null, null, null, Status.LIVE));
+        testList.add(new Recipe("Lol", null, null, "1h", "3h", 4, null, null, null, Status.LIVE));
+
+        recipeListAdapter = new RecipeListAdapter(testList);
+//        recipeListAdapter = new RecipeListAdapter(recipeList);
 
         binding.recyclRecipeList.setAdapter(recipeListAdapter);
         binding.recyclRecipeList.setLayoutManager(new LinearLayoutManager(requireContext()));
@@ -62,8 +74,43 @@ public class RecipeListFragment extends Fragment {
         binding.fabAddRecipe.setOnClickListener(v ->navigateToAddRecipe());
 
         binding.btnFilter.setOnClickListener(v -> navigateToFilterOptions());
-        
+
         loadActiveFilters();
+
+        binding.searchbarRecipes.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                recipeListAdapter = new RecipeListAdapter(checkRecipesForCharSequences(testList, s));
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                binding.recyclRecipeList.setAdapter(recipeListAdapter);
+                binding.recyclRecipeList.setLayoutManager(new LinearLayoutManager(requireContext()));
+            }
+        });
+    }
+
+    private ArrayList<Recipe> checkRecipesForCharSequences(ArrayList<Recipe> list, CharSequence s) {
+
+        ArrayList<Recipe> newList = new ArrayList<>();
+
+        for (int i = 0; i < list.size(); i++) {
+
+            CharSequence sLowerCase = s.toString().toLowerCase();
+            String titleLowerCase = list.get(i).getTitle().toLowerCase();
+
+            if (titleLowerCase.contains(sLowerCase)) {
+                newList.add(list.get(i));
+            }
+        }
+
+        return newList;
     }
 
     private void loadActiveFilters() {

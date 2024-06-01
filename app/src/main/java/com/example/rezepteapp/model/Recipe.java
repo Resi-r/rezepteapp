@@ -14,7 +14,6 @@ public class Recipe {
     private List<Ingredient> ingredients;
     private List<String> steps;
     private List<String> notes;
-
     private Status status;
 
     public Recipe() {}
@@ -111,4 +110,5 @@ public class Recipe {
     public void setStatus(Status status) {
         this.status = status;
     }
+
 }
