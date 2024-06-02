@@ -32,6 +32,7 @@ public class WelcomeScreenFragment extends Fragment implements WeatherCallback {
     private FragmentWelcomeScreenBinding binding;
     private WeatherCall weatherCall;
     private List<Recipe> recipeList;
+    private List<Recipe> testList;
     private RecipeListAdapter recipeListAdapter;
 
     @Override
@@ -64,7 +65,7 @@ public class WelcomeScreenFragment extends Fragment implements WeatherCallback {
 
         getWeather();
 
-        ArrayList<Recipe> testList = new ArrayList<>();
+        testList = new ArrayList<>();
 
         testList.add(new Recipe("Hallo", null, null, "1h", "2h", 4, null, null, null, Status.LIVE));
         testList.add(new Recipe("Tschüss", null, null, "1h", "1h", 4, null, null, null, Status.LIVE));
@@ -85,9 +86,15 @@ public class WelcomeScreenFragment extends Fragment implements WeatherCallback {
         binding.recyclView.setAdapter(recipeListAdapter);
         binding.recyclView.setLayoutManager(new LinearLayoutManager(requireContext()));
 
+        binding.btnReloadRecipes.setOnClickListener(v -> reloadRecipes());
+
     }
 
-    public ArrayList<Recipe> randomizeRecipeSuggestions(ArrayList<Recipe> list) {
+    private void reloadRecipes() {
+        recipeListAdapter.updateRecipes(randomizeRecipeSuggestions(testList));
+    }
+
+    public ArrayList<Recipe> randomizeRecipeSuggestions(List<Recipe> list) {
 
         ArrayList<Recipe> randomizedList = new ArrayList<>();
         Set<Integer> selectedIndices = new HashSet<>();
