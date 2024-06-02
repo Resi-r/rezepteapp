@@ -41,6 +41,15 @@
                 android:text="XY °C"
                 android:theme="@style/weather" />
 
+            <Button
+                android:id="@+id/btn_reload_recipes"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_margin="32dp"
+                android:layout_weight="0"
+                android:background="@drawable/baseline_compare_arrows_24"
+                android:backgroundTint="@color/secondary" />
+
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
