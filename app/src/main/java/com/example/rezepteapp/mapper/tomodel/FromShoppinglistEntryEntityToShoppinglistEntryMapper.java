@@ -20,7 +20,7 @@ public class FromShoppinglistEntryEntityToShoppinglistEntryMapper {
         ShoppinglistEntry entry = new ShoppinglistEntry();
         entry.setAmount(sle.getAmount());
         entry.setId(sle.getId());
-        entry.setIngredient(getIngredientName(sle.getId(), ie));
+        entry.setIngredient(getIngredientName(sle.getIngredientId(), ie));
         entry.setStatus(sle.getStatus());
 
         return entry;

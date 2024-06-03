@@ -94,7 +94,7 @@ public class RecipeModel {
 
         int ingredientId = ingredientDAO.getId(ingredient);
         if (ingredientId == 0) {
-            ingredientDAO.saveOrUpdate(new IngredientEntity(ingredient));
+            ingredientDAO.insert(new IngredientEntity(ingredient));
             ingredientId = ingredientDAO.getId(ingredient);
         }
         entity.setIngredientId(ingredientId);

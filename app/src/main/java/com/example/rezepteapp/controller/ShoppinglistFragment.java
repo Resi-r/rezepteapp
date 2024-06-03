@@ -149,10 +149,10 @@ public class ShoppinglistFragment extends Fragment {
         }
     }
     private void removeToDoEntry(ShoppinglistEntry entry) {
-        int position = doneList.indexOf(entry);
+        int position = toDoList.indexOf(entry);
         if (position != -1) {
-            doneList.remove(position);
-            adapterDone.notifyItemRemoved(position);
+            toDoList.remove(position);
+            adapterToDo.notifyItemRemoved(position);
             model.deleteShoppinglistEntry(entry);
         }
     }
@@ -160,6 +160,14 @@ public class ShoppinglistFragment extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        this.updateLists();
+        adapterToDo.notifyDataSetChanged();
+        adapterDone.notifyDataSetChanged();
     }
 
     @Override

@@ -42,6 +42,15 @@ public class IngredientDAOImpl implements IngredientDAO {
     }
 
     @Override
+    public void insert(IngredientEntity entity) {
+        try (SQLiteDatabase db = dbHelper.getWritableDatabase()) {
+            ContentValues values = new ContentValues();
+            values.put("name", entity.getName());
+            db.insert(DB_TABLE_INGREDIENT, null, values);
+        }
+    }
+
+    @Override
     public IngredientEntity getIngredientById(int id) {
         try (SQLiteDatabase db = dbHelper.getReadableDatabase()) {
             IngredientEntity entity = new IngredientEntity();
