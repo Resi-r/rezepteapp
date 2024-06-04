@@ -103,21 +103,71 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp">
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/btn_add_item"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
             android:layout_margin="32dp"
-            android:layout_marginBottom="-64dp"
-            android:clickable="true"
-            android:contentDescription="@string/description_content_add"
-            android:theme="@style/addButton"
-            app:borderWidth="0dp"
-            app:srcCompat="@drawable/baseline_add_24_white" />
+            android:minHeight="48dp"
+            android:orientation="horizontal">
 
+            <Button
+                android:id="@+id/bt_add_item_to_list"
+                android:layout_width="128dp"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/rounded_button"
+                android:backgroundTint="@color/secondary"
+                android:text="@string/plus_symbole"
+                android:textSize="24sp"
+                android:theme="@style/simpleText" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <EditText
+                    android:id="@+id/et_add_ingredient"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:hint="@string/ingredient"
+                    android:inputType="text"
+                    android:theme="@style/simpleText" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/et_add_quantity"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:ems="10"
+                        android:hint="@string/quantity"
+                        android:inputType="number"
+                        android:theme="@style/simpleText" />
+
+                    <Spinner
+                        android:id="@+id/spinner_add_unit"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:theme="@style/simpleText" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
     </RelativeLayout>
 </FrameLayout>

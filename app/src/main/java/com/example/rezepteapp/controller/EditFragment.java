@@ -6,7 +6,6 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -22,7 +21,7 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import com.example.rezepteapp.IngredientsAdapter;
+import com.example.rezepteapp.adapter.IngredientsAdapter;
 import com.example.rezepteapp.R;
 import com.example.rezepteapp.RecipeRepository;
 import com.example.rezepteapp.StringListAdapter;

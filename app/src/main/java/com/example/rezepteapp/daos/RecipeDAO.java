@@ -1,6 +1,7 @@
 package com.example.rezepteapp.daos;
 
 import com.example.rezepteapp.entities.RecipeEntity;
+import com.example.rezepteapp.model.Recipe;
 
 import java.util.List;
 
@@ -14,5 +15,7 @@ public interface RecipeDAO {
     List<RecipeEntity> getRecipesByStatusId(int statusId);
 
     List<RecipeEntity> getAllRecipes();
+    List<RecipeEntity> getAllArchivedRecipes();
+//    boolean updateRecipe(RecipeEntity entity);
     int getId(String name);
 }

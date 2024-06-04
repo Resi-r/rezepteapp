@@ -6,10 +6,13 @@ import java.util.List;
 
 public interface ShoppinglistEntryDAO {
 
+    void insert(ShoppinglistEntryEntity entity);
     long saveOrUpdate(final ShoppinglistEntryEntity entity);
     long delete(final ShoppinglistEntryEntity entity);
 
-    ShoppinglistEntryEntity getShoppinglistById(int id);
-    List<ShoppinglistEntryEntity> getAllShoppinglist();
+    ShoppinglistEntryEntity getShoppinglistEntryById(int id);
+    List<ShoppinglistEntryEntity> getAllShoppinglistEntries();
+    List<ShoppinglistEntryEntity> getAllTodoEntries();
+    List<ShoppinglistEntryEntity> getAllDoneEntries();
     int getId(String amount, int ingredientId);
 }

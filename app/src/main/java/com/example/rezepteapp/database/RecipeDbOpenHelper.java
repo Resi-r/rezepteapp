@@ -40,8 +40,7 @@ public class RecipeDbOpenHelper extends SQLiteOpenHelper {
     }
 
     public RecipeDbOpenHelper(Context context) {
-        super(context, DB_NAME, null, DB_VERSION);
-        this.context = context;
+        super(context, "RecipeDB", null, 1);
     }
 
     @Override
@@ -57,7 +56,10 @@ public class RecipeDbOpenHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        Log.d(getClass().getSimpleName(), "Upgrades werden nicht unterstützt.");
+        if (oldVersion < 2) {
+            db.execSQL("ALTER TABLE ShoppinglistEntry ADD COLUMN status TEXT");
+        }
+        Log.d(getClass().getSimpleName(), "Database upgraded from version " + oldVersion + " to " + newVersion);
     }
 
     // Insert and Update
@@ -141,20 +143,22 @@ public class RecipeDbOpenHelper extends SQLiteOpenHelper {
         }
     }
 
-    public void insertShoppinglist(ShoppinglistEntryEntity entity) {
+    public void insertShoppinglistEntry(ShoppinglistEntryEntity entity) {
         try(SQLiteDatabase db = this.getWritableDatabase()) {
             ContentValues values = new ContentValues();
             values.put("amount", entity.getAmount());
             values.put("ingredientId", entity.getIngredientId());
+            values.put("status", entity.getStatus().toString());
             db.insert(DB_TABLE_SHOPPINGLIST_ENTRY, null, values);
         }
     }
 
-    public boolean updateShoppinglist(ShoppinglistEntryEntity entity) {
+    public boolean updateShoppinglistEntry(ShoppinglistEntryEntity entity) {
         try(SQLiteDatabase db = this.getWritableDatabase()) {
             ContentValues values = new ContentValues();
             values.put("amount", entity.getAmount());
             values.put("ingredientId", entity.getIngredientId());
+            values.put("status", entity.getStatus().toString());
             int result = db.update(DB_TABLE_SHOPPINGLIST_ENTRY, values, "_id = ?", new String[]{String.valueOf(entity.getId())});
             return result != 0;
         }

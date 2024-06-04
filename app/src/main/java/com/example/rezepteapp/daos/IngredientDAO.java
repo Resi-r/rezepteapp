@@ -8,6 +8,7 @@ public interface IngredientDAO {
 
     long saveOrUpdate(final IngredientEntity entity);
     long delete(final IngredientEntity entity);
+    void insert(final IngredientEntity entity);
 
     IngredientEntity getIngredientById(int id);
     IngredientEntity getIngredientByName(String name);
