@@ -1,6 +1,5 @@
 package com.example.rezepteapp.daos;
 
-import static com.example.rezepteapp.utils.Constants.DB_TABLE_INGREDIENT;
 import static com.example.rezepteapp.utils.Constants.DB_TABLE_LABEL;
 
 import android.content.ContentValues;
@@ -11,54 +10,106 @@ import android.database.sqlite.SQLiteDatabase;
 import com.example.rezepteapp.database.RecipeDbOpenHelper;
 import com.example.rezepteapp.entities.LabelEntity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class LabelDAOImpl implements LabelDAO {
 
-    private RecipeDbOpenHelper dbHelper;
-    private SQLiteDatabase db;
-
+    private final RecipeDbOpenHelper dbHelper;
     public LabelDAOImpl(Context context) {
-        this.dbHelper = new RecipeDbOpenHelper(context);
-        db = dbHelper.getWritableDatabase();
+        this.dbHelper = RecipeDbOpenHelper.getInstance(context);
     }
 
 
     @Override
-    public void saveOrUpdate(LabelEntity entity) {
-        ContentValues values = new ContentValues();
-        values.put("name", entity.getName());
-        db.insert(DB_TABLE_LABEL, null, values);
+    public long saveOrUpdate(LabelEntity entity) {
+        try (SQLiteDatabase db = dbHelper.getWritableDatabase()) {
+            ContentValues values = new ContentValues();
+            values.put("name", entity.getName());
+            if (entity.getId() != 0) {
+
+                return db.update(DB_TABLE_LABEL, values, "_id = ?", new String[]{String.valueOf(entity.getId())});
+            } else {
+                return db.insert(DB_TABLE_LABEL, null, values);
+            }
+        }
     }
 
     @Override
-    public void delete(LabelEntity entity) {
-        db.delete(DB_TABLE_LABEL, "_id = ?", new String[] {String.valueOf(entity.getId())});
+    public long delete(LabelEntity entity) {
+        try (SQLiteDatabase db = dbHelper.getWritableDatabase()) {
+            return db.delete(DB_TABLE_LABEL, "_id = ?", new String[]{String.valueOf(entity.getId())});
+        }
     }
 
     @Override
     public LabelEntity getLabelById(int id) {
-        return null;
+        try (SQLiteDatabase db = dbHelper.getReadableDatabase()) {
+            LabelEntity entity = new LabelEntity();
+
+            try (Cursor cursor = db.query(DB_TABLE_LABEL, null, "_id = ?", new String[]{String.valueOf(id)}, null, null, null)) {
+                while (cursor.moveToNext()) {
+                    int idIndex = cursor.getColumnIndex("_id");
+                    int nameIndex = cursor.getColumnIndex("name");
+
+                    entity.setId(cursor.getInt(idIndex));
+                    entity.setName(cursor.getString(nameIndex));
+                }
+                return entity;
+            }
+        }
     }
 
     @Override
     public LabelEntity getLabelByName(String name) {
-        return null;
+        try (SQLiteDatabase db = dbHelper.getReadableDatabase()) {
+            LabelEntity entity = new LabelEntity();
+
+            try (Cursor cursor = db.query(DB_TABLE_LABEL, null, "name LIKE '?'", new String[]{name}, null, null, null)) {
+                while (cursor.moveToNext()) {
+                    int idIndex = cursor.getColumnIndex("_id");
+                    int nameIndex = cursor.getColumnIndex("name");
+
+                    entity.setId(cursor.getInt(idIndex));
+                    entity.setName(cursor.getString(nameIndex));
+                }
+                return entity;
+            }
+        }
     }
 
     @Override
     public List<LabelEntity> getAllLabels() {
-        return null;
+        try (SQLiteDatabase db = dbHelper.getReadableDatabase()) {
+            List<LabelEntity> entities = new ArrayList<>();
+            LabelEntity entity;
+
+            try (Cursor cursor = db.query(DB_TABLE_LABEL, null, null, null, null, null, null)) {
+                while (cursor.moveToNext()) {
+                    int idIndex = cursor.getColumnIndex("_id");
+                    int nameIndex = cursor.getColumnIndex("name");
+
+                    entity = new LabelEntity();
+
+                    entity.setId(cursor.getInt(idIndex));
+                    entity.setName(cursor.getString(nameIndex));
+
+                    entities.add(entity);
+                }
+                return entities;
+            }
+        }
     }
 
     @Override
     public int getId(String name) {
         try (SQLiteDatabase db = dbHelper.getReadableDatabase()){
-            Cursor cursor = db.query(DB_TABLE_LABEL, new String[]{"_id"}, "name = ?", new String[]{name}, null, null, null);
-            if (cursor.moveToFirst()) {
-                return cursor.getInt(cursor.getColumnIndexOrThrow("_id"));
+            try (Cursor cursor = db.query(DB_TABLE_LABEL, new String[]{"_id"}, "name = ?", new String[]{name}, null, null, null)) {
+                if (cursor.moveToFirst()) {
+                    return cursor.getInt(cursor.getColumnIndexOrThrow("_id"));
+                }
             }
         }
-        return 0;
+        return -1;
     }
 }

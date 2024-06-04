@@ -6,8 +6,8 @@ import java.util.List;
 
 public interface LabelDAO {
 
-    void saveOrUpdate(final LabelEntity entity);
-    void delete(final LabelEntity entity);
+    long saveOrUpdate(final LabelEntity entity);
+    long delete(final LabelEntity entity);
 
     LabelEntity getLabelById(int id);
     LabelEntity getLabelByName(String name);

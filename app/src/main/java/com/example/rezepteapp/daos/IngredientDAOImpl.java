@@ -15,29 +15,31 @@ import java.util.List;
 
 public class IngredientDAOImpl implements IngredientDAO {
 
-    private RecipeDbOpenHelper dbHelper;
+    private final RecipeDbOpenHelper dbHelper;
 
     public IngredientDAOImpl(Context context) {
-        this.dbHelper = new RecipeDbOpenHelper(context);
+        this.dbHelper = RecipeDbOpenHelper.getInstance(context);
     }
 
     @Override
-    public void saveOrUpdate(IngredientEntity entity) {
+    public long saveOrUpdate(IngredientEntity entity) {
         try (SQLiteDatabase db = dbHelper.getWritableDatabase()) {
+            System.out.println("is open?: " + db.isOpen());
+
             ContentValues values = new ContentValues();
             values.put("name", entity.getName());
-            try {
-                db.update(DB_TABLE_INGREDIENT, values, "_id = ?", new String[]{String.valueOf(entity.getId())});
-            } catch (Exception e) {
-                db.insert(DB_TABLE_INGREDIENT, null, values);
+            if (entity.getId() != 0) {
+                return db.update(DB_TABLE_INGREDIENT, values, "_id = ?", new String[]{String.valueOf(entity.getId())});
+            } else  {
+                return db.insert(DB_TABLE_INGREDIENT, null, values);
             }
         }
     }
 
     @Override
-    public void delete(IngredientEntity entity) {
+    public long delete(IngredientEntity entity) {
         try (SQLiteDatabase db = dbHelper.getWritableDatabase()) {
-            db.delete(DB_TABLE_INGREDIENT, "_id = ?", new String[]{String.valueOf(entity.getId())});
+            return db.delete(DB_TABLE_INGREDIENT, "_id = ?", new String[]{String.valueOf(entity.getId())});
         }
     }
 
@@ -64,7 +66,7 @@ public class IngredientDAOImpl implements IngredientDAO {
         try (SQLiteDatabase db = dbHelper.getReadableDatabase()) {
             IngredientEntity entity = new IngredientEntity();
 
-            try (Cursor cursor = db.query(DB_TABLE_INGREDIENT, null, "name = ?", new String[]{String.valueOf(name)}, null, null, null)) {
+            try (Cursor cursor = db.query(DB_TABLE_INGREDIENT, null, "name = ?", new String[]{name}, null, null, null)) {
                 while (cursor.moveToNext()) {
                     int idIndex = cursor.getColumnIndex("_id");
                     int nameIndex = cursor.getColumnIndex("name");
@@ -102,12 +104,13 @@ public class IngredientDAOImpl implements IngredientDAO {
     
     @Override
     public int getId(String name) {
-        try (SQLiteDatabase db = dbHelper.getReadableDatabase()){
-            Cursor cursor = db.query(DB_TABLE_INGREDIENT, new String[]{"_id"}, "name = ?", new String[]{name}, null, null, null);
-            if (cursor.moveToFirst()) {
-                return cursor.getInt(cursor.getColumnIndexOrThrow("_id"));
+        try (SQLiteDatabase db = dbHelper.getReadableDatabase()) {
+            try (Cursor cursor = db.query(DB_TABLE_INGREDIENT, new String[]{"_id"}, "name = ?", new String[]{name}, null, null, null)) {
+                if (cursor.moveToFirst()) {
+                    return cursor.getInt(cursor.getColumnIndexOrThrow("_id"));
+                }
             }
         }
-        return 0;
+        return -1;
     }
 }

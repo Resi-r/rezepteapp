@@ -1,6 +1,5 @@
 package com.example.rezepteapp.daos;
 
-import static com.example.rezepteapp.utils.Constants.DB_TABLE_INGREDIENT;
 import static com.example.rezepteapp.utils.Constants.DB_TABLE_RECIPE;
 
 import android.content.ContentValues;
@@ -16,16 +15,19 @@ import java.util.List;
 
 public class RecipeDAOImpl implements RecipeDAO {
 
-    private RecipeDbOpenHelper dbHelper;
+    private final RecipeDbOpenHelper dbHelper;
 
     public RecipeDAOImpl(Context context) {
-        this.dbHelper = new RecipeDbOpenHelper(context);
+        this.dbHelper = RecipeDbOpenHelper.getInstance(context);
     }
 
 
     @Override
-    public void saveOrDelete(RecipeEntity entity) {
-        try (SQLiteDatabase db = dbHelper.getWritableDatabase()) {
+    public long saveOrUpdate(RecipeEntity entity) {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+            System.out.println("is open?: " + db.isOpen());
+
+
             ContentValues values = new ContentValues();
             values.put("name", entity.getName());
             values.put("image", entity.getImage());
@@ -35,24 +37,25 @@ public class RecipeDAOImpl implements RecipeDAO {
             values.put("notes", entity.getNotes());
             values.put("steps", entity.getSteps());
             values.put("statusId", entity.getStatusId());
-            try {
-                db.update(DB_TABLE_RECIPE, values, "_id = ?", new String[] {String.valueOf(entity.getId())});
-            } catch (Exception e) {
-                db.insert(DB_TABLE_RECIPE, null, values);
+        if (entity.getId() != 0) {
+
+            return db.update(DB_TABLE_RECIPE, values, "_id = ?", new String[] {String.valueOf(entity.getId())});
+            } else {
+                return db.insert(DB_TABLE_RECIPE, null, values);
             }
-        }
+
     }
 
     @Override
-    public void delete(RecipeEntity entity) {
-        try (SQLiteDatabase db = dbHelper.getWritableDatabase()) {
-            db.delete(DB_TABLE_RECIPE, "_id = ?", new String[]{String.valueOf(entity.getId())});
-        }
+    public long delete(RecipeEntity entity) {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+            return db.delete(DB_TABLE_RECIPE, "_id = ?", new String[]{String.valueOf(entity.getId())});
+
     }
 
     @Override
     public RecipeEntity getRecipeById(int id) {
-        try (SQLiteDatabase db = dbHelper.getReadableDatabase()) {
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
             RecipeEntity entity = new RecipeEntity();
 
             try (Cursor cursor = db.query(DB_TABLE_RECIPE, null, "_id = ?", new String[]{String.valueOf(id)}, null, null, null)) {
@@ -79,16 +82,16 @@ public class RecipeDAOImpl implements RecipeDAO {
                 }
                 return entity;
             }
-        }
+
     }
 
     @Override
     public List<RecipeEntity> getRecipesByName(String name) {
-        try (SQLiteDatabase db = dbHelper.getReadableDatabase()) {
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
             List<RecipeEntity> entities = new ArrayList<>();
             RecipeEntity entity;
 
-            try (Cursor cursor = db.query(DB_TABLE_RECIPE, null, "name = '?'", new String[]{name}, null, null, null)) {
+            try (Cursor cursor = db.query(DB_TABLE_RECIPE, null, "name LIKE '%?%'", new String[]{name}, null, null, null)) {
                 while (cursor.moveToNext()) {
                     int idIndex = cursor.getColumnIndex("_id");
                     int nameIndex = cursor.getColumnIndex("name");
@@ -115,13 +118,13 @@ public class RecipeDAOImpl implements RecipeDAO {
                     entities.add(entity);
                 }
                 return entities;
-            }
+
         }
     }
 
     @Override
     public List<RecipeEntity> getRecipesByStatusId(int statusId) {
-        try (SQLiteDatabase db = dbHelper.getReadableDatabase()) {
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
             List<RecipeEntity> entities = new ArrayList<>();
             RecipeEntity entity;
 
@@ -152,13 +155,16 @@ public class RecipeDAOImpl implements RecipeDAO {
                     entities.add(entity);
                 }
                 return entities;
-            }
+
         }
     }
 
+
     @Override
     public List<RecipeEntity> getAllRecipes() {
-        try (SQLiteDatabase db = dbHelper.getReadableDatabase()) {
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+            System.out.println("is open?: " + db.isOpen());
+
             List<RecipeEntity> entities = new ArrayList<>();
             RecipeEntity entity;
 
@@ -189,18 +195,21 @@ public class RecipeDAOImpl implements RecipeDAO {
                     entities.add(entity);
                 }
                 return entities;
-            }
+
         }
     }
 
     @Override
     public int getId(String name) {
-        try (SQLiteDatabase db = dbHelper.getReadableDatabase()){
-            Cursor cursor = db.query(DB_TABLE_RECIPE, new String[]{"_id"}, "name = ?", new String[]{name}, null, null, null);
-            if (cursor.moveToFirst()) {
-                return cursor.getInt(cursor.getColumnIndexOrThrow("_id"));
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+            try (Cursor cursor = db.query(DB_TABLE_RECIPE, new String[]{"_id"}, "name = ?", new String[]{name}, null, null, null)) {
+                if (cursor.moveToFirst()) {
+                    return cursor.getInt(cursor.getColumnIndexOrThrow("_id"));
+                }
             }
-        }
-        return 0;
+
+        return -1;
     }
+
+
 }

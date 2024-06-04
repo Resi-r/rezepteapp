@@ -22,13 +22,18 @@ public class FromRecipeModelToRecipeEntityMapper {
 
     public RecipeEntity map(Recipe recipe) {
         RecipeEntity entity = new RecipeEntity();
+        if (recipe.getId() != 0) {
+            entity.setId(recipe.getId());
+        }
         entity.setName(recipe.getTitle());
-        entity.setImage(getBitmapAsByteArray(recipe.getImageTitle()));
+        if (recipe.getImageTitle() != null) {
+            entity.setImage(getBitmapAsByteArray(recipe.getImageTitle()));
+        }
         entity.setkTime(recipe.getkTime());
         entity.setvTime(recipe.getvTime());
         entity.setNotes(mapListToString(recipe.getNotes()));
         entity.setSteps(mapListToString(recipe.getSteps()));
-        entity.setStatusId(getStatusId(recipe.getStatus()));
+        entity.setStatusId(recipe.getStatus().getId());
         return entity;
     }
 

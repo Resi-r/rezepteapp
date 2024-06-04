@@ -15,31 +15,35 @@ import java.util.List;
 
 public class ShoppinglistEntryDAOImpl implements ShoppinglistEntryDAO {
 
-    private RecipeDbOpenHelper dbHelper;
+    private final RecipeDbOpenHelper dbHelper;
 
     public ShoppinglistEntryDAOImpl(Context context) {
-        this.dbHelper = new RecipeDbOpenHelper(context);
+        this.dbHelper = RecipeDbOpenHelper.getInstance(context);
     }
 
 
     @Override
-    public void saveOrUpdate(ShoppinglistEntryEntity entity) {
+    public long saveOrUpdate(ShoppinglistEntryEntity entity) {
         try (SQLiteDatabase db = dbHelper.getWritableDatabase()) {
+            System.out.println("is open?: " + db.isOpen());
+
+
             ContentValues values = new ContentValues();
             values.put("amount", entity.getAmount());
             values.put("ingredientId", entity.getIngredientId());
-            try {
-                db.update(DB_TABLE_SHOPPINGLIST_ENTRY, values, "_id = ?", new String[]{String.valueOf(entity.getId())});
-            } catch (Exception e) {
-                db.insert(DB_TABLE_SHOPPINGLIST_ENTRY, null, values);
+            if (entity.getId() != 0) {
+
+                return db.update(DB_TABLE_SHOPPINGLIST_ENTRY, values, "_id = ?", new String[]{String.valueOf(entity.getId())});
+            } else {
+                return db.insert(DB_TABLE_SHOPPINGLIST_ENTRY, null, values);
             }
         }
     }
 
     @Override
-    public void delete(ShoppinglistEntryEntity entity) {
+    public long delete(ShoppinglistEntryEntity entity) {
         try (SQLiteDatabase db = dbHelper.getWritableDatabase()) {
-            db.delete(DB_TABLE_SHOPPINGLIST_ENTRY, "_id = ?", new String[]{String.valueOf(entity.getId())});
+            return db.delete(DB_TABLE_SHOPPINGLIST_ENTRY, "_id = ?", new String[]{String.valueOf(entity.getId())});
         }
     }
 
@@ -91,11 +95,12 @@ public class ShoppinglistEntryDAOImpl implements ShoppinglistEntryDAO {
     @Override
     public int getId(String amount, int ingredientId) {
         try (SQLiteDatabase db = dbHelper.getReadableDatabase()){
-            Cursor cursor = db.query(DB_TABLE_SHOPPINGLIST_ENTRY, new String[]{"_id"}, "amount = ? AND ingredientId = ?", new String[]{amount,String.valueOf(ingredientId)}, null, null, null);
-            if (cursor.moveToFirst()) {
-                return cursor.getInt(cursor.getColumnIndexOrThrow("_id"));
+            try (Cursor cursor = db.query(DB_TABLE_SHOPPINGLIST_ENTRY, new String[]{"_id"}, "amount = ? AND ingredientId = ?", new String[]{amount,String.valueOf(ingredientId)}, null, null, null)) {
+                if (cursor.moveToFirst()) {
+                    return cursor.getInt(cursor.getColumnIndexOrThrow("_id"));
+                }
             }
         }
-        return 0;
+        return -1;
     }
 }

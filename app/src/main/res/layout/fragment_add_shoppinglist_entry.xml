@@ -3,11 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:padding="8dp">
 
     <EditText
-        android:id="@+id/input_quantity_description"
         android:layout_width="96dp"
         android:layout_height="48dp"
         android:layout_margin="5dp"
@@ -18,7 +17,6 @@
         android:theme="@style/simpleText" />
 
     <EditText
-        android:id="@+id/input_item_description"
         android:layout_width="wrap_content"
         android:layout_height="48dp"
         android:layout_margin="5dp"
@@ -29,7 +27,6 @@
         android:theme="@style/simpleText" />
 
     <Button
-        android:id="@+id/bt_add_new_item_to_list"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"

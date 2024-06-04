@@ -2,14 +2,29 @@ package com.example.rezepteapp;
 
 import static com.example.rezepteapp.R.*;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 
 import com.example.rezepteapp.controller.RecipeListFragment;
 import com.example.rezepteapp.controller.ShoppinglistFragment;
+import com.example.rezepteapp.daos.IngredientDAO;
+import com.example.rezepteapp.daos.IngredientDAOImpl;
+import com.example.rezepteapp.daos.RecipeDAOImpl;
+import com.example.rezepteapp.entities.IngredientEntity;
+import com.example.rezepteapp.entities.RecipeEntity;
+import com.example.rezepteapp.mapper.toentitiy.FromRecipeModelToRecipeEntityMapper;
+import com.example.rezepteapp.model.Ingredient;
+import com.example.rezepteapp.model.Label;
+import com.example.rezepteapp.model.Recipe;
+import com.example.rezepteapp.model.RecipeUnit;
+import com.example.rezepteapp.model.Status;
 import com.google.android.material.snackbar.Snackbar;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -30,6 +45,10 @@ import com.example.rezepteapp.databinding.ActivityMainBinding;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Window;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -75,7 +94,15 @@ public class MainActivity extends AppCompatActivity {
             }
             return false;
         });
+
+        new RecipeDAOImpl(this.getApplicationContext()).delete(new RecipeEntity(1, "", null, null, null, 0, null, null, 0));
+        new RecipeDAOImpl(this.getApplicationContext()).delete(new RecipeEntity(2, "", null, null, null, 0, null, null, 0));
+        new RecipeDAOImpl(this.getApplicationContext()).delete(new RecipeEntity(3, "", null, null, null, 0, null, null, 0));
+        new RecipeDAOImpl(this.getApplicationContext()).delete(new RecipeEntity(4, "", null, null, null, 0, null, null, 0));
+
+
     }
+
 
     private boolean allPermissionsGranted() {
         for (String permission : REQUIRED_PERMISSIONS) {

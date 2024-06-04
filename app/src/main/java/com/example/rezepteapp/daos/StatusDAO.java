@@ -6,8 +6,8 @@ import java.util.List;
 
 public interface StatusDAO {
 
-    void saveOrUpdate(final StatusEntity entity);
-    void delete(final StatusEntity entity);
+    long saveOrUpdate(final StatusEntity entity);
+    long delete(final StatusEntity entity);
 
     StatusEntity getStatusById(int id);
     StatusEntity getStatusByName(String name);

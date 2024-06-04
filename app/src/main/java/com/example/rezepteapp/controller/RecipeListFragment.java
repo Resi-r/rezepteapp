@@ -15,11 +15,17 @@ import android.view.ViewGroup;
 
 import com.example.rezepteapp.R;
 import com.example.rezepteapp.RecipeListAdapter;
+import com.example.rezepteapp.RecipeRepository;
 import com.example.rezepteapp.databinding.FragmentRecipeListBinding;
+import com.example.rezepteapp.model.Ingredient;
+import com.example.rezepteapp.model.Label;
 import com.example.rezepteapp.model.Recipe;
-import com.example.rezepteapp.model.RecipeModel;
+import com.example.rezepteapp.model.RecipeUnit;
+import com.example.rezepteapp.model.Status;
+import com.example.rezepteapp.viewmodel.RecipeModel;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -31,20 +37,20 @@ public class RecipeListFragment extends Fragment {
     private RecipeListAdapter recipeListAdapter;
 
     public RecipeListFragment() {
-        model = new RecipeModel(getContext());
-        recipeList = new ArrayList<>();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentRecipeListBinding.inflate(inflater, container, false);
+        model = new RecipeModel(requireContext().getApplicationContext());
         return binding.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        recipeList = model.getAllRecipes();
 
         recipeListAdapter = new RecipeListAdapter(recipeList);
 
@@ -66,6 +72,21 @@ public class RecipeListFragment extends Fragment {
             fragmentTransaction.addToBackStack(null);
             fragmentTransaction.commit();
         });
+/*
+        new RecipeRepository(requireActivity().getApplicationContext()).addRecipe(new Recipe(
+                "Recipe Test1",
+                null, // Replace with actual bitmap
+                Arrays.asList(new Label("veggi"), new Label("ölasdkfj"), new Label("woe4f"), new Label("idsf")), // Replace with actual labels
+                "10 mins",
+                "20 mins",
+                4,
+                Arrays.asList(new Ingredient("22", RecipeUnit.EL, "Zucker"), new Ingredient("200", RecipeUnit.MILLILITRE, "Wasser"), new Ingredient("22", RecipeUnit.EL, "Mehl")), // Replace with actual ingredients
+                Arrays.asList("1. Schritt", "2. Schritt"), // Replace with actual steps
+                Arrays.asList("https://www.google.com", "https://www.google.cosskljf"), // Replace with actual notes
+                Status.LIVE
+        ));
+
+ */
     }
 
     @Override

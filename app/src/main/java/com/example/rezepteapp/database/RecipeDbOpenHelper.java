@@ -14,6 +14,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import com.example.rezepteapp.RecipeRepository;
 import com.example.rezepteapp.entities.IngredientEntity;
 import com.example.rezepteapp.entities.IngredientsRecipesEntity;
 import com.example.rezepteapp.entities.LabelEntity;
@@ -24,8 +25,23 @@ import com.example.rezepteapp.entities.StatusEntity;
 
 public class RecipeDbOpenHelper extends SQLiteOpenHelper {
 
+    private static RecipeDbOpenHelper mInstance = null;
+
+    public static final String DB_NAME = "RecipeDB";
+    public static final int DB_VERSION = 1;
+
+    private Context context;
+
+    public static RecipeDbOpenHelper getInstance(Context context) {
+        if (mInstance == null) {
+            mInstance = new RecipeDbOpenHelper(context.getApplicationContext());
+        }
+        return mInstance;
+    }
+
     public RecipeDbOpenHelper(Context context) {
-        super(context, "RecipeDB", null, 1);
+        super(context, DB_NAME, null, DB_VERSION);
+        this.context = context;
     }
 
     @Override
@@ -34,9 +50,9 @@ public class RecipeDbOpenHelper extends SQLiteOpenHelper {
         db.execSQL("CREATE TABLE Status (_id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT)");
         db.execSQL("CREATE TABLE Label (_id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT)");
         db.execSQL("CREATE TABLE Recipe (_id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, image TEXT, servings INTEGER, kTime TEXT, vTime TEXT, notes TEXT, steps TEXT, statusId INTEGER)");
-        db.execSQL("CREATE TABLE ShoppinglistEntry (_id INTEGER PRIMARY KEY AUTOINCREMENT, amount TEXT, ingredientId INTEGER)");
-        db.execSQL("CREATE TABLE IngredientsRecipes (_id INTEGER PRIMARY KEY AUTOINCREMENT, amount TEXT, ingredientId INTEGER, recipeId INTEGER)");
-        db.execSQL("CREATE TABLE LabelsRecipes (_id INTEGER PRIMARY KEY AUTOINCREMENT, labelId INTEGER, recipeId INTEGER)");
+        db.execSQL("CREATE TABLE ShoppinglistEntry (_id INTEGER PRIMARY KEY AUTOINCREMENT, amount TEXT, ingredientId INTEGER, FOREIGN KEY (ingredientId) REFERENCES Ingredient(_id))");
+        db.execSQL("CREATE TABLE IngredientsRecipes (_id INTEGER PRIMARY KEY AUTOINCREMENT, amount TEXT, ingredientId INTEGER, recipeId INTEGER, FOREIGN KEY (ingredientId) REFERENCES Ingredient(_id), FOREIGN KEY (recipeId) REFERENCES Recipe(_id))");
+        db.execSQL("CREATE TABLE LabelsRecipes (_id INTEGER PRIMARY KEY AUTOINCREMENT, labelId INTEGER, recipeId INTEGER, FOREIGN KEY (labelId) REFERENCES Label(_id), FOREIGN KEY (recipeId) REFERENCES Recipe(_id))");
     }
 
     @Override

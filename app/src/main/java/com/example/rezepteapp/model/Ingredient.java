@@ -2,6 +2,8 @@ package com.example.rezepteapp.model;
 
 public class Ingredient {
 
+    private int id;
+
     private String amount;
 
     private RecipeUnit unit;
@@ -12,6 +14,21 @@ public class Ingredient {
         this.amount = amount;
         this.unit = unit;
         this.name = name;
+    }
+
+    public Ingredient(int id, String amount, RecipeUnit unit, String name) {
+        this.id = id;
+        this.amount = amount;
+        this.unit = unit;
+        this.name = name;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getAmount() {

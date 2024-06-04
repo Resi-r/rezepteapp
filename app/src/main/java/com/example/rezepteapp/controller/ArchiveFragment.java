@@ -9,20 +9,20 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.example.rezepteapp.databinding.FragmentArchiveBinding;
-import com.example.rezepteapp.model.RecipeModel;
+import com.example.rezepteapp.viewmodel.RecipeModel;
 
 public class ArchiveFragment extends Fragment {
     private FragmentArchiveBinding binding;
     private RecipeModel model;
 
     public ArchiveFragment() {
-        model = new RecipeModel(getContext());
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle saveInstanceState) {
         super.onCreateView(inflater, container, saveInstanceState);
         binding = FragmentArchiveBinding.inflate(inflater, container, false);
+        model = new RecipeModel(requireContext().getApplicationContext());
         return binding.getRoot();
     }
 

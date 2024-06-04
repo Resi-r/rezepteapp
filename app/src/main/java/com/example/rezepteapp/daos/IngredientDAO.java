@@ -6,8 +6,8 @@ import java.util.List;
 
 public interface IngredientDAO {
 
-    void saveOrUpdate(final IngredientEntity entity);
-    void delete(final IngredientEntity entity);
+    long saveOrUpdate(final IngredientEntity entity);
+    long delete(final IngredientEntity entity);
 
     IngredientEntity getIngredientById(int id);
     IngredientEntity getIngredientByName(String name);

@@ -22,12 +22,7 @@ import com.example.rezepteapp.model.FilterOption;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link FilterFragment#newInstance} factory method to
- * create an instance of this fragment.
- *
- */
+
 public class FilterFragment extends Fragment {
 
     private FragmentFilterBinding binding;

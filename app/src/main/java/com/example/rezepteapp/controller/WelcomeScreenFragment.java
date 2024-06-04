@@ -18,20 +18,10 @@ import com.example.rezepteapp.weather.Weather;
 import com.example.rezepteapp.weather.WeatherCall;
 import com.example.rezepteapp.weather.WeatherCallback;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-import com.example.rezepteapp.model.RecipeModel;
+import com.example.rezepteapp.viewmodel.RecipeModel;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
-
-import javax.net.ssl.HttpsURLConnection;
 
 public class WelcomeScreenFragment extends Fragment implements WeatherCallback {
 
@@ -48,7 +38,6 @@ public class WelcomeScreenFragment extends Fragment implements WeatherCallback {
     private RecipeModel model;
 
     public WelcomeScreenFragment() {
-        model = new RecipeModel(getContext());
         recipeList = new ArrayList<>();
     }
 
@@ -56,6 +45,7 @@ public class WelcomeScreenFragment extends Fragment implements WeatherCallback {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentWelcomeScreenBinding.inflate(inflater, container, false);
+        model = new RecipeModel(requireContext().getApplicationContext());
         return binding.getRoot();
     }
 

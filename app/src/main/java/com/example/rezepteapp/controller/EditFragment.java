@@ -1,23 +1,20 @@
 package com.example.rezepteapp.controller;
 
+import android.app.Activity;
 import android.content.Intent;
-import android.graphics.BitmapFactory;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.provider.MediaStore;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,12 +24,13 @@ import android.widget.TextView;
 
 import com.example.rezepteapp.IngredientsAdapter;
 import com.example.rezepteapp.R;
+import com.example.rezepteapp.RecipeRepository;
 import com.example.rezepteapp.StringListAdapter;
 import com.example.rezepteapp.databinding.FragmentEditBinding;
 import com.example.rezepteapp.model.Ingredient;
 import com.example.rezepteapp.model.Label;
 import com.example.rezepteapp.model.Recipe;
-import com.example.rezepteapp.model.RecipeModel;
+import com.example.rezepteapp.viewmodel.RecipeModel;
 import com.example.rezepteapp.model.RecipeUnit;
 import com.example.rezepteapp.model.Status;
 
@@ -56,8 +54,13 @@ public class EditFragment extends Fragment {
     private List<String> steps;
     private List<String> notes;
 
+    private Recipe recipe;
+
     public EditFragment() {
-        model = new RecipeModel(getContext());
+    }
+
+    public EditFragment(Recipe recipe) {
+        this.recipe = recipe;
     }
 
     @Override
@@ -74,13 +77,17 @@ public class EditFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentEditBinding.inflate(inflater, container, false);
-
+        model = new RecipeModel(requireContext().getApplicationContext());
         return binding.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        if (recipe != null) {
+            setRecipe(recipe);
+        }
 
         getActivity().findViewById(R.id.navbar_bottom).setVisibility(View.GONE);
 
@@ -101,9 +108,8 @@ public class EditFragment extends Fragment {
 
 
         binding.imgTitle.setOnClickListener(v -> {
-            // load image from gallery or camera (needs permission)
             Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-            startActivity(intent);
+            startActivityForResult(intent, 123, null);
         });
 
         binding.btnAddLabel.setOnClickListener(v -> {
@@ -143,7 +149,8 @@ public class EditFragment extends Fragment {
         });
 
         binding.btnAddRecipe.setOnClickListener(v -> {
-            addRecipeToDatabase();
+            addRecipeToDatabase(recipe);
+            getParentFragmentManager().popBackStack();
         });
 
     }
@@ -168,16 +175,56 @@ public class EditFragment extends Fragment {
         stepsAdapter.notifyItemInserted(steps.size());
     }
 
-    private boolean addRecipeToDatabase() {
+    private boolean addRecipeToDatabase(Recipe recipe) {
+
         String title = binding.tvTitle.getText().toString();
         Drawable imageTitle = binding.imgTitle.getDrawable();
         String vTime = binding.tvVTime.getText().toString();
         String kTime = binding.tvKTime.getText().toString();
-        int people = Integer.parseInt(binding.tvPeople.getText().toString());
 
-        Recipe recipe = new Recipe(title, ((BitmapDrawable) imageTitle).getBitmap(), labels, vTime, kTime, people, ingredients, steps, notes, Status.LIVE);
+        if (recipe == null) {
+            recipe = new Recipe();
+        }
 
+        if (binding.tvPeople.getText().toString().matches("^[0-9]*$")) {
+            int people = Integer.parseInt(binding.tvPeople.getText().toString());
+            recipe.setServings(people);
+        }
+
+        recipe.setTitle(title);
+        recipe.setImageTitle(drawableToBitmap(imageTitle));
+        recipe.setvTime(vTime);
+        recipe.setkTime(kTime);
+        recipe.setIngridients(ingredients);
+        recipe.setSteps(steps);
+        recipe.setNotes(notes);
+        recipe.setStatus(Status.LIVE);
+
+        model.addRecipeToDatabase(recipe);
+        System.out.println("Added Recipe");
         return true;
+    }
+
+    public Bitmap drawableToBitmap (Drawable drawable) {
+        Bitmap bitmap = null;
+
+        if (drawable instanceof BitmapDrawable) {
+            BitmapDrawable bitmapDrawable = (BitmapDrawable) drawable;
+            if(bitmapDrawable.getBitmap() != null) {
+                return bitmapDrawable.getBitmap();
+            }
+        }
+
+        if(drawable.getIntrinsicWidth() <= 0 || drawable.getIntrinsicHeight() <= 0) {
+            bitmap = Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888); // Single color bitmap will be created of 1x1 pixel
+        } else {
+            bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+        }
+
+        Canvas canvas = new Canvas(bitmap);
+        drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
+        drawable.draw(canvas);
+        return bitmap;
     }
 
     private void setLabels(List<String> labels) {
@@ -191,5 +238,29 @@ public class EditFragment extends Fragment {
 
     private boolean isValidStringEntry(String enteredText) {
         return !(enteredText.length() <= 1);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 123 && resultCode == Activity.RESULT_OK && data != null) {
+            Uri selectedImageUri = data.getData();
+            binding.imgTitle.setImageURI(selectedImageUri);
+        }
+    }
+
+    private void setRecipe(Recipe recipe) {
+        binding.tvTitle.setText(recipe.getTitle());
+        binding.imgTitle.setImageBitmap(recipe.getImageTitle());
+
+        binding.tvVTime.setText(recipe.getvTime());
+        binding.tvKTime.setText(recipe.getkTime());
+        binding.tvPeople.setText(String.valueOf(recipe.getServings()));
+
+        ingredients.addAll(recipe.getIngridients());
+        labels.addAll(recipe.getLabels());
+        steps.addAll(recipe.getSteps());
+        notes.addAll(recipe.getNotes());
+
     }
 }

@@ -6,8 +6,8 @@ import java.util.List;
 
 public interface IngredientsRecipesDAO {
 
-    void saveOrUpdate(final IngredientsRecipesEntity entity);
-    void delete(final IngredientsRecipesEntity entity);
+    long saveOrUpdate(final IngredientsRecipesEntity entity);
+    long delete(final IngredientsRecipesEntity entity);
 
     IngredientsRecipesEntity getIngredientsRecipesById(int id);
     List<IngredientsRecipesEntity> getIngredientsRecipesByIngredientId(int id);

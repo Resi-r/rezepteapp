@@ -11,6 +11,10 @@ public enum Status {
         this.id = id;
     }
 
+    public int getId() {
+        return id;
+    }
+
     public static Status getStatusById(int id) {
         return Arrays.stream(values()).filter(status -> status.id == id).findFirst().get();
     }

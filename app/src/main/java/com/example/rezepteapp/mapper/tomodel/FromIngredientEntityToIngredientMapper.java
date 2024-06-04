@@ -17,6 +17,7 @@ public class FromIngredientEntityToIngredientMapper {
 
     public Ingredient map(IngredientEntity entity) {
         Ingredient ingredient = new Ingredient();
+        ingredient.setId(entity.getId());
         String[] amountAndUnit = divideAmountAndUnit(getAmount(entity.getId()));
         ingredient.setAmount(amountAndUnit[0]);
         ingredient.setName(entity.getName());
