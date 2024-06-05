@@ -14,12 +14,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.rezepteapp.R;
 import com.example.rezepteapp.model.Recipe;
+import com.example.rezepteapp.viewmodel.RecipeModel;
 
 import java.util.List;
 
 public class ArchivedRecipeAdapter extends RecyclerView.Adapter<ArchivedRecipeAdapter.ViewHolder> {
+    private RecipeModel model;
 
-    public interface RecipeActionListener {
+    public interface ArchiveActionListener {
         void onDeleteRecipe(Recipe recipe);
         void onRevertArchiving(Recipe recipe);
     }
@@ -28,9 +30,9 @@ public class ArchivedRecipeAdapter extends RecyclerView.Adapter<ArchivedRecipeAd
         public TextView recipeDescriptionTextView;
         public TextView recipeTitleTextView;
         public ImageView recipeEntryImage;
-        private final RecipeActionListener listener;
+        private final ArchiveActionListener listener;
 
-        public ViewHolder(View itemView, RecipeActionListener listener) {
+        public ViewHolder(View itemView, ArchiveActionListener listener) {
             super(itemView);
             this.listener = listener;
             recipeDescriptionTextView = (TextView) itemView.findViewById(R.id.tv_descr_recipe_entry);
@@ -41,8 +43,8 @@ public class ArchivedRecipeAdapter extends RecyclerView.Adapter<ArchivedRecipeAd
 
         @Override
         public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-            MenuItem revertItem = menu.add(0, v.getId(), 0, "Archivierung rückgängig machen");
-            MenuItem deleteItem = menu.add(0, v.getId(), 1, "löschen");
+            MenuItem revertItem = menu.add(0, v.getId(), 0, "Entarchivieren");
+            MenuItem deleteItem = menu.add(0, v.getId(), 1, "Löschen");
 
             revertItem.setOnMenuItemClickListener(item -> {
                 if (listener != null) {
@@ -61,9 +63,9 @@ public class ArchivedRecipeAdapter extends RecyclerView.Adapter<ArchivedRecipeAd
 
     }
     private List<Recipe> recipes;
-    private RecipeActionListener listener;
+    private ArchiveActionListener listener;
 
-    public ArchivedRecipeAdapter(List<Recipe> recipes, RecipeActionListener listener) {
+    public ArchivedRecipeAdapter(List<Recipe> recipes, ArchiveActionListener listener) {
         this.recipes = recipes;
         this.listener = listener;
     }
@@ -94,6 +96,7 @@ public class ArchivedRecipeAdapter extends RecyclerView.Adapter<ArchivedRecipeAd
     }
 
     public void deleteRecipe(Recipe recipe) {
+        model.deleteRecipe(recipe);
         int position = recipes.indexOf(recipe);
         if (position != -1) {
             recipes.remove(position);
@@ -102,6 +105,7 @@ public class ArchivedRecipeAdapter extends RecyclerView.Adapter<ArchivedRecipeAd
     }
 
     public void revertArchiving(Recipe recipe) {
+        model.revertArchivation(recipe);
         int position = recipes.indexOf(recipe);
         if (position != -1) {
             recipes.remove(position);

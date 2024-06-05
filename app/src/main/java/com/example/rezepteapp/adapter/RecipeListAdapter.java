@@ -25,11 +25,13 @@ import com.example.rezepteapp.entities.RecipeEntity;
 import com.example.rezepteapp.listener.RecipeListActionListener;
 import com.example.rezepteapp.model.Recipe;
 import com.example.rezepteapp.model.ShoppinglistEntry;
+import com.example.rezepteapp.viewmodel.RecipeModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.ViewHolder> {
+    private RecipeModel model;
 
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener{
 
@@ -37,6 +39,7 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Vi
         public TextView recipeName;
         public TextView recipeDescription;
         private RecipeListActionListener listener;
+        private RecipeModel model;
 
         public ViewHolder(View itemView, List<Recipe> recipeList, Context context, RecipeListActionListener listener) {
             super(itemView);
@@ -141,10 +144,13 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Vi
     }
 
     public void archiveRecipe(Recipe recipe) {
-        int position = allRecipesList.indexOf(recipe);
-        if (position != -1) {
-            allRecipesList.remove(position);
-            notifyItemRemoved(position);
+        if (model != null) {
+            model.archiveRecipe(recipe);
+            int position = allRecipesList.indexOf(recipe);
+            if (position != -1) {
+                allRecipesList.remove(position);
+                notifyItemRemoved(position);
+            }
         }
     }
 }

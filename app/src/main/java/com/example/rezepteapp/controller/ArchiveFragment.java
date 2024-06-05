@@ -21,9 +21,7 @@ public class ArchiveFragment extends Fragment {
     private ArchivedRecipeAdapter adapter;
     private List<Recipe> recipes;
 
-    public ArchiveFragment() {
-
-    }
+    public ArchiveFragment() {}
 
     @Override
     public void onCreate(Bundle saveInstanceState){
@@ -45,7 +43,7 @@ public class ArchiveFragment extends Fragment {
         super.onViewCreated(view, saveInstanceState);
 
         adapter = new ArchivedRecipeAdapter(recipes,
-                new ArchivedRecipeAdapter.RecipeActionListener() {
+                new ArchivedRecipeAdapter.ArchiveActionListener() {
                     @Override
                     public void onDeleteRecipe(Recipe recipe) {
                         model.deleteRecipe(recipe);

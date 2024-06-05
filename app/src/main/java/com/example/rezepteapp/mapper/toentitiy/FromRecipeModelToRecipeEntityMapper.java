@@ -44,9 +44,7 @@ public class FromRecipeModelToRecipeEntityMapper {
         if (stringList == null) {
             return "";
         }
-        // Entferne null Einträge aus der Liste
-        stringList.removeIf(java.util.Objects::isNull);
+        stringList.removeIf(java.util.Objects::isNull); // Entfernt null Einträge
         return String.join("; ", stringList);
     }
-
 }

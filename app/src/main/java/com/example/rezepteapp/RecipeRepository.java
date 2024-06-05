@@ -256,6 +256,10 @@ public class RecipeRepository {
         ShoppinglistEntryEntity entity = mapper.map(entry);
         shoppinglistEntryDAO.delete(entity);
     }
-
-
+    public void archiveRecipe(Recipe recipe) {
+        FromRecipeModelToRecipeEntityMapper mapper = new FromRecipeModelToRecipeEntityMapper(context);
+        RecipeEntity entity = mapper.map(recipe);
+        entity.setStatusId(1);
+        recipeDAO.saveOrUpdate(entity);
+    }
 }
