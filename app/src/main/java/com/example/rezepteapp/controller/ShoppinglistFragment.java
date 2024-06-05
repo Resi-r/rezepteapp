@@ -86,7 +86,7 @@ public class ShoppinglistFragment extends Fragment {
                     adapterToDo.notifyItemInserted(toDoList.size() - 1);
                 }
             } else {
-                Toast.makeText(getContext(), "Bitte alle Felder füllen", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Bitte fülle alle Felder aus", Toast.LENGTH_SHORT).show();
             }
         });
 

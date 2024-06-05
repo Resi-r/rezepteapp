@@ -26,7 +26,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.rezepteapp.R;
-import com.example.rezepteapp.RecipeListAdapter;
+import com.example.rezepteapp.adapter.RecipeListAdapter;
 import com.example.rezepteapp.databinding.FragmentRecipeListBinding;
 import com.example.rezepteapp.model.FilterOption;
 import com.example.rezepteapp.model.Label;
@@ -87,7 +87,7 @@ public class RecipeListFragment extends Fragment {
         testList.add(new Recipe("Haha", null, testLabels1, "1h", "5h", 4, null, null, null, Status.LIVE));
         testList.add(new Recipe("Lol", null, testLabels2, "1h", "3h", 4, null, null, null, Status.LIVE));
 
-        recipeListAdapter = new RecipeListAdapter(testList);
+        recipeListAdapter = new RecipeListAdapter(testList, this::archiveRecipe);
 //        recipeListAdapter = new RecipeListAdapter(recipeList);
 
         binding.recyclRecipeList.setAdapter(recipeListAdapter);
@@ -114,6 +114,15 @@ public class RecipeListFragment extends Fragment {
                 recipeListAdapter.notifyDataSetChanged();
             }
         });
+    }
+
+    private void archiveRecipe(Recipe recipe) {
+        int position = testList.indexOf(recipe);
+        if (position != -1) {
+            testList.remove(position);
+            recipeListAdapter.notifyItemRemoved(position);
+            model.deleteRecipe(recipe);
+        }
     }
 
     @Override
@@ -151,7 +160,6 @@ public class RecipeListFragment extends Fragment {
     }
 
     private List<Recipe> checkRecipesForActiveFilters(List<Recipe> list, ArrayList<FilterOption> activeFilters) {
-
         if (activeFilters.isEmpty()) {
             recipeListAdapter.updateRecipes(testList);
             return testList;
@@ -160,31 +168,20 @@ public class RecipeListFragment extends Fragment {
         ArrayList<Recipe> newList = new ArrayList<>();
 
         for (int i = 0; i < list.size(); i++) {
-
             if (list.get(i).getLabels() != null) {
-
                 for (int j = 0; j < list.get(i).getLabels().size(); j++) {
-
                     for (int n = 0; n < activeFilters.size(); n++) {
-
                         if (list.get(i).getLabels().get(j).getName().equals(activeFilters.get(n).getFilterName())) {
-
                             newList.add(list.get(i));
                             break;
-
                         }
-
                     }
-
                 }
-
             }
         }
-
         recipeListAdapter.updateRecipes(newList);
 
         return newList;
-
     }
 
     private ArrayList<FilterOption> loadActiveFilters() {

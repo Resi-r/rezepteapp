@@ -41,7 +41,7 @@ public class ShoppinglistToDoAdapter extends RecyclerView.Adapter<ShoppinglistTo
         }
         @Override
         public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-            MenuItem deleteItem = menu.add(0, v.getId(), 1, "löschen");
+            MenuItem deleteItem = menu.add(0, v.getId(), 1, "Löschen");
 
             deleteItem.setOnMenuItemClickListener(item -> {
                 if (listener != null) {

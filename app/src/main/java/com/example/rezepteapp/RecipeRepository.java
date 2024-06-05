@@ -33,6 +33,7 @@ import com.example.rezepteapp.model.Recipe;
 import com.example.rezepteapp.model.ShoppinglistEntry;
 import com.example.rezepteapp.model.ShoppinglistEtryStatus;
 import com.example.rezepteapp.model.Status;
+import com.example.rezepteapp.viewmodel.RecipeModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -244,7 +245,6 @@ public class RecipeRepository {
         RecipeEntity entity = mapper.map(recipe);
         recipeDAO.delete(entity);
     }
-
     public void revertArchivation(Recipe recipe) {
         FromRecipeModelToRecipeEntityMapper mapper = new FromRecipeModelToRecipeEntityMapper(context);
         RecipeEntity entity = mapper.map(recipe);
