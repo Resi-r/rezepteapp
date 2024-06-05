@@ -64,9 +64,9 @@ public class MainActivity extends AppCompatActivity {
 
         binding.navbarBottom.setSelectedItemId(R.id.home);
 
+        // Sample data for testing
         testList = new ArrayList<>();
 
-        // Sample data for testing
         Label label = new Label("Vegetarisch");
         Label label1 = new Label("Vegan");
         Label label2 = new Label("Lieblingsessen");
@@ -92,6 +92,7 @@ public class MainActivity extends AppCompatActivity {
         testList.add(new Recipe("Tschüss", null, testLabels2, "1h", "1h", 4, ingredients, null, null, Status.LIVE));
         testList.add(new Recipe("Haha", null, testLabels1, "1h", "5h", 4, ingredients, null, null, Status.LIVE));
         testList.add(new Recipe("Lol", null, testLabels2, "1h", "3h", 4, ingredients, null, null, Status.LIVE));
+        testList.add(new Recipe("Haha1", null, testLabels1, "1h", "5h", 4, ingredients, null, null, Status.LIVE));
 
         RecipeRepository repository = new RecipeRepository(this);
 

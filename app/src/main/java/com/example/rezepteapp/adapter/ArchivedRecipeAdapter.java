@@ -13,6 +13,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.rezepteapp.R;
+import com.example.rezepteapp.listener.OnDeleteArchivedItemListener;
+import com.example.rezepteapp.listener.OnRevertArchivingListener;
 import com.example.rezepteapp.model.Recipe;
 import com.example.rezepteapp.viewmodel.RecipeModel;
 
@@ -20,21 +22,17 @@ import java.util.List;
 
 public class ArchivedRecipeAdapter extends RecyclerView.Adapter<ArchivedRecipeAdapter.ViewHolder> {
     private RecipeModel model;
-
-    public interface ArchiveActionListener {
-        void onDeleteRecipe(Recipe recipe);
-        void onRevertArchiving(Recipe recipe);
-    }
-
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener {
         public TextView recipeDescriptionTextView;
         public TextView recipeTitleTextView;
         public ImageView recipeEntryImage;
-        private final ArchiveActionListener listener;
+        private OnRevertArchivingListener revertArchivingListener;
+        private OnDeleteArchivedItemListener deleteArchivedItemListener;
 
-        public ViewHolder(View itemView, ArchiveActionListener listener) {
+        public ViewHolder(View itemView, OnRevertArchivingListener revertArchivingListener, OnDeleteArchivedItemListener deleteArchivedItemListener) {
             super(itemView);
-            this.listener = listener;
+            this.deleteArchivedItemListener = deleteArchivedItemListener;
+            this.revertArchivingListener = revertArchivingListener;
             recipeDescriptionTextView = (TextView) itemView.findViewById(R.id.tv_descr_recipe_entry);
             recipeTitleTextView = (TextView) itemView.findViewById(R.id.tv_title_recipe_entry);
             recipeEntryImage = (ImageView) itemView.findViewById(R.id.img_recipe_entry);
@@ -47,15 +45,15 @@ public class ArchivedRecipeAdapter extends RecyclerView.Adapter<ArchivedRecipeAd
             MenuItem deleteItem = menu.add(0, v.getId(), 1, "Löschen");
 
             revertItem.setOnMenuItemClickListener(item -> {
-                if (listener != null) {
-                    listener.onRevertArchiving((Recipe) itemView.getTag());
+                if (revertArchivingListener != null) {
+                    revertArchivingListener.onRevertArchiving((Recipe) itemView.getTag());
                 }
                 return true;
             });
 
             deleteItem.setOnMenuItemClickListener(item -> {
-                if (listener != null) {
-                    listener.onDeleteRecipe((Recipe) itemView.getTag());
+                if (deleteArchivedItemListener != null) {
+                    deleteArchivedItemListener.onDeleteRecipe((Recipe) itemView.getTag());
                 }
                 return true;
             });
@@ -63,11 +61,13 @@ public class ArchivedRecipeAdapter extends RecyclerView.Adapter<ArchivedRecipeAd
 
     }
     private List<Recipe> recipes;
-    private ArchiveActionListener listener;
+    private OnRevertArchivingListener revertArchivingListener;
+    private OnDeleteArchivedItemListener deleteArchivedItemListener;
 
-    public ArchivedRecipeAdapter(List<Recipe> recipes, ArchiveActionListener listener) {
+    public ArchivedRecipeAdapter(List<Recipe> recipes, OnRevertArchivingListener revertArchivingListener, OnDeleteArchivedItemListener deleteArchivedItemListener) {
         this.recipes = recipes;
-        this.listener = listener;
+        this.revertArchivingListener = revertArchivingListener;
+        this.deleteArchivedItemListener = deleteArchivedItemListener;
     }
 
     @NonNull
@@ -76,8 +76,9 @@ public class ArchivedRecipeAdapter extends RecyclerView.Adapter<ArchivedRecipeAd
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
         View entryView = inflater.inflate(R.layout.recycl_item_welcome_screen_recipes, parent, false);
+        this.model = new RecipeModel(context);
 
-        return new ArchivedRecipeAdapter.ViewHolder(entryView, listener);
+        return new ArchivedRecipeAdapter.ViewHolder(entryView, revertArchivingListener, deleteArchivedItemListener);
     }
 
     @Override
@@ -95,23 +96,23 @@ public class ArchivedRecipeAdapter extends RecyclerView.Adapter<ArchivedRecipeAd
         return recipes != null ? recipes.size() : 0;
     }
 
-    public void deleteRecipe(Recipe recipe) {
-        model.deleteRecipe(recipe);
+    /*public void deleteRecipe(Recipe recipe) {
         int position = recipes.indexOf(recipe);
         if (position != -1) {
             recipes.remove(position);
             notifyItemRemoved(position);
+            model.deleteRecipe(recipe);
         }
     }
 
     public void revertArchiving(Recipe recipe) {
-        model.revertArchivation(recipe);
         int position = recipes.indexOf(recipe);
         if (position != -1) {
             recipes.remove(position);
             notifyItemRemoved(position);
+            model.revertArchivation(recipe);
         }
-    }
+    }*/
 
     private String getDescription(Recipe recipe) {
         return "Vorbereitungszeit: " + recipe.getvTime() + "\tKochzeit: " + recipe.getkTime() + "\tPortionen: " + recipe.getServings();

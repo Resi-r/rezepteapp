@@ -52,7 +52,6 @@ public class RecipeListFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
         binding = FragmentRecipeListBinding.inflate(inflater, container, false);
         model = new RecipeModel(requireContext().getApplicationContext());
         return binding.getRoot();
@@ -66,7 +65,6 @@ public class RecipeListFragment extends Fragment {
         sharedPreferences = requireActivity().getSharedPreferences(MY_PREFERENCES, Context.MODE_PRIVATE);
 
         recipeListAdapter = new RecipeListAdapter(recipeList, this::archiveRecipe);
-//        recipeListAdapter = new RecipeListAdapter(recipeList);
 
         binding.recyclRecipeList.setAdapter(recipeListAdapter);
         binding.recyclRecipeList.setLayoutManager(new LinearLayoutManager(requireContext()));

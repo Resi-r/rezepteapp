@@ -16,15 +16,15 @@ import android.view.ViewGroup;
 import com.example.rezepteapp.R;
 import com.example.rezepteapp.adapter.IngredientsAdapter;
 import com.example.rezepteapp.adapter.StringListAdapter;
-import com.example.rezepteapp.databinding.FragmentShowRecipeBinding;
+import com.example.rezepteapp.databinding.FragmentRecipeDetailsBinding;
 import com.example.rezepteapp.model.Ingredient;
 import com.example.rezepteapp.model.Recipe;
 
 import java.util.List;
 
-public class ShowRecipeFragment extends Fragment {
+public class RecipeDetailsFragment extends Fragment {
 
-    FragmentShowRecipeBinding binding;
+    FragmentRecipeDetailsBinding binding;
     private Recipe recipe;
     private IngredientsAdapter ingredientsAdapter;
     private StringListAdapter stepsAdapter;
@@ -32,13 +32,10 @@ public class ShowRecipeFragment extends Fragment {
 
     private List<Ingredient> ingredients;
     private List<String> steps;
-    private List<String> notes;
 
-    public ShowRecipeFragment() {
-        // Required empty public constructor
-    }
+    public RecipeDetailsFragment() {}
 
-    public ShowRecipeFragment(Recipe recipe) {
+    public RecipeDetailsFragment(Recipe recipe) {
         this.recipe = recipe;
     }
 
@@ -51,10 +48,9 @@ public class ShowRecipeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        binding = FragmentShowRecipeBinding.inflate(inflater, container, false);
+        binding = FragmentRecipeDetailsBinding.inflate(inflater, container, false);
         ingredients = recipe.getIngridients();
         steps = recipe.getSteps();
-        notes = recipe.getNotes();
         return binding.getRoot();
     }
 
@@ -64,12 +60,11 @@ public class ShowRecipeFragment extends Fragment {
 
         ingredientsAdapter = new IngredientsAdapter(ingredients);
         stepsAdapter = new StringListAdapter(steps);
-        notesAdapter = new StringListAdapter(notes);
 
-        binding.tvTitleShow.setText(recipe.getTitle());
+        binding.tvTitle.setText(recipe.getTitle());
         binding.imgTitle.setImageBitmap(recipe.getImageTitle());
 
-        binding.tvVTimeShow.setText(recipe.getvTime());
+        binding.tvVTime.setText(recipe.getvTime());
         binding.tvKTime.setText(recipe.getkTime());
         binding.tvPeople.setText(String.valueOf(recipe.getServings()));
 
@@ -79,10 +74,7 @@ public class ShowRecipeFragment extends Fragment {
         binding.recyclSteps.setAdapter(stepsAdapter);
         binding.recyclSteps.setLayoutManager(new LinearLayoutManager(requireContext()));
 
-        binding.recyclNotes.setAdapter(notesAdapter);
-        binding.recyclNotes.setLayoutManager(new LinearLayoutManager(requireContext()));
-
-        binding.btnCancel.setOnClickListener(l -> {
+        binding.btnBack.setOnClickListener(l -> {
             requireActivity().getSupportFragmentManager().popBackStack();
         });
 

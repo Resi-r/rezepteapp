@@ -1,9 +1,7 @@
 package com.example.rezepteapp.adapter;
 
 import android.content.Context;
-import android.view.ContextMenu;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -25,14 +23,14 @@ import com.example.rezepteapp.viewmodel.RecipeModel;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.ViewHolder> {
+public class WelcomeRecipeListAdapter extends RecyclerView.Adapter<WelcomeRecipeListAdapter.ViewHolder> {
     private RecipeModel model;
-
-    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener{
+    public static class ViewHolder extends RecyclerView.ViewHolder{
         public ImageView image;
         public TextView recipeName;
         public TextView recipeDescription;
         private RecipeListActionListener listener;
+        private RecipeModel model;
 
         public ViewHolder(View itemView, List<Recipe> recipeList, Context context, RecipeListActionListener listener) {
             super(itemView);
@@ -54,36 +52,22 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Vi
                 }
             });
 
-            itemView.setOnCreateContextMenuListener(this);
-
             image = (ImageView) itemView.findViewById(R.id.img_recipe_entry);
             recipeName = (TextView) itemView.findViewById(R.id.tv_title_recipe_entry);
             recipeDescription = (TextView) itemView.findViewById(R.id.tv_descr_recipe_entry);
         }
 
-        @Override
-        public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-            MenuItem item = menu.add(0, v.getId(), 1, "Archivieren");
-
-            item.setOnMenuItemClickListener(i -> {
-                int position = getAdapterPosition();
-                if (position != RecyclerView.NO_POSITION && listener != null) {
-                    listener.archiveRecipe((Recipe) itemView.getTag());
-                }
-                return true;
-            });
-        }
     }
 
     private final List<Recipe> allRecipesList;
     private final List<Recipe> visibleRecipesList;
     private RecipeListActionListener recipeListActionListener;
 
-    public RecipeListAdapter(List<Recipe> recipeList) {
+    public WelcomeRecipeListAdapter(List<Recipe> recipeList) {
         this.allRecipesList = new ArrayList<>(recipeList);
         this.visibleRecipesList = new ArrayList<>(recipeList);
     }
-    public RecipeListAdapter(List<Recipe> recipeList, RecipeListActionListener recipeListActionListener) {
+    public WelcomeRecipeListAdapter(List<Recipe> recipeList, RecipeListActionListener recipeListActionListener) {
         this.allRecipesList = new ArrayList<>(recipeList);
         this.visibleRecipesList = new ArrayList<>(recipeList);
         this.recipeListActionListener = recipeListActionListener;
@@ -91,16 +75,16 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Vi
 
     @NonNull
     @Override
-    public RecipeListAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public WelcomeRecipeListAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
         View recipeView = inflater.inflate(R.layout.recycl_item_welcome_screen_recipes, parent, false);
 
-        return new RecipeListAdapter.ViewHolder(recipeView, visibleRecipesList, context, recipeListActionListener);
+        return new WelcomeRecipeListAdapter.ViewHolder(recipeView, visibleRecipesList, context, recipeListActionListener);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecipeListAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull WelcomeRecipeListAdapter.ViewHolder holder, int position) {
         Recipe recipe = visibleRecipesList.get(position);
 
         holder.itemView.setTag(recipe);
@@ -125,7 +109,7 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Vi
         notifyDataSetChanged();
     }
 
-    /*public void hideItem(int position) {
+    public void hideItem(int position) {
         visibleRecipesList.remove(position);
         notifyItemRemoved(position);
     }
@@ -134,9 +118,9 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Vi
         Recipe recipe = allRecipesList.get(position);
         visibleRecipesList.add(position, recipe);
         notifyItemInserted(position);
-    }*/
+    }
 
-    /*public void archiveRecipe(Recipe recipe) {
+    public void archiveRecipe(Recipe recipe) {
         if (model != null) {
             model.archiveRecipe(recipe);
             int position = allRecipesList.indexOf(recipe);
@@ -145,5 +129,5 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Vi
                 notifyItemRemoved(position);
             }
         }
-    }*/
+    }
 }

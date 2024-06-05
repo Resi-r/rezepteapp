@@ -10,7 +10,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.example.rezepteapp.adapter.RecipeListAdapter;
+import com.example.rezepteapp.adapter.WelcomeRecipeListAdapter;
 import com.example.rezepteapp.databinding.FragmentWelcomeScreenBinding;
 import com.example.rezepteapp.model.Recipe;
 import com.example.rezepteapp.model.Status;
@@ -31,7 +31,7 @@ public class WelcomeScreenFragment extends Fragment implements WeatherCallback {
     private WeatherCall weatherCall;
     private List<Recipe> recipeList;
     private List<Recipe> testList;
-    private RecipeListAdapter recipeListAdapter;
+    private WelcomeRecipeListAdapter welcomeRecipeListAdapter;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -72,10 +72,10 @@ public class WelcomeScreenFragment extends Fragment implements WeatherCallback {
         testList.add(new Recipe("Haha2", null, null, "1h", "5h", 4, null, null, null, Status.LIVE));
         testList.add(new Recipe("Lol2", null, null, "1h", "3h", 4, null, null, null, Status.LIVE));
 
-        recipeListAdapter = new RecipeListAdapter(randomizeRecipeSuggestions(testList));
-//        recipeListAdapter = new RecipeListAdapter(recipeList);
+        welcomeRecipeListAdapter = new WelcomeRecipeListAdapter(randomizeRecipeSuggestions(testList));
+//        WelcomeRecipeListAdapter = new WelcomeRecipeListAdapter(recipeList);
 
-        binding.recyclView.setAdapter(recipeListAdapter);
+        binding.recyclView.setAdapter(welcomeRecipeListAdapter);
         binding.recyclView.setLayoutManager(new LinearLayoutManager(requireContext()));
 
         binding.btnReloadRecipes.setOnClickListener(v -> reloadRecipes());
@@ -83,7 +83,7 @@ public class WelcomeScreenFragment extends Fragment implements WeatherCallback {
     }
 
     private void reloadRecipes() {
-        recipeListAdapter.updateRecipes(randomizeRecipeSuggestions(testList));
+        welcomeRecipeListAdapter.updateRecipes(randomizeRecipeSuggestions(testList));
     }
 
     public ArrayList<Recipe> randomizeRecipeSuggestions(List<Recipe> list) {

@@ -1,7 +1,16 @@
 package com.example.rezepteapp.controller;
 
+import static com.example.rezepteapp.utils.Constants.CHECK_BOX;
+import static com.example.rezepteapp.utils.Constants.FILTER_COUNT;
+import static com.example.rezepteapp.utils.Constants.FILTER_NAME;
+import static com.example.rezepteapp.utils.Constants.MY_PREFERENCES;
+
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.drawable.BitmapDrawable;
@@ -12,7 +21,10 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.provider.MediaStore;
 import android.view.LayoutInflater;
@@ -20,15 +32,21 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.rezepteapp.adapter.FilterAdapter;
 import com.example.rezepteapp.adapter.IngredientsAdapter;
 import com.example.rezepteapp.R;
+import com.example.rezepteapp.adapter.LabelAdapter;
 import com.example.rezepteapp.adapter.StringListAdapter;
 import com.example.rezepteapp.databinding.FragmentEditBinding;
+import com.example.rezepteapp.model.FilterOption;
 import com.example.rezepteapp.model.Ingredient;
 import com.example.rezepteapp.model.Label;
 import com.example.rezepteapp.model.Recipe;
+import com.example.rezepteapp.model.SharedViewModel;
 import com.example.rezepteapp.viewmodel.RecipeModel;
 import com.example.rezepteapp.model.RecipeUnit;
 import com.example.rezepteapp.model.Status;
@@ -40,26 +58,26 @@ import java.util.List;
 public class EditFragment extends Fragment {
 
     private FragmentEditBinding binding;
-
     private RecipeModel model;
-
     private IngredientsAdapter ingredientsAdapter;
     private StringListAdapter stepsAdapter;
-    private StringListAdapter notesAdapter;
+    private FilterAdapter filterAdapter;
+    private LabelAdapter labelAdapter;
+    private final List<FilterOption> filterOptionList;
+    private SharedPreferences sharedPreferences;
 
     //---
     private List<Label> labels;
     private List<Ingredient> ingredients;
     private List<String> steps;
     private List<String> notes;
-
     private Recipe recipe;
 
     public EditFragment() {
-        labels = new ArrayList<>();
         ingredients = new ArrayList<>();
         steps = new ArrayList<>();
-        notes = new ArrayList<>();
+        filterOptionList = new ArrayList<>();
+        labels = new ArrayList<>();
     }
 
     public EditFragment(Recipe recipe) {
@@ -70,11 +88,10 @@ public class EditFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // auslagern!
-        labels = new ArrayList<>();
         ingredients = new ArrayList<>();
         steps = new ArrayList<>();
         notes = new ArrayList<>();
+        sharedPreferences = requireActivity().getSharedPreferences(MY_PREFERENCES, Context.MODE_PRIVATE);
     }
 
     @Override
@@ -95,18 +112,21 @@ public class EditFragment extends Fragment {
 
         getActivity().findViewById(R.id.navbar_bottom).setVisibility(View.GONE);
 
+        loadPreferences();
+
         ingredientsAdapter = new IngredientsAdapter(ingredients);
         stepsAdapter = new StringListAdapter(steps);
-        notesAdapter = new StringListAdapter(notes);
+
+        loadPreferences();
+
+        filterAdapter = new FilterAdapter(filterOptionList, requireContext());
+        labelAdapter = new LabelAdapter(labels, requireContext());
 
         binding.recyclIngridients.setAdapter(ingredientsAdapter);
         binding.recyclIngridients.setLayoutManager(new LinearLayoutManager(requireContext()));
 
         binding.recyclSteps.setAdapter(stepsAdapter);
         binding.recyclSteps.setLayoutManager(new LinearLayoutManager(requireContext()));
-
-        binding.recyclNotes.setAdapter(notesAdapter);
-        binding.recyclNotes.setLayoutManager(new LinearLayoutManager(requireContext()));
 
         binding.spinnerUnits.setAdapter(new ArrayAdapter<RecipeUnit>(requireContext(), android.R.layout.simple_spinner_item, RecipeUnit.values()));
 
@@ -117,7 +137,7 @@ public class EditFragment extends Fragment {
         });
 
         binding.btnAddLabel.setOnClickListener(v -> {
-            // open popup with edittext and add button
+            openLabelPopUp();
         });
 
         binding.btnAddIngridient.setOnClickListener(v -> {
@@ -144,19 +164,78 @@ public class EditFragment extends Fragment {
             return false;
         });
 
-        binding.imgBtnAddNote.setOnClickListener(v -> {
-
-        });
-
         binding.btnCancel.setOnClickListener(v -> {
             getParentFragmentManager().popBackStack();
         });
 
         binding.btnAddRecipe.setOnClickListener(v -> {
-            addRecipeToDatabase(recipe);
-            getParentFragmentManager().popBackStack();
+            addRecipe();
         });
 
+    }
+
+    private void openLabelPopUp() {
+        LayoutInflater inflater = getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.dialog_with_checkbox, null);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this.requireActivity());
+        builder.setTitle("Verfügbare Labels");
+        builder.setView(dialogView);
+
+        RecyclerView recyclerView = dialogView.findViewById(R.id.recycl_filter_labels_edit_recipe);
+
+        recyclerView.setAdapter(labelAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
+
+        labelAdapter.setLabelList(labels);
+
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int id) {
+                setLabels(labelAdapter.getLabelList());
+            }
+        });
+
+        builder.setNegativeButton("Abbrechen", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int id) {
+                // Abbrechen-Taste geklickt
+            }
+        });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+    private void loadPreferences() {
+        SharedPreferences sP = requireActivity().getSharedPreferences(MY_PREFERENCES, Context.MODE_PRIVATE);
+
+        filterOptionList.clear();
+
+        int filterCount = sP.getInt(FILTER_COUNT, 0);
+        for (int i = 0; i < filterCount; i++) {
+            String filterName = sP.getString(FILTER_NAME + i, "Test");
+            boolean isActive = sP.getBoolean(CHECK_BOX + i, false);
+            filterOptionList.add(new FilterOption(filterName, isActive));
+        }
+
+        loadFilterIntoLabels(filterOptionList);
+    }
+
+    private List<Label> loadFilterIntoLabels(List<FilterOption> filterList) {
+        for (int i = 0; i < filterList.size(); i++) {
+            labels.add(new Label(filterList.get(i).getFilterName()));
+        }
+        return labels;
+    }
+
+    private void addRecipe() {
+        if (ingredientsAdapter.getItemCount() == 0) {
+            Toast.makeText(this.requireActivity(), "Bitte gib mind. eine Zutat an!", Toast.LENGTH_LONG).show();
+            return;
+        }
+        addRecipeToDatabase(recipe);
+        getParentFragmentManager().popBackStack();
     }
 
     @Override
@@ -190,7 +269,7 @@ public class EditFragment extends Fragment {
             recipe = new Recipe();
         }
 
-        if (binding.tvPeople.getText().toString().matches("^[0-9]*$")) {
+        if (binding.tvPeople.getText().toString().matches("^[0-9]*$") && !binding.tvPeople.getText().toString().isEmpty()) {
             int people = Integer.parseInt(binding.tvPeople.getText().toString());
             recipe.setServings(people);
         }
@@ -214,28 +293,33 @@ public class EditFragment extends Fragment {
 
         if (drawable instanceof BitmapDrawable) {
             BitmapDrawable bitmapDrawable = (BitmapDrawable) drawable;
-            if(bitmapDrawable.getBitmap() != null) {
+            if (bitmapDrawable.getBitmap() != null) {
                 return bitmapDrawable.getBitmap();
             }
         }
 
-        if(drawable.getIntrinsicWidth() <= 0 || drawable.getIntrinsicHeight() <= 0) {
-            bitmap = Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888); // Single color bitmap will be created of 1x1 pixel
-        } else {
-            bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
-        }
+        System.out.println("drawable: " + drawable);
 
-        Canvas canvas = new Canvas(bitmap);
-        drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
-        drawable.draw(canvas);
-        return bitmap;
+        if (drawable != null) {
+            if (drawable.getIntrinsicWidth() <= 0 || drawable.getIntrinsicHeight() <= 0) {
+                bitmap = Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888);
+            } else {
+                bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+            }
+
+            Canvas canvas = new Canvas(bitmap);
+            drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
+            drawable.draw(canvas);
+            return bitmap;
+        }
+        return null;
     }
 
-    private void setLabels(List<String> labels) {
+    private void setLabels(List<Label> labels) {
 
         labels.forEach(string -> {
             TextView textView = new TextView(requireContext());
-            textView.setText(string);
+            textView.setText(string.getName());
             binding.linearLayoutLabel.addView(textView);
         });
     }
