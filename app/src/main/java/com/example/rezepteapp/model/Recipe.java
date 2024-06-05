@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import java.util.List;
 
 public class Recipe {
+    private int id;
     private String title;
     private Bitmap imageTitle;
     private List<Label> labels;
@@ -29,6 +30,28 @@ public class Recipe {
         this.steps = steps;
         this.notes = notes;
         this.status = status;
+    }
+
+    public Recipe(int id, String title, Bitmap imageTitle, List<Label> labels, String vTime, String kTime, int servings, List<Ingredient> ingredients, List<String> steps, List<String> notes, Status status) {
+        this.id = id;
+        this.title = title;
+        this.imageTitle = imageTitle;
+        this.labels = labels;
+        this.vTime = vTime;
+        this.kTime = kTime;
+        this.servings = servings;
+        this.ingredients = ingredients;
+        this.steps = steps;
+        this.notes = notes;
+        this.status = status;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getTitle() {

@@ -53,6 +53,9 @@ public class StringListAdapter extends RecyclerView.Adapter<StringListAdapter.Vi
 
     @Override
     public int getItemCount() {
+        if (steps == null) {
+            return 0;
+        }
         return steps.size();
     }
 }

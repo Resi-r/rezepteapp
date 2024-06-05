@@ -35,6 +35,14 @@ public class FromShoppinglistEntryEntityToShoppinglistEntryMapper {
         return entry;
     }
 
+    public ShoppinglistEntryEntity mapToEntity(ShoppinglistEntry sle, int ingredientId) {
+        ShoppinglistEntryEntity entity = new ShoppinglistEntryEntity();
+        entity.setId(sle.getId());
+        entity.setAmount(sle.getAmount());
+        entity.setIngredientId(ingredientId);
+        return entity;
+    }
+
     private String getIngredientName(int ingredientId, List<IngredientEntity> ingredients) {
         String ingredientName = "";
         for (IngredientEntity entity : ingredients) {

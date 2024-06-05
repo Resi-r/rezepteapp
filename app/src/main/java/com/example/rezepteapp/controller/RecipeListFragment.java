@@ -23,19 +23,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.SearchView;
 import android.widget.TextView;
 
 import com.example.rezepteapp.R;
-import com.example.rezepteapp.adapter.RecipeListAdapter;
+import com.example.rezepteapp.RecipeListAdapter;
 import com.example.rezepteapp.databinding.FragmentRecipeListBinding;
 import com.example.rezepteapp.model.FilterOption;
 import com.example.rezepteapp.model.Label;
 import com.example.rezepteapp.model.Recipe;
-import com.example.rezepteapp.model.RecipeModel;
 import com.example.rezepteapp.model.Status;
+import com.example.rezepteapp.viewmodel.RecipeModel;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -48,24 +48,21 @@ public class RecipeListFragment extends Fragment {
     private SharedPreferences sharedPreferences;
 
     public RecipeListFragment() {
-
-        model = new RecipeModel(getContext());
         recipeList = new ArrayList<>();
-
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         binding = FragmentRecipeListBinding.inflate(inflater, container, false);
-
+        model = new RecipeModel(requireContext().getApplicationContext());
         return binding.getRoot();
-
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        recipeList = model.getAllRecipes();
 
         sharedPreferences = requireActivity().getSharedPreferences(MY_PREFERENCES, Context.MODE_PRIVATE);
 
@@ -117,7 +114,6 @@ public class RecipeListFragment extends Fragment {
                 recipeListAdapter.notifyDataSetChanged();
             }
         });
-
     }
 
     @Override
@@ -265,7 +261,6 @@ public class RecipeListFragment extends Fragment {
         return filterTag;
     }
 
-
     private void navigateToFilterOptions() {
 
         FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
@@ -290,9 +285,7 @@ public class RecipeListFragment extends Fragment {
 
     @Override
     public void onDestroyView() {
-
         super.onDestroyView();
-
     }
 
 }

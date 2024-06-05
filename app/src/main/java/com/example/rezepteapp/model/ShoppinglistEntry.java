@@ -16,6 +16,17 @@ public class ShoppinglistEntry {
         this.status = status;
     }
 
+    public ShoppinglistEntry(String amount, String ingredient) {
+        this.amount = amount;
+        this.ingredient = ingredient;
+    }
+
+    public ShoppinglistEntry(int id, String amount, String ingredient) {
+        this.id = id;
+        this.amount = amount;
+        this.ingredient = ingredient;
+    }
+
     public int getId() {
         return id;
     }

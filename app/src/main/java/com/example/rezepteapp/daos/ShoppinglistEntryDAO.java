@@ -6,9 +6,9 @@ import java.util.List;
 
 public interface ShoppinglistEntryDAO {
 
-    void saveOrUpdate(final ShoppinglistEntryEntity entity);
-    void delete(final ShoppinglistEntryEntity entity);
     void insert(ShoppinglistEntryEntity entity);
+    long saveOrUpdate(final ShoppinglistEntryEntity entity);
+    long delete(final ShoppinglistEntryEntity entity);
 
     ShoppinglistEntryEntity getShoppinglistEntryById(int id);
     List<ShoppinglistEntryEntity> getAllShoppinglistEntries();

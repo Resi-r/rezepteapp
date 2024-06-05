@@ -15,7 +15,11 @@ public class FromIngredientModelToIngredientEntityMapper {
     }
 
     public IngredientEntity map(Ingredient ingredient) {
+
         IngredientEntity entity = new IngredientEntity();
+        if (ingredient.getId() != 0) {
+            entity.setId(ingredient.getId());
+        }
         entity.setName(ingredient.getName());
         entity.setId(getIngredientId(ingredient.getName()));
         return entity;

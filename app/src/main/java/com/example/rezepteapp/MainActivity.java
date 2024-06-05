@@ -12,7 +12,6 @@ import com.example.rezepteapp.controller.WelcomeScreenFragment;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
@@ -54,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
         replaceFragment(new com.example.rezepteapp.controller.WelcomeScreenFragment());
 
         binding.navbarBottom.setSelectedItemId(R.id.home);
+
 
         binding.navbarBottom.setOnItemSelectedListener(item -> {
 

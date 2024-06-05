@@ -7,6 +7,8 @@ public class LabelEntity {
     private int id;
     private String name;
 
+    public LabelEntity() {}
+
     public LabelEntity(String name) {
         this.name = name;
     }

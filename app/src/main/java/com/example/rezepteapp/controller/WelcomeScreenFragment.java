@@ -8,19 +8,17 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.example.rezepteapp.R;
-import com.example.rezepteapp.adapter.RecipeListAdapter;
+import com.example.rezepteapp.RecipeListAdapter;
 import com.example.rezepteapp.databinding.FragmentWelcomeScreenBinding;
 import com.example.rezepteapp.model.Recipe;
-import com.example.rezepteapp.model.RecipeModel;
 import com.example.rezepteapp.model.Status;
+import com.example.rezepteapp.viewmodel.RecipeModel;
 import com.example.rezepteapp.weather.Weather;
 import com.example.rezepteapp.weather.WeatherCall;
 import com.example.rezepteapp.weather.WeatherCallback;
+
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -43,26 +41,20 @@ public class WelcomeScreenFragment extends Fragment implements WeatherCallback {
     private RecipeModel model;
 
     public WelcomeScreenFragment() {
-
-        model = new RecipeModel(getContext());
         recipeList = new ArrayList<>();
-
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         binding = FragmentWelcomeScreenBinding.inflate(inflater, container, false);
-
+        model = new RecipeModel(requireContext().getApplicationContext());
         return binding.getRoot();
-
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-
         super.onViewCreated(view, savedInstanceState);
-
         getWeather();
 
         testList = new ArrayList<>();
@@ -121,55 +113,38 @@ public class WelcomeScreenFragment extends Fragment implements WeatherCallback {
     @Override
     public void onResume() {
         super.onResume();
-
         if (weatherCall != null) {
             weatherCall.resumeThread();
         }
-
     }
 
     @Override
     public void onPause() {
-
         super.onPause();
-
         if (weatherCall != null) {
             weatherCall.pauseThread();
         }
-
     }
 
 
     private void init() {
-
         weatherCall = new WeatherCall(this.requireActivity(), this);
-
     }
 
     private void getWeather() {
-
         weatherCall.startThread();
         System.out.println(weatherCall.getCurrentWeather().getTemp());
-
     }
 
     @Override
     public void onWeatherCallback(Weather weather) {
-
         if (isAdded() && getActivity() != null) {
-
             getActivity().runOnUiThread(() -> {
-
                 if (binding != null) {
-
                     binding.tvWeatherDegrees.setText(weather.getTemp());
                     binding.imgWeather.setImageBitmap(weather.getIcon());
-
                 }
-
             });
-
         }
-
     }
 }

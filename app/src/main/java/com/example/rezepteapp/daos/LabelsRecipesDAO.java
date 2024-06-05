@@ -8,8 +8,8 @@ import java.util.List;
 
 public interface LabelsRecipesDAO {
 
-    void saveOrUpdate(final LabelsRecipesEntity entity);
-    void delete(final LabelsRecipesEntity entity);
+    long saveOrUpdate(final LabelsRecipesEntity entity);
+    long delete(final LabelsRecipesEntity entity);
 
     LabelsRecipesEntity getLabelsRecipesById(int id);
     List<LabelsRecipesEntity> getLabelsRecipesByLabelId(int id);

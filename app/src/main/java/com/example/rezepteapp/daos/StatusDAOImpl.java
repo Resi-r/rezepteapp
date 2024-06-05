@@ -1,6 +1,5 @@
 package com.example.rezepteapp.daos;
 
-import static com.example.rezepteapp.utils.Constants.DB_TABLE_INGREDIENT;
 import static com.example.rezepteapp.utils.Constants.DB_TABLE_STATUS;
 
 import android.content.ContentValues;
@@ -16,96 +15,107 @@ import java.util.List;
 
 public class StatusDAOImpl implements StatusDAO {
 
-    private RecipeDbOpenHelper dbHelper;
-    private SQLiteDatabase db;
+    private final RecipeDbOpenHelper dbHelper;
 
     public StatusDAOImpl(Context context) {
-        dbHelper = new RecipeDbOpenHelper(context);
-        db = dbHelper.getWritableDatabase();
+        this.dbHelper = RecipeDbOpenHelper.getInstance(context);
     }
 
 
     @Override
-    public void saveOrUpdate(StatusEntity entity) {
-        ContentValues values = new ContentValues();
-        values.put("name", entity.getName());
-        try {
-            db.update(DB_TABLE_STATUS, values, "_id = ?", new String[]{String.valueOf(entity.getId())});
-        } catch (Exception e) {
-            db.insert(DB_TABLE_STATUS, null, values);
+    public long saveOrUpdate(StatusEntity entity) {
+        try (SQLiteDatabase db = dbHelper.getWritableDatabase()) {
+            ContentValues values = new ContentValues();
+            values.put("name", entity.getName());
+            if (entity.getId() != 0) {
+                return db.update(DB_TABLE_STATUS, values, "_id = ?", new String[]{String.valueOf(entity.getId())});
+            } else {
+                return db.insert(DB_TABLE_STATUS, null, values);
+            }
         }
     }
 
     @Override
-    public void delete(StatusEntity entity) {
-        db.delete(DB_TABLE_STATUS, "_id = ?", new String[]{String.valueOf(entity.getId())});
+    public long delete(StatusEntity entity) {
+        try (SQLiteDatabase db = dbHelper.getWritableDatabase()) {
+            return db.delete(DB_TABLE_STATUS, "_id = ?", new String[]{String.valueOf(entity.getId())});
+        }
     }
 
     @Override
     public StatusEntity getStatusById(int id) {
-        StatusEntity entity = new StatusEntity();
+        try (SQLiteDatabase db = dbHelper.getReadableDatabase()) {
+            StatusEntity entity = new StatusEntity();
 
-        try (Cursor cursor = db.query(DB_TABLE_STATUS, null, "_id = ?", new String[]{String.valueOf(id)}, null, null, null)) {
-            while (cursor.moveToNext()) {
-                int idIndex = cursor.getColumnIndex("_id");
-                int nameIndex = cursor.getColumnIndex("name");
+            try (Cursor cursor = db.query(DB_TABLE_STATUS, null, "_id = ?", new String[]{String.valueOf(id)}, null, null, null)) {
+                while (cursor.moveToNext()) {
+                    int idIndex = cursor.getColumnIndex("_id");
+                    int nameIndex = cursor.getColumnIndex("name");
 
-                entity.setId(cursor.getInt(idIndex));
-                entity.setName(cursor.getString(nameIndex));
+                    entity.setId(cursor.getInt(idIndex));
+                    entity.setName(cursor.getString(nameIndex));
+                }
+                return entity;
             }
-            return entity;
         }
     }
 
     @Override
     public StatusEntity getStatusByName(String name) {
-        StatusEntity entity = new StatusEntity();
+        try (SQLiteDatabase db = dbHelper.getReadableDatabase()) {
 
-        try (Cursor cursor = db.query(DB_TABLE_STATUS, null, "name LIKE ('?')", new String[]{name}, null, null, null)) {
+            StatusEntity entity = new StatusEntity();
 
-            while (cursor.moveToNext()) {
-                int idIndex = cursor.getColumnIndex("_id");
-                int nameIndex = cursor.getColumnIndex("name");
+            try (Cursor cursor = db.query(DB_TABLE_STATUS, null, "name LIKE ('?')", new String[]{name}, null, null, null)) {
 
-                entity.setId(cursor.getInt(idIndex));
-                entity.setName(cursor.getString(nameIndex));
+                while (cursor.moveToNext()) {
+                    int idIndex = cursor.getColumnIndex("_id");
+                    int nameIndex = cursor.getColumnIndex("name");
+
+                    entity.setId(cursor.getInt(idIndex));
+                    entity.setName(cursor.getString(nameIndex));
+                }
+                return entity;
             }
-            return entity;
         }
     }
 
     @Override
     public List<StatusEntity> getAllStatus() {
-        List<StatusEntity> entities = new ArrayList<>();
-        StatusEntity tmp;
+        try (SQLiteDatabase db = dbHelper.getReadableDatabase()) {
 
-        try (Cursor cursor = db.query(DB_TABLE_STATUS,
-                null, null, null,
-                null, null, null)) {
+            List<StatusEntity> entities = new ArrayList<>();
+            StatusEntity tmp;
 
-            while (cursor.moveToNext()) {
-                int idIndex = cursor.getColumnIndex("_id");
-                int nameIndex = cursor.getColumnIndex("name");
+            try (Cursor cursor = db.query(DB_TABLE_STATUS,
+                    null, null, null,
+                    null, null, null)) {
 
-                tmp = new StatusEntity();
+                while (cursor.moveToNext()) {
+                    int idIndex = cursor.getColumnIndex("_id");
+                    int nameIndex = cursor.getColumnIndex("name");
 
-                tmp.setId(cursor.getInt(idIndex));
-                tmp.setName(cursor.getString(nameIndex));
+                    tmp = new StatusEntity();
 
-                entities.add(tmp);
+                    tmp.setId(cursor.getInt(idIndex));
+                    tmp.setName(cursor.getString(nameIndex));
+
+                    entities.add(tmp);
+                }
+                return entities;
             }
-            return entities;
         }
     }
 
     @Override
     public int getId(String name) {
-        try (SQLiteDatabase db = dbHelper.getReadableDatabase()){
-            Cursor cursor = db.query(DB_TABLE_STATUS, new String[]{"_id"}, "name = ?", new String[]{name}, null, null, null);
-            if (cursor.moveToFirst()) {
-                return cursor.getInt(cursor.getColumnIndexOrThrow("_id"));
+        try (SQLiteDatabase db = dbHelper.getReadableDatabase()) {
+            try (Cursor cursor = db.query(DB_TABLE_STATUS, new String[]{"_id"}, "name = ?", new String[]{name}, null, null, null)) {
+                if (cursor.moveToFirst()) {
+                    return cursor.getInt(cursor.getColumnIndexOrThrow("_id"));
+                }
             }
         }
-        return 0;
+        return -1;
     }
 }
