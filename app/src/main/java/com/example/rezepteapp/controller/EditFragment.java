@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -23,8 +24,7 @@ import android.widget.TextView;
 
 import com.example.rezepteapp.adapter.IngredientsAdapter;
 import com.example.rezepteapp.R;
-import com.example.rezepteapp.RecipeRepository;
-import com.example.rezepteapp.StringListAdapter;
+import com.example.rezepteapp.adapter.StringListAdapter;
 import com.example.rezepteapp.databinding.FragmentEditBinding;
 import com.example.rezepteapp.model.Ingredient;
 import com.example.rezepteapp.model.Label;
@@ -56,9 +56,14 @@ public class EditFragment extends Fragment {
     private Recipe recipe;
 
     public EditFragment() {
+        labels = new ArrayList<>();
+        ingredients = new ArrayList<>();
+        steps = new ArrayList<>();
+        notes = new ArrayList<>();
     }
 
     public EditFragment(Recipe recipe) {
+        this();
         this.recipe = recipe;
     }
 

@@ -8,17 +8,10 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.navigation.Navigation;
-import androidx.navigation.fragment.NavHostFragment;
-
-import com.example.rezepteapp.R;
-import com.example.rezepteapp.R;
 import com.example.rezepteapp.adapter.ArchivedRecipeAdapter;
 import com.example.rezepteapp.databinding.FragmentArchiveBinding;
 import com.example.rezepteapp.model.Recipe;
-import com.example.rezepteapp.model.RecipeModel;
+import com.example.rezepteapp.viewmodel.RecipeModel;
 
 import java.util.List;
 

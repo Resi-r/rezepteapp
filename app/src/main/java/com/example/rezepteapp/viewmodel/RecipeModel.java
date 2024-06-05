@@ -32,24 +32,15 @@ public class RecipeModel {
 
     private RecipeRepository repository;
 
-
-    public List<ShoppinglistEntry> getToDoList() {
-        toDoList.clear();
-        toDoList.addAll(fromShoppinglistEntryEntityToShoppinglistEntryMapper.mapToList(shoppinglistEntryDAO.getAllShoppinglist(), ingredientDAO.getAllIngredients()));
-
-        return toDoList;
-    }
-
     public RecipeModel(Context context) {
         this.repository = new RecipeRepository(context);
 
-        this.shoppinglistEntryDAO  = new ShoppinglistEntryDAOImpl(context);
+        this.shoppinglistEntryDAO = new ShoppinglistEntryDAOImpl(context);
         this.ingredientDAO = new IngredientDAOImpl(context);
         this.fromShoppinglistEntryEntityToShoppinglistEntryMapper = new FromShoppinglistEntryEntityToShoppinglistEntryMapper();
 
         this.toDoList = new ArrayList<>();
     }
-
 
 
     public void addRecipeToDatabase(Recipe recipe) {
@@ -80,15 +71,43 @@ public class RecipeModel {
         return repository.getFilteredRecepieList(searchString);
     }
 
-    public List<ShoppinglistEntry> getTodoList() {
-        return repository.getAllShoppinglistEntries();
-    }
-
     public void addToTodoList(String amount, String ingredient) {
         repository.addToShoppinglist(new ShoppinglistEntry(amount, ingredient));
     }
 
     public void updateToDoList(List<ShoppinglistEntry> shoppinglistEntries) {
         toDoList.addAll(shoppinglistEntries);
+    }
+
+    public List<ShoppinglistEntry> getToDoList() {
+        return repository.getToDoList();
+    }
+
+    public List<ShoppinglistEntry> getDoneList() {
+        return repository.getDoneList();
+    }
+
+    public ShoppinglistEntry addNewShoppinglistEntry(String ingredient, String quantity, String unit) {
+        return repository.addNewShoppinglistEntry(ingredient, quantity, unit);
+    }
+
+    public void updateTodoList(ShoppinglistEntry entry) {
+        repository.updateTodoList(entry);
+    }
+
+    public void updateDoneList(ShoppinglistEntry entry) {
+        repository.updateDoneList(entry);
+    }
+
+    public void deleteRecipe(Recipe recipe) {
+        repository.deleteRecipe(recipe);
+    }
+
+    public void revertArchivation(Recipe recipe) {
+        repository.revertArchivation(recipe);
+    }
+
+    public void deleteShoppinglistEntry(ShoppinglistEntry entry) {
+        repository.deleteShoppinglistEntry(entry);
     }
 }

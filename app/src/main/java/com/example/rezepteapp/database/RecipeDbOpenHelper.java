@@ -28,7 +28,7 @@ public class RecipeDbOpenHelper extends SQLiteOpenHelper {
     private static RecipeDbOpenHelper mInstance = null;
 
     public static final String DB_NAME = "RecipeDB";
-    public static final int DB_VERSION = 1;
+    public static final int DB_VERSION = 2;
 
     private Context context;
 
@@ -40,16 +40,15 @@ public class RecipeDbOpenHelper extends SQLiteOpenHelper {
     }
 
     public RecipeDbOpenHelper(Context context) {
-        super(context, "RecipeDB", null, 1);
+        super(context, DB_NAME, null, DB_VERSION);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE Ingredient (_id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT)");
-        db.execSQL("CREATE TABLE Status (_id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT)");
         db.execSQL("CREATE TABLE Label (_id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT)");
         db.execSQL("CREATE TABLE Recipe (_id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, image TEXT, servings INTEGER, kTime TEXT, vTime TEXT, notes TEXT, steps TEXT, statusId INTEGER)");
-        db.execSQL("CREATE TABLE ShoppinglistEntry (_id INTEGER PRIMARY KEY AUTOINCREMENT, amount TEXT, ingredientId INTEGER, FOREIGN KEY (ingredientId) REFERENCES Ingredient(_id))");
+        db.execSQL("CREATE TABLE ShoppinglistEntry (_id INTEGER PRIMARY KEY AUTOINCREMENT, amount TEXT, ingredientId INTEGER, status TEXT, FOREIGN KEY (ingredientId) REFERENCES Ingredient(_id))");
         db.execSQL("CREATE TABLE IngredientsRecipes (_id INTEGER PRIMARY KEY AUTOINCREMENT, amount TEXT, ingredientId INTEGER, recipeId INTEGER, FOREIGN KEY (ingredientId) REFERENCES Ingredient(_id), FOREIGN KEY (recipeId) REFERENCES Recipe(_id))");
         db.execSQL("CREATE TABLE LabelsRecipes (_id INTEGER PRIMARY KEY AUTOINCREMENT, labelId INTEGER, recipeId INTEGER, FOREIGN KEY (labelId) REFERENCES Label(_id), FOREIGN KEY (recipeId) REFERENCES Recipe(_id))");
     }

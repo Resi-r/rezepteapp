@@ -23,22 +23,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.SearchView;
 import android.widget.TextView;
 
 import com.example.rezepteapp.R;
-import com.example.rezepteapp.adapter.RecipeListAdapter;
 import com.example.rezepteapp.RecipeListAdapter;
-import com.example.rezepteapp.RecipeRepository;
 import com.example.rezepteapp.databinding.FragmentRecipeListBinding;
 import com.example.rezepteapp.model.FilterOption;
 import com.example.rezepteapp.model.Label;
-import com.example.rezepteapp.model.Ingredient;
-import com.example.rezepteapp.model.Label;
 import com.example.rezepteapp.model.Recipe;
-import com.example.rezepteapp.model.RecipeModel;
-import com.example.rezepteapp.model.Status;
-import com.example.rezepteapp.model.RecipeUnit;
 import com.example.rezepteapp.model.Status;
 import com.example.rezepteapp.viewmodel.RecipeModel;
 

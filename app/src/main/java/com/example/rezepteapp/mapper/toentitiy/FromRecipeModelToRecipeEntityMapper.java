@@ -3,11 +3,8 @@ package com.example.rezepteapp.mapper.toentitiy;
 import android.content.Context;
 import android.graphics.Bitmap;
 
-import com.example.rezepteapp.daos.StatusDAO;
-import com.example.rezepteapp.daos.StatusDAOImpl;
 import com.example.rezepteapp.entities.RecipeEntity;
 import com.example.rezepteapp.model.Recipe;
-import com.example.rezepteapp.model.Status;
 
 import java.io.ByteArrayOutputStream;
 import java.util.List;
@@ -45,10 +42,5 @@ public class FromRecipeModelToRecipeEntityMapper {
 
     private String mapListToString(List<String> stringList) {
         return String.join("; ", stringList);
-    }
-
-    private int getStatusId(Status status) {
-        StatusDAO statusDAO = new StatusDAOImpl(context);
-        return statusDAO.getId(status.name());
     }
 }

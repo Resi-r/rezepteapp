@@ -7,14 +7,11 @@ import android.os.Bundle;
 
 import com.example.rezepteapp.controller.RecipeListFragment;
 import com.example.rezepteapp.controller.ShoppinglistFragment;
-import com.google.android.material.snackbar.Snackbar;
+import com.example.rezepteapp.controller.WelcomeScreenFragment;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-
-import android.view.View;
-
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
@@ -29,7 +26,6 @@ import com.example.rezepteapp.databinding.ActivityMainBinding;
 
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.Window;
 
 public class MainActivity extends AppCompatActivity {
 

@@ -12,17 +12,11 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
 
 import com.example.rezepteapp.adapter.FilterAdapter;
 import com.example.rezepteapp.R;
@@ -36,7 +30,7 @@ import java.util.List;
 public class FilterFragment extends Fragment {
 
     private FragmentFilterBinding binding;
-    private List<FilterOption> filterOptionList;
+    private final List<FilterOption> filterOptionList;
     private FilterAdapter filterAdapter;
     private SharedPreferences sharedPreferences;
 
@@ -52,7 +46,7 @@ public class FilterFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentFilterBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }

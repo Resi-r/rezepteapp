@@ -15,10 +15,9 @@ import com.example.rezepteapp.R;
 import com.example.rezepteapp.adapter.ShoppinglistDoneAdapter;
 import com.example.rezepteapp.adapter.ShoppinglistToDoAdapter;
 import com.example.rezepteapp.databinding.FragmentShoppinglistBinding;
-import com.example.rezepteapp.viewmodel.RecipeModel;
-import com.example.rezepteapp.model.RecipeModel;
 import com.example.rezepteapp.model.RecipeUnit;
 import com.example.rezepteapp.model.ShoppinglistEntry;
+import com.example.rezepteapp.viewmodel.RecipeModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,7 +40,7 @@ public class ShoppinglistFragment extends Fragment {
         super.onCreateView(inflater, container, saveInstanceState);
         binding = FragmentShoppinglistBinding.inflate(inflater, container, false);
         model = new RecipeModel(requireContext().getApplicationContext());
-        toDoList = model.getToDoList();
+        toDoList = new ArrayList<>();
         doneList = new ArrayList<>();
         return binding.getRoot();
     }
@@ -51,8 +50,8 @@ public class ShoppinglistFragment extends Fragment {
         super.onViewCreated(view, saveInstanceState);
         model = new RecipeModel(requireContext());
         this.updateLists();
-        adapterToDo = new ShoppinglistToDoAdapter(toDoList, entry -> moveToDoneList(entry), entry -> removeToDoEntry(entry));
-        adapterDone = new ShoppinglistDoneAdapter(doneList, entry -> moveToToDoList(entry), entry -> removeDoneEntry(entry));
+        adapterToDo = new ShoppinglistToDoAdapter(toDoList, this::moveToDoneList, this::removeToDoEntry);
+        adapterDone = new ShoppinglistDoneAdapter(doneList, this::moveToToDoList, this::removeDoneEntry);
 
         binding.ddIngredientsToGet.setOnClickListener(v -> {
             if (isToDoExpanded) {
@@ -90,8 +89,6 @@ public class ShoppinglistFragment extends Fragment {
                 Toast.makeText(getContext(), "Bitte alle Felder füllen", Toast.LENGTH_SHORT).show();
             }
         });
-        adapterDone = new ShoppinglistDoneAdapter(doneList);
-
 
         binding.recycleListEntryToDo.setAdapter(adapterToDo);
         binding.recycleListEntryToDo.setLayoutManager(new LinearLayoutManager(requireContext()));

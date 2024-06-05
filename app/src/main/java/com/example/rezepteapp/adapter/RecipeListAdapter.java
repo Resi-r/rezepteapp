@@ -72,7 +72,7 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Vi
         LayoutInflater inflater = LayoutInflater.from(context);
         View recipeView = inflater.inflate(R.layout.recycl_item_welcome_screen_recipes, parent, false);
 
-        return new ViewHolder(recipeView, recipeList, context);
+        return new ViewHolder(recipeView, visibleRecipesList, context);
     }
 
     @Override

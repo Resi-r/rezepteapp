@@ -13,9 +13,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.rezepteapp.IngredientsAdapter;
 import com.example.rezepteapp.R;
-import com.example.rezepteapp.StringListAdapter;
+import com.example.rezepteapp.adapter.IngredientsAdapter;
+import com.example.rezepteapp.adapter.StringListAdapter;
 import com.example.rezepteapp.databinding.FragmentShowRecipeBinding;
 import com.example.rezepteapp.model.Ingredient;
 import com.example.rezepteapp.model.Recipe;

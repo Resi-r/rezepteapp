@@ -9,6 +9,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.example.rezepteapp.database.RecipeDbOpenHelper;
 import com.example.rezepteapp.entities.ShoppinglistEntryEntity;
+import com.example.rezepteapp.model.ShoppinglistEtryStatus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +31,6 @@ public class ShoppinglistEntryDAOImpl implements ShoppinglistEntryDAO {
             values.put("ingredientId", entity.getIngredientId());
             values.put("status", entity.getStatus().toString());
             if (entity.getId() != 0) {
-
                 return db.update(DB_TABLE_SHOPPINGLIST_ENTRY, values, "_id = ?", new String[]{String.valueOf(entity.getId())});
             } else {
                 return db.insert(DB_TABLE_SHOPPINGLIST_ENTRY, null, values);
