@@ -46,13 +46,13 @@ public class ArchiveFragment extends Fragment {
                 new ArchivedRecipeAdapter.ArchiveActionListener() {
                     @Override
                     public void onDeleteRecipe(Recipe recipe) {
-                        model.deleteRecipe(recipe);
+//                        model.deleteRecipe(recipe);
                         adapter.deleteRecipe(recipe);
 
                     }
                     @Override
                     public void onRevertArchiving(Recipe recipe) {
-                        model.revertArchivation(recipe);
+//                        model.revertArchivation(recipe);
                         adapter.revertArchiving(recipe);
 
                     }

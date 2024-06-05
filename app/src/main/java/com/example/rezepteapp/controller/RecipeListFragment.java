@@ -43,7 +43,6 @@ public class RecipeListFragment extends Fragment {
     private FragmentRecipeListBinding binding;
     private RecipeModel model;
     private List<Recipe> recipeList;
-    private List<Recipe> testList;
     private RecipeListAdapter recipeListAdapter;
     private SharedPreferences sharedPreferences;
 
@@ -62,32 +61,11 @@ public class RecipeListFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        recipeList = model.getAllRecipes();
+        recipeList = model.getDailyRecipes();
 
         sharedPreferences = requireActivity().getSharedPreferences(MY_PREFERENCES, Context.MODE_PRIVATE);
 
-        testList = new ArrayList<>();
-
-        // Sample data for testing
-        Label label = new Label("Vegetarisch");
-        Label label1 = new Label("Vegan");
-        Label label2 = new Label("Lieblingsessen");
-        Label label3 = new Label("Fleisch");
-
-        ArrayList<Label> testLabels1 = new ArrayList<>();
-        ArrayList<Label> testLabels2 = new ArrayList<>();
-
-        testLabels1.add(label);
-        testLabels1.add(label1);
-        testLabels2.add(label2);
-        testLabels2.add(label3);
-
-        testList.add(new Recipe("Hallo", null, testLabels1, "1h", "2h", 4, null, null, null, Status.LIVE));
-        testList.add(new Recipe("Tschüss", null, testLabels2, "1h", "1h", 4, null, null, null, Status.LIVE));
-        testList.add(new Recipe("Haha", null, testLabels1, "1h", "5h", 4, null, null, null, Status.LIVE));
-        testList.add(new Recipe("Lol", null, testLabels2, "1h", "3h", 4, null, null, null, Status.LIVE));
-
-        recipeListAdapter = new RecipeListAdapter(testList, this::archiveRecipe);
+        recipeListAdapter = new RecipeListAdapter(recipeList, this::archiveRecipe);
 //        recipeListAdapter = new RecipeListAdapter(recipeList);
 
         binding.recyclRecipeList.setAdapter(recipeListAdapter);
@@ -106,7 +84,7 @@ public class RecipeListFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                recipeListAdapter.updateRecipes(checkRecipesForCharSequences(testList, s));
+                recipeListAdapter.updateRecipes(checkRecipesForCharSequences(recipeList, s));
             }
 
             @Override
@@ -117,18 +95,18 @@ public class RecipeListFragment extends Fragment {
     }
 
     private void archiveRecipe(Recipe recipe) {
-        int position = testList.indexOf(recipe);
+        int position = recipeList.indexOf(recipe);
         if (position != -1) {
-            testList.remove(position);
+            recipeList.remove(position);
             recipeListAdapter.notifyItemRemoved(position);
-            model.deleteRecipe(recipe);
+            model.archiveRecipe(recipe);
         }
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        checkRecipesForActiveFilters(testList, loadActiveFilters());
+        checkRecipesForActiveFilters(recipeList, loadActiveFilters());
     }
 
     private void navigateToArchive() {
@@ -158,8 +136,8 @@ public class RecipeListFragment extends Fragment {
 
     private List<Recipe> checkRecipesForActiveFilters(List<Recipe> list, ArrayList<FilterOption> activeFilters) {
         if (activeFilters.isEmpty()) {
-            recipeListAdapter.updateRecipes(testList);
-            return testList;
+            recipeListAdapter.updateRecipes(recipeList);
+            return recipeList;
         }
 
         ArrayList<Recipe> newList = new ArrayList<>();
@@ -222,7 +200,7 @@ public class RecipeListFragment extends Fragment {
                     filterFragment.deactivateFilter(index);
                 }
             }
-            checkRecipesForActiveFilters(testList, loadActiveFilters());
+            checkRecipesForActiveFilters(recipeList, loadActiveFilters());
         });
     }
 
