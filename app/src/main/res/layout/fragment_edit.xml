@@ -41,15 +41,30 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
+            <Button
+                android:id="@+id/btn_add_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_weight="1"
+                android:background="@drawable/rounded_button"
+                android:text="+ Label"
+                android:theme="@style/simpleText"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/img_title" />
+
             <HorizontalScrollView
                 android:id="@+id/scroll_labels"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
                 android:padding="20dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/btn_add_label"
                 app:layout_constraintTop_toBottomOf="@+id/img_title">
 
                 <LinearLayout
@@ -61,15 +76,6 @@
                     android:orientation="horizontal"
                     android:padding="10dp">
 
-                    <Button
-                        android:id="@+id/btn_add_label"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:background="@drawable/rounded_button"
-                        android:text="+ Label"
-                        android:theme="@style/simpleText" />
-
                 </LinearLayout>
             </HorizontalScrollView>
 
@@ -78,6 +84,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginRight="20dp"
                 android:padding="10dp"
                 app:layout_constraintEnd_toEndOf="parent"

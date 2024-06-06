@@ -202,6 +202,7 @@ public class EditFragment extends Fragment {
     }
 
     private List<Label> setFiltersAsLabels() {
+        labels.clear();
         for (int i = 0; i < filterOptionList.size(); i++) {
             if (filterOptionList.get(i).isActive()) {
                 labels.add(new Label(filterOptionList.get(i).getFilterName()));
@@ -312,6 +313,7 @@ public class EditFragment extends Fragment {
     }
 
     private void setLabels(List<Label> labels) {
+        binding.linearLayoutLabel.removeAllViews();
 
         for (int i = 0; i < labels.size(); i++) {
             TextView filterTag = new TextView(requireContext());

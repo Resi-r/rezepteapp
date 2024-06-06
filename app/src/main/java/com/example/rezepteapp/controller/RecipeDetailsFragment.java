@@ -75,8 +75,6 @@ public class RecipeDetailsFragment extends Fragment {
         binding.recyclIngridients.setAdapter(ingredientsAdapter);
         binding.recyclIngridients.setLayoutManager(new LinearLayoutManager(requireContext()));
 
-        setLabels(recipe);
-
         binding.recyclSteps.setAdapter(stepsAdapter);
         binding.recyclSteps.setLayoutManager(new LinearLayoutManager(requireContext()));
 
