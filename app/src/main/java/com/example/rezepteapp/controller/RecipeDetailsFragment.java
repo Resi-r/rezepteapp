@@ -72,6 +72,8 @@ public class RecipeDetailsFragment extends Fragment {
         binding.tvKTime.setText(recipe.getkTime());
         binding.tvPeople.setText(String.valueOf(recipe.getServings()));
 
+        setLabels(recipe);
+
         binding.recyclIngridients.setAdapter(ingredientsAdapter);
         binding.recyclIngridients.setLayoutManager(new LinearLayoutManager(requireContext()));
 
