@@ -33,24 +33,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <HorizontalScrollView
-            android:id="@+id/scroll_labels"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/img_title">
-
-            <LinearLayout
-                android:id="@+id/linearLayout_label"
-                android:layout_width="wrap_content"
-                android:layout_height="50dp"
-                android:layout_margin="5dp"
-                android:orientation="horizontal"
-                android:padding="5dp" />
-        </HorizontalScrollView>
-
         <LinearLayout
             android:id="@+id/layout_time_people"
             android:layout_width="0dp"
@@ -59,7 +41,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/scroll_labels">
+            app:layout_constraintTop_toBottomOf="@+id/img_title">
 
             <TextView
                 android:id="@+id/tv_v_time"
