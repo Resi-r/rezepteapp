@@ -84,6 +84,10 @@ public class FilterAdapter extends RecyclerView.Adapter<FilterAdapter.ViewHolder
         editor.apply();
     }
 
+    public List<FilterOption> getFilterOptions() {
+        return filterList;
+    }
+
     @Override
     public int getItemCount() {
         return filterList.size();

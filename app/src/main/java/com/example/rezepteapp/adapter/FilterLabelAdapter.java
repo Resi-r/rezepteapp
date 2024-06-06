@@ -7,49 +7,40 @@ import static com.example.rezepteapp.utils.Constants.MY_PREFERENCES;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.rezepteapp.R;
-import com.example.rezepteapp.controller.FilterFragment;
 import com.example.rezepteapp.model.FilterOption;
-import com.example.rezepteapp.model.Label;
-import com.example.rezepteapp.model.Recipe;
-import com.example.rezepteapp.viewmodel.RecipeModel;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class LabelAdapter extends RecyclerView.Adapter<LabelAdapter.ViewHolder> {
+public class FilterLabelAdapter extends RecyclerView.Adapter<FilterLabelAdapter.ViewHolder> {
     private final Context context;
-    private RecipeModel model;
-    ArrayList<FilterOption> filterOptions = new ArrayList<>();
-    ArrayList<Label> labels = new ArrayList<>();
+
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public CheckBox checkBox;
-        public TextView nameLabel;
+        public TextView nameFilter;
 
         public ViewHolder(View itemView) {
             super(itemView);
 
             checkBox = (CheckBox) itemView.findViewById(R.id.cb_filter_option);
-            nameLabel = (TextView) itemView.findViewById(R.id.tv_filter_name);
+            nameFilter = (TextView) itemView.findViewById(R.id.tv_filter_name);
         }
     }
 
-    private List<Label> labelList;
+    private final List<FilterOption> filterList;
 
-    public LabelAdapter(List<Label> labelList, Context context) {
-        this.labelList = labelList;
+    public FilterLabelAdapter(List<FilterOption> filterList, Context context) {
+        this.filterList = filterList;
         this.context = context;
     }
 
@@ -65,29 +56,32 @@ public class LabelAdapter extends RecyclerView.Adapter<LabelAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        FilterOption filter = filterOptions.get(position);
+        FilterOption filter = filterList.get(position);
 
         holder.checkBox.setChecked(filter.isActive());
-        holder.nameLabel.setText(filter.getFilterName());
+        holder.nameFilter.setText(filter.getFilterName());
 
         holder.checkBox.setOnCheckedChangeListener(((buttonView, isActive) -> {
             filter.setActive(isActive);
-            saveLabel(filter.getFilterName());
         }));
     }
 
-    private void saveLabel(String filterName) {
-        labelList.add(new Label(filterName));
-    }
-    public List<Label> getLabelList() {
-        return labelList;
-    }
-    public void setLabelList(List<Label> list) {
-        this.labelList = list;
+    public List<FilterOption> getFilterOptions() {
+        return filterList;
     }
 
     @Override
     public int getItemCount() {
-        return labelList.size();
+        return filterList.size();
     }
+
+    public void removeFilter(int position) {
+        if (position >= 0 && position < filterList.size()) {
+            filterList.remove(position);
+            notifyItemRemoved(position);
+            notifyItemRangeChanged(position, filterList.size());
+        }
+    }
+
+
 }
