@@ -32,6 +32,7 @@ public class IngredientsRecipesDAOImpl implements IngredientsRecipesDAO {
             System.out.println("is open?: " + db.isOpen());
 
             ContentValues values = new ContentValues();
+            values.put("amount", entity.getAmount());
             values.put("ingredientId", entity.getIngredientId());
             values.put("recipeId", entity.getRecipeId());
             if (entity.getId() != 0) {
@@ -113,6 +114,7 @@ public class IngredientsRecipesDAOImpl implements IngredientsRecipesDAO {
 
                 while (cursor.moveToNext()) {
                     int idIndex = cursor.getColumnIndex("_id");
+                    int amountIndex = cursor.getColumnIndex("amount");
                     int ingredientIdIndex = cursor.getColumnIndex("ingredientId");
                     int recipeIdIndex = cursor.getColumnIndex("recipeId");
 
@@ -120,6 +122,7 @@ public class IngredientsRecipesDAOImpl implements IngredientsRecipesDAO {
                     entity = new IngredientsRecipesEntity();
 
                     entity.setId(cursor.getInt(idIndex));
+                    entity.setAmount(cursor.getString(amountIndex));
                     entity.setIngredientId(cursor.getInt(ingredientIdIndex));
                     entity.setRecipeId(cursor.getInt(recipeIdIndex));
 

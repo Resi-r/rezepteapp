@@ -111,16 +111,18 @@ public class RecipeRepository {
         List<Integer> ingredintIds = new ArrayList<>();
 
         for (Ingredient ingredient : ingredients) {
-            ingredientDAO.saveOrUpdate(fromIngredientModelToIngredientEntityMapper.map(ingredient));
+            ingredintIds.add((int) ingredientDAO.saveOrUpdate(fromIngredientModelToIngredientEntityMapper.map(ingredient)));
         }
 
-
+/*
         List<IngredientEntity> ingredientEntities = ingredients.stream()
                 .map(ingredient -> fromIngredientModelToIngredientEntityMapper.map(ingredient))
                 .collect(Collectors.toList());
         for (IngredientEntity ingredientEntity : ingredientEntities) {
             ingredintIds.add((int) ingredientDAO.saveOrUpdate(ingredientEntity));
         }
+
+ */
         return ingredintIds;
     }
 
@@ -131,7 +133,9 @@ public class RecipeRepository {
     public void addIngredientsRecipes(Recipe recipe, int recipeId) {
         for (Ingredient ingredient : recipe.getIngridients()) {
             int ingredientId = ingredientDAO.getIngredientByName(ingredient.getName()).getId();
-            ingredientsRecipesDAO.saveOrUpdate(new IngredientsRecipesEntity(ingredient.getAmount(), ingredientId, recipeId));
+            String amountAndUntit =
+                    String.join(" ", ingredient.getAmount(), ingredient.getUnit().toString());
+            ingredientsRecipesDAO.saveOrUpdate(new IngredientsRecipesEntity(amountAndUntit, ingredientId, recipeId));
         }
     }
 

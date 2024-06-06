@@ -56,6 +56,7 @@ public class WelcomeScreenFragment extends Fragment implements WeatherCallback {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         getWeather();
+        this.recipeList = model.getDailyRecipes();
 
         testList = new ArrayList<>();
 
@@ -72,8 +73,8 @@ public class WelcomeScreenFragment extends Fragment implements WeatherCallback {
         testList.add(new Recipe("Haha2", null, null, "1h", "5h", 4, null, null, null, Status.LIVE));
         testList.add(new Recipe("Lol2", null, null, "1h", "3h", 4, null, null, null, Status.LIVE));
 
-        welcomeRecipeListAdapter = new WelcomeRecipeListAdapter(randomizeRecipeSuggestions(testList));
-//        WelcomeRecipeListAdapter = new WelcomeRecipeListAdapter(recipeList);
+        //welcomeRecipeListAdapter = new WelcomeRecipeListAdapter(randomizeRecipeSuggestions(testList));
+        welcomeRecipeListAdapter = new WelcomeRecipeListAdapter(randomizeRecipeSuggestions(recipeList));
 
         binding.recyclView.setAdapter(welcomeRecipeListAdapter);
         binding.recyclView.setLayoutManager(new LinearLayoutManager(requireContext()));

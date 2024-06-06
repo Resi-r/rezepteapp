@@ -88,15 +88,20 @@ public class MainActivity extends AppCompatActivity {
         testLabels2.add(label2);
         testLabels2.add(label3);
 
-        testList.add(new Recipe("Hallo", null, testLabels1, "1h", "2h", 4, ingredients, null, null, Status.LIVE));
-        testList.add(new Recipe("Tschüss", null, testLabels2, "1h", "1h", 4, ingredients, null, null, Status.LIVE));
-        testList.add(new Recipe("Haha", null, testLabels1, "1h", "5h", 4, ingredients, null, null, Status.LIVE));
-        testList.add(new Recipe("Lol", null, testLabels2, "1h", "3h", 4, ingredients, null, null, Status.LIVE));
-        testList.add(new Recipe("Haha1", null, testLabels1, "1h", "5h", 4, ingredients, null, null, Status.LIVE));
+        ArrayList stepsAndNotes = new ArrayList<>();
+        stepsAndNotes.add("werl");
+        stepsAndNotes.add("ser");
+        stepsAndNotes.add("ezw");
+
+        testList.add(new Recipe("Hallo", null, testLabels1, "1h", "2h", 4, ingredients, stepsAndNotes, null, Status.LIVE));
+        testList.add(new Recipe("Tschüss", null, testLabels2, "1h", "1h", 4, ingredients, stepsAndNotes, null, Status.LIVE));
+        testList.add(new Recipe("Haha", null, testLabels1, "1h", "5h", 4, ingredients, stepsAndNotes, null, Status.LIVE));
+        testList.add(new Recipe("Lol", null, testLabels2, "1h", "3h", 4, ingredients, stepsAndNotes, null, Status.LIVE));
+        testList.add(new Recipe("Haha1", null, testLabels1, "1h", "5h", 4, ingredients, stepsAndNotes, null, Status.LIVE));
 
         RecipeRepository repository = new RecipeRepository(this);
 
-        testList.forEach(item -> repository.addRecipe(item));
+        testList.forEach(repository::addRecipe);
 
         binding.navbarBottom.setOnItemSelectedListener(item -> {
 
