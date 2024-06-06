@@ -33,6 +33,7 @@ import com.example.rezepteapp.model.Recipe;
 import com.example.rezepteapp.model.ShoppinglistEntry;
 import com.example.rezepteapp.model.ShoppinglistEtryStatus;
 import com.example.rezepteapp.model.Status;
+import com.example.rezepteapp.viewmodel.RecipeModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -110,16 +111,18 @@ public class RecipeRepository {
         List<Integer> ingredintIds = new ArrayList<>();
 
         for (Ingredient ingredient : ingredients) {
-            ingredientDAO.saveOrUpdate(fromIngredientModelToIngredientEntityMapper.map(ingredient));
+            ingredintIds.add((int) ingredientDAO.saveOrUpdate(fromIngredientModelToIngredientEntityMapper.map(ingredient)));
         }
 
-
+/*
         List<IngredientEntity> ingredientEntities = ingredients.stream()
                 .map(ingredient -> fromIngredientModelToIngredientEntityMapper.map(ingredient))
                 .collect(Collectors.toList());
         for (IngredientEntity ingredientEntity : ingredientEntities) {
             ingredintIds.add((int) ingredientDAO.saveOrUpdate(ingredientEntity));
         }
+
+ */
         return ingredintIds;
     }
 
@@ -130,7 +133,9 @@ public class RecipeRepository {
     public void addIngredientsRecipes(Recipe recipe, int recipeId) {
         for (Ingredient ingredient : recipe.getIngridients()) {
             int ingredientId = ingredientDAO.getIngredientByName(ingredient.getName()).getId();
-            ingredientsRecipesDAO.saveOrUpdate(new IngredientsRecipesEntity(ingredient.getAmount(), ingredientId, recipeId));
+            String amountAndUntit =
+                    String.join(" ", ingredient.getAmount(), ingredient.getUnit().toString());
+            ingredientsRecipesDAO.saveOrUpdate(new IngredientsRecipesEntity(amountAndUntit, ingredientId, recipeId));
         }
     }
 
@@ -244,7 +249,6 @@ public class RecipeRepository {
         RecipeEntity entity = mapper.map(recipe);
         recipeDAO.delete(entity);
     }
-
     public void revertArchivation(Recipe recipe) {
         FromRecipeModelToRecipeEntityMapper mapper = new FromRecipeModelToRecipeEntityMapper(context);
         RecipeEntity entity = mapper.map(recipe);
@@ -256,6 +260,10 @@ public class RecipeRepository {
         ShoppinglistEntryEntity entity = mapper.map(entry);
         shoppinglistEntryDAO.delete(entity);
     }
-
-
+    public void archiveRecipe(Recipe recipe) {
+        FromRecipeModelToRecipeEntityMapper mapper = new FromRecipeModelToRecipeEntityMapper(context);
+        RecipeEntity entity = mapper.map(recipe);
+        entity.setStatusId(1);
+        recipeDAO.saveOrUpdate(entity);
+    }
 }

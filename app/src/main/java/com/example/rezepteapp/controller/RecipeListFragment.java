@@ -26,7 +26,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.rezepteapp.R;
-import com.example.rezepteapp.RecipeListAdapter;
+import com.example.rezepteapp.adapter.RecipeListAdapter;
 import com.example.rezepteapp.databinding.FragmentRecipeListBinding;
 import com.example.rezepteapp.model.FilterOption;
 import com.example.rezepteapp.model.Label;
@@ -43,7 +43,6 @@ public class RecipeListFragment extends Fragment {
     private FragmentRecipeListBinding binding;
     private RecipeModel model;
     private List<Recipe> recipeList;
-    private List<Recipe> testList;
     private RecipeListAdapter recipeListAdapter;
     private SharedPreferences sharedPreferences;
 
@@ -53,7 +52,6 @@ public class RecipeListFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
         binding = FragmentRecipeListBinding.inflate(inflater, container, false);
         model = new RecipeModel(requireContext().getApplicationContext());
         return binding.getRoot();
@@ -62,33 +60,11 @@ public class RecipeListFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        recipeList = model.getAllRecipes();
+        recipeList = model.getDailyRecipes();
 
         sharedPreferences = requireActivity().getSharedPreferences(MY_PREFERENCES, Context.MODE_PRIVATE);
 
-        testList = new ArrayList<>();
-
-        // Sample data for testing
-        Label label = new Label("Vegetarisch");
-        Label label1 = new Label("Vegan");
-        Label label2 = new Label("Lieblingsessen");
-        Label label3 = new Label("Fleisch");
-
-        ArrayList<Label> testLabels1 = new ArrayList<>();
-        ArrayList<Label> testLabels2 = new ArrayList<>();
-
-        testLabels1.add(label);
-        testLabels1.add(label1);
-        testLabels2.add(label2);
-        testLabels2.add(label3);
-
-        testList.add(new Recipe("Hallo", null, testLabels1, "1h", "2h", 4, null, null, null, Status.LIVE));
-        testList.add(new Recipe("Tschüss", null, testLabels2, "1h", "1h", 4, null, null, null, Status.LIVE));
-        testList.add(new Recipe("Haha", null, testLabels1, "1h", "5h", 4, null, null, null, Status.LIVE));
-        testList.add(new Recipe("Lol", null, testLabels2, "1h", "3h", 4, null, null, null, Status.LIVE));
-
-        recipeListAdapter = new RecipeListAdapter(testList);
-//        recipeListAdapter = new RecipeListAdapter(recipeList);
+        recipeListAdapter = new RecipeListAdapter(recipeList, this::archiveRecipe);
 
         binding.recyclRecipeList.setAdapter(recipeListAdapter);
         binding.recyclRecipeList.setLayoutManager(new LinearLayoutManager(requireContext()));
@@ -106,7 +82,7 @@ public class RecipeListFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                recipeListAdapter.updateRecipes(checkRecipesForCharSequences(testList, s));
+                recipeListAdapter.updateRecipes(checkRecipesForCharSequences(recipeList, s));
             }
 
             @Override
@@ -116,10 +92,19 @@ public class RecipeListFragment extends Fragment {
         });
     }
 
+    private void archiveRecipe(Recipe recipe) {
+        int position = recipeList.indexOf(recipe);
+        if (position != -1) {
+            recipeList.remove(position);
+            recipeListAdapter.notifyItemRemoved(position);
+            model.archiveRecipe(recipe);
+        }
+    }
+
     @Override
     public void onResume() {
         super.onResume();
-        checkRecipesForActiveFilters(testList, loadActiveFilters());
+        checkRecipesForActiveFilters(recipeList, loadActiveFilters());
     }
 
     private void navigateToArchive() {
@@ -134,11 +119,9 @@ public class RecipeListFragment extends Fragment {
     }
 
     private ArrayList<Recipe> checkRecipesForCharSequences(List<Recipe> list, CharSequence s) {
-
         ArrayList<Recipe> newList = new ArrayList<>();
 
         for (int i = 0; i < list.size(); i++) {
-
             CharSequence sLowerCase = s.toString().toLowerCase();
             String titleLowerCase = list.get(i).getTitle().toLowerCase();
 
@@ -146,49 +129,35 @@ public class RecipeListFragment extends Fragment {
                 newList.add(list.get(i));
             }
         }
-
         return newList;
     }
 
     private List<Recipe> checkRecipesForActiveFilters(List<Recipe> list, ArrayList<FilterOption> activeFilters) {
-
         if (activeFilters.isEmpty()) {
-            recipeListAdapter.updateRecipes(testList);
-            return testList;
+            recipeListAdapter.updateRecipes(recipeList);
+            return recipeList;
         }
 
         ArrayList<Recipe> newList = new ArrayList<>();
 
         for (int i = 0; i < list.size(); i++) {
-
             if (list.get(i).getLabels() != null) {
-
                 for (int j = 0; j < list.get(i).getLabels().size(); j++) {
-
                     for (int n = 0; n < activeFilters.size(); n++) {
-
                         if (list.get(i).getLabels().get(j).getName().equals(activeFilters.get(n).getFilterName())) {
-
                             newList.add(list.get(i));
                             break;
-
                         }
-
                     }
-
                 }
-
             }
         }
-
         recipeListAdapter.updateRecipes(newList);
 
         return newList;
-
     }
 
     private ArrayList<FilterOption> loadActiveFilters() {
-
         ArrayList<FilterOption> activeFilters = new ArrayList<>();
 
         LinearLayout filterContainer = (LinearLayout) binding.horizontalScrollView.getChildAt(0);
@@ -205,22 +174,17 @@ public class RecipeListFragment extends Fragment {
                 activeFilters.add(new FilterOption(filterName, isActive));
             }
         }
-
         return activeFilters;
-
     }
 
     private TextView createFilterTag(String filterName, int index) {
-
         TextView filterTag = createFilterTag(filterName);
         addFunctionToTag(index, filterTag);
 
         return filterTag;
-
     }
 
     private void addFunctionToTag(int index, TextView filterTag) {
-
         filterTag.setOnClickListener(v -> {
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putBoolean(CHECK_BOX + index, false);
@@ -234,15 +198,12 @@ public class RecipeListFragment extends Fragment {
                     filterFragment.deactivateFilter(index);
                 }
             }
-
-            checkRecipesForActiveFilters(testList, loadActiveFilters());
-
+            checkRecipesForActiveFilters(recipeList, loadActiveFilters());
         });
     }
 
     @NonNull
     private TextView createFilterTag(String filterName) {
-
         TextView filterTag = new TextView(requireContext());
 
         filterTag.setText(filterName);
@@ -253,34 +214,26 @@ public class RecipeListFragment extends Fragment {
         filterTag.setTypeface(Typeface.create("serif", Typeface.ITALIC));
 
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-
         params.setMargins(0, 0, 30, 0); // left, top, right, bottom
-
         filterTag.setLayoutParams(params);
 
         return filterTag;
     }
 
     private void navigateToFilterOptions() {
-
         FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-
         fragmentTransaction.replace(R.id.frame_layout, new FilterFragment());
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
-
     }
 
     private void navigateToAddRecipe() {
-
         FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-
         fragmentTransaction.replace(R.id.frame_layout, new EditFragment());
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
-
     }
 
     @Override

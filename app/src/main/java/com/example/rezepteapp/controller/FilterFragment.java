@@ -12,6 +12,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.view.LayoutInflater;
@@ -22,13 +23,13 @@ import com.example.rezepteapp.adapter.FilterAdapter;
 import com.example.rezepteapp.R;
 import com.example.rezepteapp.databinding.FragmentFilterBinding;
 import com.example.rezepteapp.model.FilterOption;
+import com.example.rezepteapp.model.SharedViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
 public class FilterFragment extends Fragment {
-
     private FragmentFilterBinding binding;
     private final List<FilterOption> filterOptionList;
     private FilterAdapter filterAdapter;
@@ -44,6 +45,7 @@ public class FilterFragment extends Fragment {
         super.onCreate(savedInstanceState);
         sharedPreferences = requireActivity().getSharedPreferences(MY_PREFERENCES, Context.MODE_PRIVATE);
     }
+
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -72,7 +74,7 @@ public class FilterFragment extends Fragment {
     private void loadPreferences() {
         SharedPreferences sP = requireActivity().getSharedPreferences(MY_PREFERENCES, Context.MODE_PRIVATE);
 
-        filterOptionList.clear(); // Sicherstellen, dass die Liste leer ist, bevor sie befüllt wird
+        filterOptionList.clear();
 
         int filterCount = sP.getInt(FILTER_COUNT, 0);
         for (int i = 0; i < filterCount; i++) {

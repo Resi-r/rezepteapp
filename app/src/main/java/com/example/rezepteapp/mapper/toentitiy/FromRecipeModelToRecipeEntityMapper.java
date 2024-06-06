@@ -41,6 +41,10 @@ public class FromRecipeModelToRecipeEntityMapper {
     }
 
     private String mapListToString(List<String> stringList) {
+        if (stringList == null) {
+            return "";
+        }
+        stringList.removeIf(java.util.Objects::isNull);
         return String.join("; ", stringList);
     }
 }

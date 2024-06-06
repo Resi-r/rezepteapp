@@ -23,13 +23,23 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.example.rezepteapp.databinding.ActivityMainBinding;
+import com.example.rezepteapp.model.Ingredient;
+import com.example.rezepteapp.model.Label;
+import com.example.rezepteapp.model.Recipe;
+import com.example.rezepteapp.model.RecipeUnit;
+import com.example.rezepteapp.model.Status;
 
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
+    private List<Recipe> testList;
+
     private AppBarConfiguration appBarConfiguration;
     private final static int REQUEST_CODE_PERMISSIONS = 101;
     private final static String[] REQUIRED_PERMISSIONS = {
@@ -54,6 +64,44 @@ public class MainActivity extends AppCompatActivity {
 
         binding.navbarBottom.setSelectedItemId(R.id.home);
 
+        // Sample data for testing
+        testList = new ArrayList<>();
+
+        Label label = new Label("Vegetarisch");
+        Label label1 = new Label("Vegan");
+        Label label2 = new Label("Lieblingsessen");
+        Label label3 = new Label("Fleisch");
+
+        Ingredient ingredient = new Ingredient("12", RecipeUnit.GRAMM, "Paprika");
+        Ingredient ingredient2 = new Ingredient("12", RecipeUnit.GRAMM, "Paprika");
+
+        ArrayList<Ingredient> ingredients = new ArrayList<>();
+
+        ingredients.add(ingredient2);
+        ingredients.add(ingredient);
+
+        ArrayList<Label> testLabels1 = new ArrayList<>();
+        ArrayList<Label> testLabels2 = new ArrayList<>();
+
+        testLabels1.add(label);
+        testLabels1.add(label1);
+        testLabels2.add(label2);
+        testLabels2.add(label3);
+
+        ArrayList stepsAndNotes = new ArrayList<>();
+        stepsAndNotes.add("werl");
+        stepsAndNotes.add("ser");
+        stepsAndNotes.add("ezw");
+
+        testList.add(new Recipe("Hallo", null, testLabels1, "1h", "2h", 4, ingredients, stepsAndNotes, null, Status.LIVE));
+        testList.add(new Recipe("Tschüss", null, testLabels2, "1h", "1h", 4, ingredients, stepsAndNotes, null, Status.LIVE));
+        testList.add(new Recipe("Haha", null, testLabels1, "1h", "5h", 4, ingredients, stepsAndNotes, null, Status.LIVE));
+        testList.add(new Recipe("Lol", null, testLabels2, "1h", "3h", 4, ingredients, stepsAndNotes, null, Status.LIVE));
+        testList.add(new Recipe("Haha1", null, testLabels1, "1h", "5h", 4, ingredients, stepsAndNotes, null, Status.LIVE));
+
+        RecipeRepository repository = new RecipeRepository(this);
+
+        testList.forEach(repository::addRecipe);
 
         binding.navbarBottom.setOnItemSelectedListener(item -> {
 

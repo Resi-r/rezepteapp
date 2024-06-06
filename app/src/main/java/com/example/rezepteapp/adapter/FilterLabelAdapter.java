@@ -22,26 +22,24 @@ import com.example.rezepteapp.model.FilterOption;
 
 import java.util.List;
 
-public class FilterAdapter extends RecyclerView.Adapter<FilterAdapter.ViewHolder> {
+public class FilterLabelAdapter extends RecyclerView.Adapter<FilterLabelAdapter.ViewHolder> {
     private final Context context;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public CheckBox checkBox;
         public TextView nameFilter;
-        public Button deleteButton;
 
         public ViewHolder(View itemView) {
             super(itemView);
 
             checkBox = (CheckBox) itemView.findViewById(R.id.cb_filter_option);
             nameFilter = (TextView) itemView.findViewById(R.id.tv_filter_name);
-            deleteButton = (Button) itemView.findViewById(R.id.btn_delete_filter);
         }
     }
 
     private final List<FilterOption> filterList;
 
-    public FilterAdapter(List<FilterOption> filterList, Context context) {
+    public FilterLabelAdapter(List<FilterOption> filterList, Context context) {
         this.filterList = filterList;
         this.context = context;
     }
@@ -65,23 +63,7 @@ public class FilterAdapter extends RecyclerView.Adapter<FilterAdapter.ViewHolder
 
         holder.checkBox.setOnCheckedChangeListener(((buttonView, isActive) -> {
             filter.setActive(isActive);
-            savePreferences();
         }));
-
-        holder.deleteButton.setOnClickListener(v -> removeFilter(holder.getAdapterPosition()));
-    }
-
-
-    private void savePreferences() {
-        SharedPreferences sharedPreferences = context.getSharedPreferences(MY_PREFERENCES, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-
-        editor.putInt(FILTER_COUNT, filterList.size());
-        for (int i = 0; i < filterList.size(); i++) {
-            editor.putString(FILTER_NAME + i, filterList.get(i).getFilterName());
-            editor.putBoolean(CHECK_BOX + i, filterList.get(i).isActive());
-        }
-        editor.apply();
     }
 
     public List<FilterOption> getFilterOptions() {
@@ -98,8 +80,6 @@ public class FilterAdapter extends RecyclerView.Adapter<FilterAdapter.ViewHolder
             filterList.remove(position);
             notifyItemRemoved(position);
             notifyItemRangeChanged(position, filterList.size());
-
-            savePreferences();
         }
     }
 

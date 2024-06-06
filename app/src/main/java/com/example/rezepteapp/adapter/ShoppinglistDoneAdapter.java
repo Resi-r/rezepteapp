@@ -13,26 +13,24 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.rezepteapp.R;
+import com.example.rezepteapp.listener.OnItemCheckedDoneListener;
+import com.example.rezepteapp.listener.ShoppinglistDoneActionListener;
 import com.example.rezepteapp.model.ShoppinglistEntry;
 
 import java.util.List;
 
 public class ShoppinglistDoneAdapter extends RecyclerView.Adapter<ShoppinglistDoneAdapter.ViewHolder> {
-    public interface ShoppinglistActionListener {
-        void deleteEntry(ShoppinglistEntry entry);
-    }
-    public interface OnItemCheckedListener {
-        void onItemChecked(ShoppinglistEntry entry);
-    }
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener {
         public TextView amountTextView;
         public TextView ingredientTextView;
         public CheckBox checkBox;
-        private final ShoppinglistActionListener listener;
+        private OnItemCheckedDoneListener itemCheckedListener;
+        private ShoppinglistDoneActionListener shoppinglistDoneActionListener;
 
-        public ViewHolder(View itemView, ShoppinglistActionListener listener) {
+        public ViewHolder(View itemView, OnItemCheckedDoneListener itemCheckedListener, ShoppinglistDoneActionListener shoppinglistDoneActionListener) {
             super(itemView);
-            this.listener = listener;
+            this.itemCheckedListener = itemCheckedListener;
+            this.shoppinglistDoneActionListener = shoppinglistDoneActionListener;
 
             itemView.setOnCreateContextMenuListener(this);
             amountTextView = (TextView) itemView.findViewById(R.id.tv_shoppinglist_entry_quantity);
@@ -42,11 +40,11 @@ public class ShoppinglistDoneAdapter extends RecyclerView.Adapter<ShoppinglistDo
 
         @Override
         public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-            MenuItem deleteItem = menu.add(0, v.getId(), 1, "löschen");
+            MenuItem deleteItem = menu.add(0, v.getId(), 1, "Löschen");
 
             deleteItem.setOnMenuItemClickListener(item -> {
-                if (listener != null) {
-                    listener.deleteEntry((ShoppinglistEntry) itemView.getTag());
+                if (shoppinglistDoneActionListener != null) {
+                    shoppinglistDoneActionListener.deleteEntry((ShoppinglistEntry) itemView.getTag());
                 }
                 return true;
             });
@@ -54,13 +52,13 @@ public class ShoppinglistDoneAdapter extends RecyclerView.Adapter<ShoppinglistDo
     }
 
     private List<ShoppinglistEntry> entries;
-    private ShoppinglistDoneAdapter.OnItemCheckedListener listener;
-    private ShoppinglistActionListener shoppinglistActionListener;
+    private OnItemCheckedDoneListener itemCheckedListener;
+    private ShoppinglistDoneActionListener shoppinglistDoneActionListener;
 
-    public ShoppinglistDoneAdapter(List<ShoppinglistEntry> entries, OnItemCheckedListener listener, ShoppinglistActionListener shoppinglistActionListener) {
+    public ShoppinglistDoneAdapter(List<ShoppinglistEntry> entries, OnItemCheckedDoneListener itemCheckedListener, ShoppinglistDoneActionListener shoppinglistDoneActionListener) {
         this.entries = entries;
-        this.listener = listener;
-        this.shoppinglistActionListener = shoppinglistActionListener;
+        this.itemCheckedListener = itemCheckedListener;
+        this.shoppinglistDoneActionListener = shoppinglistDoneActionListener;
     }
 
     @NonNull
@@ -70,7 +68,7 @@ public class ShoppinglistDoneAdapter extends RecyclerView.Adapter<ShoppinglistDo
         LayoutInflater inflater = LayoutInflater.from(context);
         View entryView = inflater.inflate(R.layout.recycl_item_shoppinglist_entry, parent, false);
 
-        return new ShoppinglistDoneAdapter.ViewHolder(entryView, shoppinglistActionListener);
+        return new ShoppinglistDoneAdapter.ViewHolder(entryView, itemCheckedListener, shoppinglistDoneActionListener);
     }
 
     @Override
@@ -83,7 +81,7 @@ public class ShoppinglistDoneAdapter extends RecyclerView.Adapter<ShoppinglistDo
         holder.checkBox.setChecked(true);
         holder.checkBox.setOnCheckedChangeListener(((buttonView, isChecked) -> {
             if (!isChecked) {
-                listener.onItemChecked(entry);
+                itemCheckedListener.onItemChecked(entry);
             }
         }));
         holder.itemView.setTag(entry);

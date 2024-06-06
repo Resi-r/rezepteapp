@@ -21,9 +21,7 @@ public class ArchiveFragment extends Fragment {
     private ArchivedRecipeAdapter adapter;
     private List<Recipe> recipes;
 
-    public ArchiveFragment() {
-
-    }
+    public ArchiveFragment() {}
 
     @Override
     public void onCreate(Bundle saveInstanceState){
@@ -44,22 +42,7 @@ public class ArchiveFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle saveInstanceState) {
         super.onViewCreated(view, saveInstanceState);
 
-        adapter = new ArchivedRecipeAdapter(recipes,
-                new ArchivedRecipeAdapter.RecipeActionListener() {
-                    @Override
-                    public void onDeleteRecipe(Recipe recipe) {
-                        model.deleteRecipe(recipe);
-                        adapter.deleteRecipe(recipe);
-
-                    }
-                    @Override
-                    public void onRevertArchiving(Recipe recipe) {
-                        model.revertArchivation(recipe);
-                        adapter.revertArchiving(recipe);
-
-                    }
-                }
-        );
+        adapter = new ArchivedRecipeAdapter(recipes, this::onRevertArchiving, this::onDeleteRecipe);
 
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.recyclerView.setAdapter(adapter);
@@ -75,5 +58,23 @@ public class ArchiveFragment extends Fragment {
     public void onDestroy(){
         super.onDestroy();
         binding = null;
+    }
+
+    public void onDeleteRecipe(Recipe recipe) {
+        int position = recipes.indexOf(recipe);
+        if (position != -1) {
+            recipes.remove(position);
+            adapter.notifyItemRemoved(position);
+            model.deleteRecipe(recipe);
+        }
+    }
+
+    public void onRevertArchiving(Recipe recipe) {
+        int position = recipes.indexOf(recipe);
+        if (position != -1) {
+            recipes.remove(position);
+            adapter.notifyItemRemoved(position);
+            model.revertArchivation(recipe);
+        }
     }
 }

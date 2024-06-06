@@ -1,5 +1,6 @@
 package com.example.rezepteapp.controller;
 
+import android.graphics.Typeface;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -12,19 +13,22 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.example.rezepteapp.R;
 import com.example.rezepteapp.adapter.IngredientsAdapter;
 import com.example.rezepteapp.adapter.StringListAdapter;
-import com.example.rezepteapp.databinding.FragmentShowRecipeBinding;
+import com.example.rezepteapp.databinding.FragmentRecipeDetailsBinding;
 import com.example.rezepteapp.model.Ingredient;
+import com.example.rezepteapp.model.Label;
 import com.example.rezepteapp.model.Recipe;
 
 import java.util.List;
 
-public class ShowRecipeFragment extends Fragment {
+public class RecipeDetailsFragment extends Fragment {
 
-    FragmentShowRecipeBinding binding;
+    FragmentRecipeDetailsBinding binding;
     private Recipe recipe;
     private IngredientsAdapter ingredientsAdapter;
     private StringListAdapter stepsAdapter;
@@ -32,13 +36,10 @@ public class ShowRecipeFragment extends Fragment {
 
     private List<Ingredient> ingredients;
     private List<String> steps;
-    private List<String> notes;
 
-    public ShowRecipeFragment() {
-        // Required empty public constructor
-    }
+    public RecipeDetailsFragment() {}
 
-    public ShowRecipeFragment(Recipe recipe) {
+    public RecipeDetailsFragment(Recipe recipe) {
         this.recipe = recipe;
     }
 
@@ -51,10 +52,9 @@ public class ShowRecipeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        binding = FragmentShowRecipeBinding.inflate(inflater, container, false);
+        binding = FragmentRecipeDetailsBinding.inflate(inflater, container, false);
         ingredients = recipe.getIngridients();
         steps = recipe.getSteps();
-        notes = recipe.getNotes();
         return binding.getRoot();
     }
 
@@ -64,14 +64,15 @@ public class ShowRecipeFragment extends Fragment {
 
         ingredientsAdapter = new IngredientsAdapter(ingredients);
         stepsAdapter = new StringListAdapter(steps);
-        notesAdapter = new StringListAdapter(notes);
 
-        binding.tvTitleShow.setText(recipe.getTitle());
+        binding.tvTitle.setText(recipe.getTitle());
         binding.imgTitle.setImageBitmap(recipe.getImageTitle());
 
-        binding.tvVTimeShow.setText(recipe.getvTime());
+        binding.tvVTime.setText(recipe.getvTime());
         binding.tvKTime.setText(recipe.getkTime());
         binding.tvPeople.setText(String.valueOf(recipe.getServings()));
+
+        setLabels(recipe);
 
         binding.recyclIngridients.setAdapter(ingredientsAdapter);
         binding.recyclIngridients.setLayoutManager(new LinearLayoutManager(requireContext()));
@@ -79,10 +80,7 @@ public class ShowRecipeFragment extends Fragment {
         binding.recyclSteps.setAdapter(stepsAdapter);
         binding.recyclSteps.setLayoutManager(new LinearLayoutManager(requireContext()));
 
-        binding.recyclNotes.setAdapter(notesAdapter);
-        binding.recyclNotes.setLayoutManager(new LinearLayoutManager(requireContext()));
-
-        binding.btnCancel.setOnClickListener(l -> {
+        binding.btnBack.setOnClickListener(l -> {
             requireActivity().getSupportFragmentManager().popBackStack();
         });
 
@@ -93,5 +91,27 @@ public class ShowRecipeFragment extends Fragment {
             fragmentTransaction.addToBackStack(null);
             fragmentTransaction.commit();
         });
+    }
+
+    private void setLabels(Recipe recipe) {
+        for (int i = 0; i < recipe.getLabels().size(); i++) {
+
+            System.out.println("Recipe Label Name: " + recipe.getLabels().get(i).getName());
+
+            TextView filterTag = new TextView(requireContext());
+
+            filterTag.setText(recipe.getLabels().get(i).getName());
+            filterTag.setTextSize(16);
+            filterTag.setBackgroundResource(R.drawable.rounded_button);
+            filterTag.setPadding(30, 15, 30, 15);
+            filterTag.setTextColor(getResources().getColor(android.R.color.white));
+            filterTag.setTypeface(Typeface.create("serif", Typeface.ITALIC));
+
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            params.setMargins(0, 0, 30, 0); // left, top, right, bottom
+            filterTag.setLayoutParams(params);
+
+            binding.linearLayoutLabel.addView(filterTag);
+        }
     }
 }

@@ -24,8 +24,9 @@ public class FromRecipeModelToIngredientsRecipesEntityMapper {
         List<IngredientsRecipesEntity> entity = new ArrayList<>();
         int recipeId = getRecipeId(recipe.getTitle());
         for (Ingredient ingredient : recipe.getIngridients()) {
+            String amountAndUnit = ingredient.getAmount() + " " + ingredient.getUnit();
             entity.add(
-                    new IngredientsRecipesEntity(ingredient.getAmount(), getIngredientId(ingredient.getName()), recipeId)
+                    new IngredientsRecipesEntity(amountAndUnit, getIngredientId(ingredient.getName()), recipeId)
             );
         }
 

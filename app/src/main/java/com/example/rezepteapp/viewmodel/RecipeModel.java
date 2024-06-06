@@ -102,7 +102,9 @@ public class RecipeModel {
     public void deleteRecipe(Recipe recipe) {
         repository.deleteRecipe(recipe);
     }
-
+    public void archiveRecipe(Recipe recipe) {
+        repository.archiveRecipe(recipe);
+    }
     public void revertArchivation(Recipe recipe) {
         repository.revertArchivation(recipe);
     }

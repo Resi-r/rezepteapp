@@ -21,7 +21,7 @@ public class FromIngredientModelToIngredientEntityMapper {
             entity.setId(ingredient.getId());
         }
         entity.setName(ingredient.getName());
-        entity.setId(getIngredientId(ingredient.getName()));
+        //entity.setId(getIngredientId(ingredient.getName()));
         return entity;
     }
 
