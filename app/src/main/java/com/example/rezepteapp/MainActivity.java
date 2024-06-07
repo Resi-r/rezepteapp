@@ -93,11 +93,22 @@ public class MainActivity extends AppCompatActivity {
         stepsAndNotes.add("ser");
         stepsAndNotes.add("ezw");
 
-        testList.add(new Recipe("Hallo", testLabels1, "1h", "2h", 4, ingredients, stepsAndNotes, null, Status.LIVE));
-        testList.add(new Recipe("Tschüss", testLabels2, "1h", "1h", 4, ingredients, stepsAndNotes, null, Status.LIVE));
-        testList.add(new Recipe("Haha", testLabels1, "1h", "5h", 4, ingredients, stepsAndNotes, null, Status.LIVE));
-        testList.add(new Recipe("Lol", testLabels2, "1h", "3h", 4, ingredients, stepsAndNotes, null, Status.LIVE));
-        testList.add(new Recipe("Haha1", testLabels1, "1h", "5h", 4, ingredients, stepsAndNotes, null, Status.LIVE));
+        testList.add(new Recipe("Nudelauflauf", testLabels1, "1h", "2h", 4, ingredients, stepsAndNotes, null, Status.LIVE));
+        testList.add(new Recipe("Reis mit Hähnchen", testLabels2, "1h", "1h", 4, ingredients, stepsAndNotes, null, Status.LIVE));
+        testList.add(new Recipe("Salzkartoffeln", testLabels1, "1h", "5h", 4, ingredients, stepsAndNotes, null, Status.LIVE));
+        testList.add(new Recipe("Currywurst", testLabels2, "1h", "3h", 4, ingredients, stepsAndNotes, null, Status.LIVE));
+        testList.add(new Recipe("Pizza", testLabels1, "1h", "5h", 4, ingredients, stepsAndNotes, null, Status.LIVE));
+        testList.add(new Recipe("Möhreneintopf", testLabels1, "1h", "2h", 4, ingredients, stepsAndNotes, null, Status.LIVE));
+        testList.add(new Recipe("Kartoffelsuppe", testLabels2, "1h", "1h", 4, ingredients, stepsAndNotes, null, Status.LIVE));
+        testList.add(new Recipe("Fantakuchen", testLabels1, "1h", "5h", 4, ingredients, stepsAndNotes, null, Status.LIVE));
+        testList.add(new Recipe("Nudelsalat", testLabels2, "1h", "3h", 4, ingredients, stepsAndNotes, null, Status.LIVE));
+        testList.add(new Recipe("Lasagne", testLabels1, "1h", "5h", 4, ingredients, stepsAndNotes, null, Status.LIVE));
+        testList.add(new Recipe("Hackbällchen", testLabels1, "1h", "2h", 4, ingredients, stepsAndNotes, null, Status.LIVE));
+        testList.add(new Recipe("Käsespätzle", testLabels2, "1h", "1h", 4, ingredients, stepsAndNotes, null, Status.LIVE));
+        testList.add(new Recipe("Tofu-Bratlinge", testLabels1, "1h", "5h", 4, ingredients, stepsAndNotes, null, Status.LIVE));
+        testList.add(new Recipe("Steckrübengratin", testLabels2, "1h", "3h", 4, ingredients, stepsAndNotes, null, Status.LIVE));
+        testList.add(new Recipe("Grillkäse", testLabels1, "1h", "5h", 4, ingredients, stepsAndNotes, null, Status.LIVE));
+
 
         RecipeRepository repository = new RecipeRepository(this);
 
