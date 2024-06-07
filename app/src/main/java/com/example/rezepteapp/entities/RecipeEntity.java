@@ -7,7 +7,6 @@ public class RecipeEntity {
 
     private int id;
     private String name;
-    private byte[] image;
     private String kTime;
     private String vTime;
     private int servings;
@@ -15,9 +14,8 @@ public class RecipeEntity {
     private String steps;
     private int statusId;
 
-    public RecipeEntity(String name, byte[] image, String kTime, String vTime, int servings, String notes, String steps, int statusId) {
+    public RecipeEntity(String name, String kTime, String vTime, int servings, String notes, String steps, int statusId) {
         this.name = name;
-        this.image = image;
         this.kTime = kTime;
         this.vTime = vTime;
         this.servings = servings;
@@ -26,10 +24,9 @@ public class RecipeEntity {
         this.statusId = statusId;
     }
 
-    public RecipeEntity(int id, String name, byte[] image, String kTime, String vTime, int servings, String notes, String steps, int statusId) {
+    public RecipeEntity(int id, String name, String kTime, String vTime, int servings, String notes, String steps, int statusId) {
         this.id = id;
         this.name = name;
-        this.image = image;
         this.kTime = kTime;
         this.vTime = vTime;
         this.servings = servings;
@@ -54,14 +51,6 @@ public class RecipeEntity {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public byte[] getImage() {
-        return image;
-    }
-
-    public void setImage(byte[] image) {
-        this.image = image;
     }
 
     public String getkTime() {
@@ -110,20 +99,5 @@ public class RecipeEntity {
 
     public void setServings(int servings) {
         this.servings = servings;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        RecipeEntity that = (RecipeEntity) o;
-        return id == that.id && servings == that.servings && statusId == that.statusId && Objects.equals(name, that.name) && Arrays.equals(image, that.image) && Objects.equals(kTime, that.kTime) && Objects.equals(vTime, that.vTime) && Objects.equals(notes, that.notes) && Objects.equals(steps, that.steps);
-    }
-
-    @Override
-    public int hashCode() {
-        int result = Objects.hash(id, name, kTime, vTime, servings, notes, steps, statusId);
-        result = 31 * result + Arrays.hashCode(image);
-        return result;
     }
 }

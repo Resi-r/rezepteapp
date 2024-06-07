@@ -66,7 +66,6 @@ public class RecipeDetailsFragment extends Fragment {
         stepsAdapter = new StringListAdapter(steps);
 
         binding.tvTitle.setText(recipe.getTitle());
-        binding.imgTitle.setImageBitmap(recipe.getImageTitle());
 
         binding.tvVTime.setText(recipe.getvTime());
         binding.tvKTime.setText(recipe.getkTime());

@@ -39,9 +39,6 @@ public class FromRecipeEntityToRecipeModelMapper {
         Recipe recipe = new Recipe();
         recipe.setId(entity.getId());
         recipe.setTitle(entity.getName());
-        if (entity.getImage() != null) {
-            recipe.setImageTitle(getByteArrayAsBitmap(entity.getImage()));
-        }
         recipe.setLabels(getLabelsOfEntity(entity.getId()));
         recipe.setvTime(entity.getvTime());
         recipe.setkTime(entity.getkTime());

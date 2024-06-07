@@ -4,6 +4,8 @@ import static com.example.rezepteapp.utils.Constants.CHECK_BOX;
 import static com.example.rezepteapp.utils.Constants.FILTER_COUNT;
 import static com.example.rezepteapp.utils.Constants.FILTER_NAME;
 import static com.example.rezepteapp.utils.Constants.MY_PREFERENCES;
+import static com.example.rezepteapp.utils.ImageUtils.drawableToBitmap;
+import static com.example.rezepteapp.utils.ImageUtils.drawableToBlob;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -271,7 +273,6 @@ public class EditFragment extends Fragment {
         }
 
         recipe.setTitle(title);
-        recipe.setImageTitle(drawableToBitmap(imageTitle));
         recipe.setLabels(labels);
         recipe.setvTime(vTime);
         recipe.setkTime(kTime);
@@ -285,32 +286,7 @@ public class EditFragment extends Fragment {
         return true;
     }
 
-    public Bitmap drawableToBitmap (Drawable drawable) {
-        Bitmap bitmap = null;
 
-        if (drawable instanceof BitmapDrawable) {
-            BitmapDrawable bitmapDrawable = (BitmapDrawable) drawable;
-            if (bitmapDrawable.getBitmap() != null) {
-                return bitmapDrawable.getBitmap();
-            }
-        }
-
-        System.out.println("drawable: " + drawable);
-
-        if (drawable != null) {
-            if (drawable.getIntrinsicWidth() <= 0 || drawable.getIntrinsicHeight() <= 0) {
-                bitmap = Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888);
-            } else {
-                bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
-            }
-
-            Canvas canvas = new Canvas(bitmap);
-            drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
-            drawable.draw(canvas);
-            return bitmap;
-        }
-        return null;
-    }
 
     private void setLabels(List<Label> labels) {
         binding.linearLayoutLabel.removeAllViews();
@@ -351,7 +327,6 @@ public class EditFragment extends Fragment {
 
     private void setRecipe(Recipe recipe) {
         binding.tvTitle.setText(recipe.getTitle());
-        binding.imgTitle.setImageBitmap(recipe.getImageTitle());
 
         setLabels(recipe.getLabels());
         binding.tvVTime.setText(recipe.getvTime());

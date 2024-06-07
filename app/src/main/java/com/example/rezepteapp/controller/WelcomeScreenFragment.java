@@ -60,18 +60,18 @@ public class WelcomeScreenFragment extends Fragment implements WeatherCallback {
 
         testList = new ArrayList<>();
 
-        testList.add(new Recipe("Hallo", null, null, "1h", "2h", 4, null, null, null, Status.LIVE));
-        testList.add(new Recipe("Tschüss", null, null, "1h", "1h", 4, null, null, null, Status.LIVE));
-        testList.add(new Recipe("Haha", null, null, "1h", "5h", 4, null, null, null, Status.LIVE));
-        testList.add(new Recipe("Lol", null, null, "1h", "3h", 4, null, null, null, Status.LIVE));
-        testList.add(new Recipe("Hallo1", null, null, "1h", "2h", 4, null, null, null, Status.LIVE));
-        testList.add(new Recipe("Tschüss1", null, null, "1h", "1h", 4, null, null, null, Status.LIVE));
-        testList.add(new Recipe("Haha1", null, null, "1h", "5h", 4, null, null, null, Status.LIVE));
-        testList.add(new Recipe("Lol1", null, null, "1h", "3h", 4, null, null, null, Status.LIVE));
-        testList.add(new Recipe("Hallo2", null, null, "1h", "2h", 4, null, null, null, Status.LIVE));
-        testList.add(new Recipe("Tschüss2", null, null, "1h", "1h", 4, null, null, null, Status.LIVE));
-        testList.add(new Recipe("Haha2", null, null, "1h", "5h", 4, null, null, null, Status.LIVE));
-        testList.add(new Recipe("Lol2", null, null, "1h", "3h", 4, null, null, null, Status.LIVE));
+        testList.add(new Recipe("Hallo",  null, "1h", "2h", 4, null, null, null, Status.LIVE));
+        testList.add(new Recipe("Tschüss",  null, "1h", "1h", 4, null, null, null, Status.LIVE));
+        testList.add(new Recipe("Haha",  null, "1h", "5h", 4, null, null, null, Status.LIVE));
+        testList.add(new Recipe("Lol",  null, "1h", "3h", 4, null, null, null, Status.LIVE));
+        testList.add(new Recipe("Hallo1",  null, "1h", "2h", 4, null, null, null, Status.LIVE));
+        testList.add(new Recipe("Tschüss1",  null, "1h", "1h", 4, null, null, null, Status.LIVE));
+        testList.add(new Recipe("Haha1",  null, "1h", "5h", 4, null, null, null, Status.LIVE));
+        testList.add(new Recipe("Lol1",  null, "1h", "3h", 4, null, null, null, Status.LIVE));
+        testList.add(new Recipe("Hallo2",  null, "1h", "2h", 4, null, null, null, Status.LIVE));
+        testList.add(new Recipe("Tschüss2",  null, "1h", "1h", 4, null, null, null, Status.LIVE));
+        testList.add(new Recipe("Haha2",  null, "1h", "5h", 4, null, null, null, Status.LIVE));
+        testList.add(new Recipe("Lol2",  null, "1h", "3h", 4, null, null, null, Status.LIVE));
 
         //welcomeRecipeListAdapter = new WelcomeRecipeListAdapter(randomizeRecipeSuggestions(testList));
         welcomeRecipeListAdapter = new WelcomeRecipeListAdapter(randomizeRecipeSuggestions(recipeList));

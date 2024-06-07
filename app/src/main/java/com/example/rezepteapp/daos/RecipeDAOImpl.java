@@ -31,7 +31,6 @@ public class RecipeDAOImpl implements RecipeDAO {
 
             ContentValues values = new ContentValues();
             values.put("name", entity.getName());
-            values.put("image", entity.getImage());
             values.put("kTime", entity.getkTime());
             values.put("vTime", entity.getvTime());
             values.put("servings", entity.getServings());
@@ -63,7 +62,6 @@ public class RecipeDAOImpl implements RecipeDAO {
                 while (cursor.moveToNext()) {
                     int idIndex = cursor.getColumnIndex("_id");
                     int nameIndex = cursor.getColumnIndex("name");
-                    int imageIndex = cursor.getColumnIndex("image");
                     int kTimeIndex = cursor.getColumnIndex("kTime");
                     int vTimeIndex = cursor.getColumnIndex("vTime");
                     int servingsIndex = cursor.getColumnIndex("servings");
@@ -73,7 +71,6 @@ public class RecipeDAOImpl implements RecipeDAO {
 
                     entity.setId(cursor.getInt(idIndex));
                     entity.setName(cursor.getString(nameIndex));
-                    entity.setImage(cursor.getBlob(imageIndex));
                     entity.setkTime(cursor.getString(kTimeIndex));
                     entity.setvTime(cursor.getString(vTimeIndex));
                     entity.setServings(cursor.getInt(servingsIndex));
@@ -96,7 +93,6 @@ public class RecipeDAOImpl implements RecipeDAO {
                 while (cursor.moveToNext()) {
                     int idIndex = cursor.getColumnIndex("_id");
                     int nameIndex = cursor.getColumnIndex("name");
-                    int imageIndex = cursor.getColumnIndex("image");
                     int kTimeIndex = cursor.getColumnIndex("kTime");
                     int vTimeIndex = cursor.getColumnIndex("vTime");
                     int servingsIndex = cursor.getColumnIndex("servings");
@@ -108,7 +104,6 @@ public class RecipeDAOImpl implements RecipeDAO {
 
                     entity.setId(cursor.getInt(idIndex));
                     entity.setName(cursor.getString(nameIndex));
-                    entity.setImage(cursor.getBlob(imageIndex));
                     entity.setkTime(cursor.getString(kTimeIndex));
                     entity.setvTime(cursor.getString(vTimeIndex));
                     entity.setServings(cursor.getInt(servingsIndex));
@@ -133,7 +128,6 @@ public class RecipeDAOImpl implements RecipeDAO {
                 while (cursor.moveToNext()) {
                     int idIndex = cursor.getColumnIndex("_id");
                     int nameIndex = cursor.getColumnIndex("name");
-                    int imageIndex = cursor.getColumnIndex("image");
                     int kTimeIndex = cursor.getColumnIndex("kTime");
                     int vTimeIndex = cursor.getColumnIndex("vTime");
                     int servingsIndex = cursor.getColumnIndex("servings");
@@ -145,7 +139,6 @@ public class RecipeDAOImpl implements RecipeDAO {
 
                     entity.setId(cursor.getInt(idIndex));
                     entity.setName(cursor.getString(nameIndex));
-                    entity.setImage(cursor.getBlob(imageIndex));
                     entity.setkTime(cursor.getString(kTimeIndex));
                     entity.setvTime(cursor.getString(vTimeIndex));
                     entity.setServings(cursor.getInt(servingsIndex));
@@ -173,7 +166,6 @@ public class RecipeDAOImpl implements RecipeDAO {
                 while (cursor.moveToNext()) {
                     int idIndex = cursor.getColumnIndex("_id");
                     int nameIndex = cursor.getColumnIndex("name");
-                    int imageIndex = cursor.getColumnIndex("image");
                     int kTimeIndex = cursor.getColumnIndex("kTime");
                     int vTimeIndex = cursor.getColumnIndex("vTime");
                     int servingsIndex = cursor.getColumnIndex("servings");
@@ -185,7 +177,6 @@ public class RecipeDAOImpl implements RecipeDAO {
 
                     entity.setId(cursor.getInt(idIndex));
                     entity.setName(cursor.getString(nameIndex));
-                    entity.setImage(cursor.getBlob(imageIndex));
                     entity.setkTime(cursor.getString(kTimeIndex));
                     entity.setvTime(cursor.getString(vTimeIndex));
                     entity.setServings(cursor.getInt(servingsIndex));
@@ -210,7 +201,6 @@ public class RecipeDAOImpl implements RecipeDAO {
                 while (cursor.moveToNext()) {
                     int idIndex = cursor.getColumnIndex("_id");
                     int nameIndex = cursor.getColumnIndex("name");
-                    int imageIndex = cursor.getColumnIndex("image");
                     int kTimeIndex = cursor.getColumnIndex("kTime");
                     int vTimeIndex = cursor.getColumnIndex("vTime");
                     int servingsIndex = cursor.getColumnIndex("servings");
@@ -222,7 +212,6 @@ public class RecipeDAOImpl implements RecipeDAO {
 
                     entity.setId(cursor.getInt(idIndex));
                     entity.setName(cursor.getString(nameIndex));
-                    entity.setImage(cursor.getBlob(imageIndex));
                     entity.setkTime(cursor.getString(kTimeIndex));
                     entity.setvTime(cursor.getString(vTimeIndex));
                     entity.setServings(cursor.getInt(servingsIndex));
@@ -236,11 +225,6 @@ public class RecipeDAOImpl implements RecipeDAO {
             }
         }
     }
-
-//    @Override
-//    public boolean updateRecipe(RecipeEntity entity) {
-//        return dbHelper.updateRecipe(entity);
-//    }
 
     @Override
     public int getId(String name) {

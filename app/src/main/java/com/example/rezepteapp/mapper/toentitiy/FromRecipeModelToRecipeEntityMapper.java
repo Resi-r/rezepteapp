@@ -1,5 +1,7 @@
 package com.example.rezepteapp.mapper.toentitiy;
 
+import static com.example.rezepteapp.utils.ImageUtils.bitmapToBlob;
+
 import android.content.Context;
 import android.graphics.Bitmap;
 
@@ -23,21 +25,12 @@ public class FromRecipeModelToRecipeEntityMapper {
             entity.setId(recipe.getId());
         }
         entity.setName(recipe.getTitle());
-        if (recipe.getImageTitle() != null) {
-            entity.setImage(getBitmapAsByteArray(recipe.getImageTitle()));
-        }
         entity.setkTime(recipe.getkTime());
         entity.setvTime(recipe.getvTime());
         entity.setNotes(mapListToString(recipe.getNotes()));
         entity.setSteps(mapListToString(recipe.getSteps()));
         entity.setStatusId(recipe.getStatus().getId());
         return entity;
-    }
-
-    private byte[] getBitmapAsByteArray(Bitmap bitmap) {
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG, 0, outputStream);
-        return outputStream.toByteArray();
     }
 
     private String mapListToString(List<String> stringList) {
