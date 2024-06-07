@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
+
+import com.example.rezepteapp.R;
 import com.example.rezepteapp.adapter.ArchivedRecipeAdapter;
 import com.example.rezepteapp.databinding.FragmentArchiveBinding;
 import com.example.rezepteapp.model.Recipe;
@@ -41,6 +43,8 @@ public class ArchiveFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, Bundle saveInstanceState) {
         super.onViewCreated(view, saveInstanceState);
+
+        getActivity().findViewById(R.id.navbar_bottom).setVisibility(View.INVISIBLE);
 
         adapter = new ArchivedRecipeAdapter(recipes, this::onRevertArchiving, this::onDeleteRecipe);
 
