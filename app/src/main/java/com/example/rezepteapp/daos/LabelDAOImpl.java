@@ -102,12 +102,36 @@ public class LabelDAOImpl implements LabelDAO {
     }
 
     @Override
+//    public int getId(String name) {
+//        try (SQLiteDatabase db = dbHelper.getReadableDatabase()){
+//            try (Cursor cursor = db.query(DB_TABLE_LABEL, new String[]{"_id"}, "name = ?", new String[]{name}, null, null, null)) {
+//                if (cursor.moveToFirst()) {
+//                    return cursor.getInt(cursor.getColumnIndexOrThrow("_id"));
+//                }
+//            }
+//        }
+//        return -1;
+//    }
     public int getId(String name) {
-        try (SQLiteDatabase db = dbHelper.getReadableDatabase()){
-            try (Cursor cursor = db.query(DB_TABLE_LABEL, new String[]{"_id"}, "name = ?", new String[]{name}, null, null, null)) {
-                if (cursor.moveToFirst()) {
-                    return cursor.getInt(cursor.getColumnIndexOrThrow("_id"));
+        SQLiteDatabase db = null;
+        Cursor cursor = null;
+        try {
+            db = dbHelper.getReadableDatabase();
+            cursor = db.query(DB_TABLE_LABEL, new String[]{"_id"}, "name = ?", new String[]{name}, null, null, null);
+            if (cursor != null && cursor.moveToFirst()) {
+                int idColumnIndex = cursor.getColumnIndex("_id");
+                if (idColumnIndex != -1) {
+                    return cursor.getInt(idColumnIndex);
                 }
+            }
+        } catch (Exception e) {
+            e.printStackTrace(); // Optional: Logging the exception might be useful for debugging.
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+            if (db != null) {
+                db.close();
             }
         }
         return -1;

@@ -39,11 +39,11 @@ public class RecipeDAOImpl implements RecipeDAO {
             values.put("steps", entity.getSteps());
             values.put("statusId", entity.getStatusId());
         if (entity.getId() != 0) {
-
-            return db.update(DB_TABLE_RECIPE, values, "_id = ?", new String[] {String.valueOf(entity.getId())});
-            } else {
-                return db.insert(DB_TABLE_RECIPE, null, values);
-            }
+            db.update(DB_TABLE_RECIPE, values, "_id = ?", new String[] {String.valueOf(entity.getId())});
+            return entity.getId();
+        } else {
+            return db.insert(DB_TABLE_RECIPE, null, values);
+        }
 
     }
 

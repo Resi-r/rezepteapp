@@ -331,11 +331,9 @@ public class EditFragment extends Fragment {
 
             binding.linearLayoutLabel.addView(filterTag);
         }
-
-        /*labels.forEach(string -> {
-            TextView textView = new TextView(requireContext());
-            textView.setText(string.getName());
-        });*/
+        if (!labels.isEmpty()) {
+            recipe.setLabels(labels);
+        }
     }
 
     private boolean isValidStringEntry(String enteredText) {
