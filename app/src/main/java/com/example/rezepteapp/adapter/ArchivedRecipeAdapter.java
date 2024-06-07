@@ -96,25 +96,10 @@ public class ArchivedRecipeAdapter extends RecyclerView.Adapter<ArchivedRecipeAd
         return recipes != null ? recipes.size() : 0;
     }
 
-    /*public void deleteRecipe(Recipe recipe) {
-        int position = recipes.indexOf(recipe);
-        if (position != -1) {
-            recipes.remove(position);
-            notifyItemRemoved(position);
-            model.deleteRecipe(recipe);
-        }
-    }
-
-    public void revertArchiving(Recipe recipe) {
-        int position = recipes.indexOf(recipe);
-        if (position != -1) {
-            recipes.remove(position);
-            notifyItemRemoved(position);
-            model.revertArchivation(recipe);
-        }
-    }*/
 
     private String getDescription(Recipe recipe) {
-        return "Vorbereitungszeit: " + recipe.getvTime() + "\tKochzeit: " + recipe.getkTime() + "\tPortionen: " + recipe.getServings();
+        return "Portionen: " + recipe.getServings() +
+                " || " + "Vorbereitungszeit: " + recipe.getvTime() +
+                " || " + "Kochzeit: " + recipe.getkTime();
     }
 }
