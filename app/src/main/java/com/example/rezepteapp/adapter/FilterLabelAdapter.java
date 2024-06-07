@@ -49,7 +49,7 @@ public class FilterLabelAdapter extends RecyclerView.Adapter<FilterLabelAdapter.
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
-        View filterView = inflater.inflate(R.layout.recycl_item_filter_options, parent, false);
+        View filterView = inflater.inflate(R.layout.recycl_item_label_options, parent, false);
 
         return new ViewHolder(filterView);
     }
