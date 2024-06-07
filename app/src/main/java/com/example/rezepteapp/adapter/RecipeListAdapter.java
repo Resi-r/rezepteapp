@@ -42,8 +42,6 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Vi
                 int position = getAdapterPosition();
                 if (position != RecyclerView.NO_POSITION) {
                     Recipe recipe = recipeList.get(position);
-                    Toast.makeText(itemView.getContext(), recipe.getTitle(), Toast.LENGTH_SHORT).show();
-
                     AppCompatActivity activity = (AppCompatActivity) itemView.getContext();
                     FragmentManager fragmentManager = activity.getSupportFragmentManager();
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -125,25 +123,4 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Vi
         notifyDataSetChanged();
     }
 
-    /*public void hideItem(int position) {
-        visibleRecipesList.remove(position);
-        notifyItemRemoved(position);
-    }
-
-    public void showItem(int position) {
-        Recipe recipe = allRecipesList.get(position);
-        visibleRecipesList.add(position, recipe);
-        notifyItemInserted(position);
-    }*/
-
-    /*public void archiveRecipe(Recipe recipe) {
-        if (model != null) {
-            model.archiveRecipe(recipe);
-            int position = allRecipesList.indexOf(recipe);
-            if (position != -1) {
-                allRecipesList.remove(position);
-                notifyItemRemoved(position);
-            }
-        }
-    }*/
 }

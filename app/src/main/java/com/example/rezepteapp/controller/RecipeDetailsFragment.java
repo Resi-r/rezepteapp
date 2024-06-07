@@ -66,7 +66,6 @@ public class RecipeDetailsFragment extends Fragment {
         stepsAdapter = new StringListAdapter(steps);
 
         binding.tvTitle.setText(recipe.getTitle());
-        binding.imgTitle.setImageBitmap(recipe.getImageTitle());
 
         binding.tvVTime.setText(recipe.getvTime());
         binding.tvKTime.setText(recipe.getkTime());
@@ -111,7 +110,7 @@ public class RecipeDetailsFragment extends Fragment {
             params.setMargins(0, 0, 30, 0); // left, top, right, bottom
             filterTag.setLayoutParams(params);
 
-//            binding.linearLayoutLabel.addView(filterTag);
+            //binding.linearLayoutLabel.addView(filterTag);
         }
     }
 }

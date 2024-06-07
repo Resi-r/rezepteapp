@@ -7,7 +7,6 @@ import java.util.List;
 public class Recipe {
     private int id;
     private String title;
-    private Bitmap imageTitle;
     private List<Label> labels;
     private String vTime;
     private String kTime;
@@ -19,9 +18,8 @@ public class Recipe {
 
     public Recipe() {}
 
-    public Recipe(String title, Bitmap imageTitle, List<Label> labels, String vTime, String kTime, int servings, List<Ingredient> ingredients, List<String> steps, List<String> notes, Status status) {
+    public Recipe(String title, List<Label> labels, String vTime, String kTime, int servings, List<Ingredient> ingredients, List<String> steps, List<String> notes, Status status) {
         this.title = title;
-        this.imageTitle = imageTitle;
         this.labels = labels;
         this.vTime = vTime;
         this.kTime = kTime;
@@ -32,10 +30,9 @@ public class Recipe {
         this.status = status;
     }
 
-    public Recipe(int id, String title, Bitmap imageTitle, List<Label> labels, String vTime, String kTime, int servings, List<Ingredient> ingredients, List<String> steps, List<String> notes, Status status) {
+    public Recipe(int id, String title, List<Label> labels, String vTime, String kTime, int servings, List<Ingredient> ingredients, List<String> steps, List<String> notes, Status status) {
         this.id = id;
         this.title = title;
-        this.imageTitle = imageTitle;
         this.labels = labels;
         this.vTime = vTime;
         this.kTime = kTime;
@@ -60,14 +57,6 @@ public class Recipe {
 
     public void setTitle(String title) {
         this.title = title;
-    }
-
-    public Bitmap getImageTitle() {
-        return imageTitle;
-    }
-
-    public void setImageTitle(Bitmap imageTitle) {
-        this.imageTitle = imageTitle;
     }
 
     public List<Label> getLabels() {

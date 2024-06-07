@@ -26,10 +26,12 @@ public class LabelsRecipesDAOImpl implements LabelsRecipesDAO {
     public long saveOrUpdate(LabelsRecipesEntity entity) {
         try (SQLiteDatabase db = dbHelper.getWritableDatabase()) {
             ContentValues values = new ContentValues();
+            if (entity.getId() != 0) {
+                values.put("_id", entity.getId());
+            }
             values.put("labelId", entity.getLabelId());
             values.put("recipeId", entity.getRecipeId());
             if (entity.getId() != 0) {
-
                 return db.update(DB_TABLE_LABELS_RECIPES, values, "_id = ?", new String[]{String.valueOf(entity.getId())});
             } else {
                 return db.insert(DB_TABLE_LABELS_RECIPES, null, values);

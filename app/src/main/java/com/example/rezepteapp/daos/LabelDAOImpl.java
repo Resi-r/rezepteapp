@@ -25,10 +25,13 @@ public class LabelDAOImpl implements LabelDAO {
     public long saveOrUpdate(LabelEntity entity) {
         try (SQLiteDatabase db = dbHelper.getWritableDatabase()) {
             ContentValues values = new ContentValues();
+            if (entity.getId() != 0) {
+                values.put("_id", entity.getId());
+            }
             values.put("name", entity.getName());
             if (entity.getId() != 0) {
-
-                return db.update(DB_TABLE_LABEL, values, "_id = ?", new String[]{String.valueOf(entity.getId())});
+                db.update(DB_TABLE_LABEL, values, "_id = ?", new String[]{String.valueOf(entity.getId())});
+                return entity.getId();
             } else {
                 return db.insert(DB_TABLE_LABEL, null, values);
             }
@@ -112,4 +115,28 @@ public class LabelDAOImpl implements LabelDAO {
         }
         return -1;
     }
+//    public int getId(String name) {
+//        SQLiteDatabase db = null;
+//        Cursor cursor = null;
+//        try {
+//            db = dbHelper.getReadableDatabase();
+//            cursor = db.query(DB_TABLE_LABEL, new String[]{"_id"}, "name = ?", new String[]{name}, null, null, null);
+//            if (cursor != null && cursor.moveToFirst()) {
+//                int idColumnIndex = cursor.getColumnIndex("_id");
+//                if (idColumnIndex != -1) {
+//                    return cursor.getInt(idColumnIndex);
+//                }
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace(); // Optional: Logging the exception might be useful for debugging.
+//        } finally {
+//            if (cursor != null) {
+//                cursor.close();
+//            }
+//            if (db != null) {
+//                db.close();
+//            }
+//        }
+//        return -1;
+//    }
 }

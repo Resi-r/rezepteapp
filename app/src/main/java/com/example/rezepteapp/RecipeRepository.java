@@ -127,7 +127,7 @@ public class RecipeRepository {
     }
 
     public void addLabelsRecipes(int recipeId, List<Integer> labelIds) {
-        labelIds.forEach(labelId -> labelsRecipesDAO.saveOrUpdate(new LabelsRecipesEntity(recipeId, labelId)));
+        labelIds.forEach(labelId -> labelsRecipesDAO.saveOrUpdate(new LabelsRecipesEntity(labelId, recipeId)));
     }
 
     public void addIngredientsRecipes(Recipe recipe, int recipeId) {

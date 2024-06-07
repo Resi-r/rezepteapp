@@ -15,7 +15,12 @@ public class FromLabelModelToLabelEntityMapper {
     }
 
     public LabelEntity map(Label label) {
-        return new LabelEntity(getLabelID(label.getName()), label.getName());
+        LabelEntity entity = new LabelEntity();
+        if (label.getId() != 0) {
+            entity.setId(label.getId());
+        }
+        entity.setName(label.getName());
+        return entity;
     }
 
     private int getLabelID(String name) {

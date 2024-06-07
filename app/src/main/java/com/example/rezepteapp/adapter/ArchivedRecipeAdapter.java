@@ -88,7 +88,6 @@ public class ArchivedRecipeAdapter extends RecyclerView.Adapter<ArchivedRecipeAd
 
         holder.recipeTitleTextView.setText(recipe.getTitle());
         holder.recipeDescriptionTextView.setText(getDescription(recipe));
-        holder.recipeEntryImage.setImageBitmap(recipe.getImageTitle());
     }
 
     @Override
