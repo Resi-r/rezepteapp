@@ -1,14 +1,11 @@
 package com.example.rezepteapp.mapper.toentitiy;
 
-import static com.example.rezepteapp.utils.ImageUtils.bitmapToBlob;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 
 import com.example.rezepteapp.entities.RecipeEntity;
 import com.example.rezepteapp.model.Recipe;
 
-import java.io.ByteArrayOutputStream;
 import java.util.List;
 
 public class FromRecipeModelToRecipeEntityMapper {
