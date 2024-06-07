@@ -10,6 +10,9 @@ public class FromLabelEntityToLabelModelMapper {
     }
 
     public Label map(LabelEntity entity) {
-        return new Label(entity.getName());
+        Label label = new Label();
+        label.setId(entity.getId());
+        label.setName(entity.getName());
+        return label;
     }
 }

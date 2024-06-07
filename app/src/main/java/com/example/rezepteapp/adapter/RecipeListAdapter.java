@@ -42,8 +42,6 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Vi
                 int position = getAdapterPosition();
                 if (position != RecyclerView.NO_POSITION) {
                     Recipe recipe = recipeList.get(position);
-                    Toast.makeText(itemView.getContext(), recipe.getTitle(), Toast.LENGTH_SHORT).show();
-
                     AppCompatActivity activity = (AppCompatActivity) itemView.getContext();
                     FragmentManager fragmentManager = activity.getSupportFragmentManager();
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();

@@ -111,7 +111,7 @@ public class RecipeDetailsFragment extends Fragment {
             params.setMargins(0, 0, 30, 0); // left, top, right, bottom
             filterTag.setLayoutParams(params);
 
-//            binding.linearLayoutLabel.addView(filterTag);
+            //binding.linearLayoutLabel.addView(filterTag);
         }
     }
 }

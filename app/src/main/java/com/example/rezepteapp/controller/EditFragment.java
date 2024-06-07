@@ -353,6 +353,7 @@ public class EditFragment extends Fragment {
         binding.tvTitle.setText(recipe.getTitle());
         binding.imgTitle.setImageBitmap(recipe.getImageTitle());
 
+        setLabels(recipe.getLabels());
         binding.tvVTime.setText(recipe.getvTime());
         binding.tvKTime.setText(recipe.getkTime());
         binding.tvPeople.setText(String.valueOf(recipe.getServings()));
